@@ -56,6 +56,67 @@ def static_copy(source, prefix):
     return IMAGES.sub(lambda match: prefix + match[0], source)
 
 
+def replace_fragment(source, fragment, replacement):
+    if source.count(fragment) != 1:
+        raise ValueError(f"El frontend cambió junto a {fragment[:100]}")
+    return source.replace(fragment, replacement, 1)
+
+
+def adapt_gallery(source):
+    # Keep server-rendered cards through hydration. Add public previews once the
+    # anonymous account request resolves, with the existing open cards first.
+    replacements = (
+        (
+            ',(0,n.useEffect)(()=>{if("guest"!==e)return;let t="1";'
+            'try{t=localStorage.getItem("cd:welcomed")??""}catch{}'
+            'if(t||new URLSearchParams(window.location.search).has("block"))return;'
+            'let n=setTimeout(()=>{q.current||(f(!0),V("join"),l(!0))},1400);'
+            'return()=>clearTimeout(n)},[e,V])',
+            '',
+        ),
+        (
+            'u="member"===e,m="guest"===e||"free"===e,p=(0,n.useRef)(u);'
+            '(0,n.useEffect)(()=>{p.current=u},[u]);',
+            'u="loading"!==e;',
+        ),
+        (
+            'let t=e?es.BLOCKS.find(t=>t.slug===e):null;'
+            'if(t&&!p.current&&!(0,J.isOpen)(t))return void(0,J.openDoor)({step:"plan",slug:t.slug});',
+            '',
+        ),
+        (
+            '()=>u?f:f.filter(J.isOpen).sort((e,t)=>e.kind===t.kind?(0,J.openRank)(e)-(0,J.openRank)(t):0),'
+            '[u,f]),b=(0,n.useMemo)(()=>u?[]:f.filter(e=>!(0,J.isOpen)(e)),[u,f])',
+            '()=>(u?[...f]:f.filter(J.isOpen)).sort((e,t)=>e.kind===t.kind?(0,J.openRank)(e)-(0,J.openRank)(t):0),'
+            '[u,f])',
+        ),
+        (
+            'k=v&&(u||(0,J.isOpen)(v))?v:null;'
+            '(0,n.useEffect)(()=>{if(!m||!v||(0,J.isOpen)(v))return;'
+            'let e=requestAnimationFrame(()=>{o(null),(0,J.openDoor)({step:"plan",slug:v.slug})});'
+            'return()=>cancelAnimationFrame(e)},[m,v]);',
+            'k=v;',
+        ),
+        (
+            'let s="component"===e.id;return(0,t.jsxs)("div",{children:[',
+            'return(0,t.jsxs)("div",{children:[',
+        ),
+        (
+            'm&&s?(0,t.jsx)(ty,{kind:e.id,blocks:b.filter(t=>t.kind===e.id),total:b.length,every:!0}):',
+            '',
+        ),
+        (',m&&b.length?(0,t.jsx)(ty,{kind:s,blocks:b,total:b.length}):null', ''),
+        ('(ef.sound.pop(),s(),l(""),(0,J.canSee)(a,e))?', 'ef.sound.pop(),s(),l("");'),
+        (
+            'new CustomEvent("cd:open",{detail:e.slug})):(0,J.openDoor)({step:"plan",slug:e.slug})};',
+            'new CustomEvent("cd:open",{detail:e.slug}))};',
+        ),
+    )
+    for fragment, replacement in replacements:
+        source = replace_fragment(source, fragment, replacement)
+    return source
+
+
 def adapt_client(source, prefix):
     paths = {prefix + route + "/": CATALOGUE + route for route in PAGES.values() if route.startswith("/")}
     paths[prefix + "/"] = CATALOGUE
@@ -81,7 +142,8 @@ def adapt_client(source, prefix):
         lambda match: match[1] + prefix + "/",
         source,
     )
-    # Keep the original dialogs and let the original domain accept credentials.
+    source = adapt_gallery(source)
+    # Keep any credential fields inert in the static copy.
     source, fields = AUTH_FIELD.subn(
         lambda match: (
             match[1] + 'readOnly:!0,autoComplete:"off",title:"Continue on tobiadonadon.com",'

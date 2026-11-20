@@ -3,33 +3,28 @@
   const mirror = new URL("/muestrario/construct/", location.origin)
   const publicPages = new Set(['', '/mcp', '/pricing'])
   const officialAccount = new URL('/projects/construct/account', original)
-  const officialPricing = new URL(original.pathname + '/pricing', original)
   const nativeFetch = window.fetch.bind(window)
   const stats = new URL('stats.json', mirror)
   const internalLink = 'a[href^="/"]:not([href^="//"])'
   const rewrittenLinks = new WeakSet()
-  let proBilling = null
 
-  window.addEventListener('cd:auth', ({ detail }) => {
-    proBilling = detail?.step === 'plan' ? detail.billing || 'monthly' : null
-  })
-
-  function openOfficialAccount(form) {
-    if (!form.querySelector('input.cd-field')) {
-      location.assign(officialPricing)
-      return
-    }
+  window.addEventListener('cd:auth', event => {
+    event.stopImmediatePropagation()
+    const { step, slug, billing } = event.detail ?? {}
     const destination = new URL(officialAccount)
+    const next = new URL(original)
     const suffix = location.pathname.slice(mirror.pathname.length).replace(/\/$/, '')
-    const mode = form.querySelector('input[id$="-pw"], input[data-account-mode="signin"]') ? 'signin' : 'signup'
-    destination.searchParams.set('mode', mode)
-    destination.searchParams.set('next', original.pathname + (suffix ? '/' + suffix : '') + location.search)
-    if (proBilling) {
+    if (publicPages.has('/' + suffix)) next.pathname += '/' + suffix
+    next.search = location.search
+    if (slug) next.searchParams.set('block', slug)
+    destination.searchParams.set('mode', step === 'signin' || step === 'account' ? 'signin' : 'signup')
+    destination.searchParams.set('next', next.pathname + next.search)
+    if (step === 'plan') {
       destination.searchParams.set('plan', 'pro')
-      destination.searchParams.set('billing', proBilling)
+      destination.searchParams.set('billing', ['monthly', 'yearly', 'lifetime'].includes(billing) ? billing : 'monthly')
     }
     location.assign(destination)
-  }
+  }, true)
 
   function rewriteLink(link) {
     const destination = new URL(link.getAttribute('href'), original)
@@ -98,21 +93,7 @@
       if (!(catalogueTab && normalClick)) {
         event.stopPropagation()
       }
-      return
     }
-
-    const field = event.target.closest('.cd-sized input.cd-field')
-    if (!field?.form) return
-    event.preventDefault()
-    event.stopPropagation()
-    openOfficialAccount(field.form)
-  }, true)
-
-  window.addEventListener('submit', event => {
-    if (!(event.target instanceof HTMLFormElement) || !event.target.closest('.cd-sized')) return
-    event.preventDefault()
-    event.stopPropagation()
-    openOfficialAccount(event.target)
   }, true)
 })()
 ;
