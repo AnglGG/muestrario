@@ -2,6 +2,14 @@
 
 Biblioteca de interfaz. Reúne 184 referencias públicas de Construct de Tobia Donadon, con 120 componentes, 33 apps y 31 webs. Incluye ocho patrones originales con HTML, CSS y JavaScript editables.
 
+## Réplica de Construct
+
+La [réplica de la galería pública](https://anglgg.github.io/muestrario/construct/?kind=component) usa el HTML, los estilos, los archivos JavaScript de cliente y los recursos que publica Construct. El código y el diseño de la réplica son de [Tobia Donadon](https://www.tobiadonadon.com/projects/construct/design?kind=component).
+
+Las acciones de cuenta y suscripción llevan a Construct. Las descargas protegidas y el MCP Pro requieren acceso al servicio original. El [MCP de Muestrario](#mcp-local) sigue ofreciendo la búsqueda de referencias y los ocho patrones originales.
+
+Para actualizar la captura, ejecuta `python3 scripts/capture-construct.py <carpeta-temporal>`. La ruta pública predeterminada es `/muestrario/construct/`.
+
 ## Galería
 
 Abre la [galería en GitHub Pages](https://anglgg.github.io/muestrario/) o descarga el repositorio y abre `index.html` en el navegador. Filtra por tipo o categoría y busca términos como «arrastre», «vidrio» o «confirmación». En **Patrones originales** puedes interactuar con cada ejemplo y copiar su código. La búsqueda, las fichas y las demos originales funcionan sin conexión. Las miniaturas de apps y webs y los enlaces a Construct usan Internet.
