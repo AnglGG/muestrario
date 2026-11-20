@@ -130,11 +130,17 @@ function renderDetail(entry) {
   title.tabIndex = -1
   const meta = types[entry.type] + ' · ' + categoryLabel(entry.category)
   container.append(newElement('div', meta, 'meta'), title)
-  if (entry.summary) container.append(newElement('p', entry.summary))
+  const summary = entry.summary ?? entry.description
+  if (summary) {
+    const description = newElement('p', summary)
+    if (!entry.summary) description.lang = 'en'
+    container.append(description)
+  }
   if (entry.type === 'recipe') {
     renderRecipe(entry, container)
   } else {
     addTags(container, entry.tags)
+    if (entry.controls?.length) container.append(newElement('p', 'Controles: ' + entry.controls.join(', '), 'meta'))
     container.append(previewLink(entry))
     if (entry.originals.length) {
       addRelated(container, 'Patrones originales relacionados', entry.originals)

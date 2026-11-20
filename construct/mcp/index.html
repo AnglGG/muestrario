@@ -1,8 +1,180 @@
 <!doctype html>
-<html lang="en">
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="refresh" content="0; url=../../#mcp">
-<title>Connect Muestrario · Muestrario</title>
-<a href="../../#mcp">Connect Muestrario</a>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Conecta el MCP local de Muestrario y consulta las referencias y los patrones originales desde tu IA.">
+  <title>MCP · Muestrario</title>
+  <style>
+    @font-face {
+      font-family: Satoshi;
+      src: url("../_next/static/media/Satoshi_Variable-s.p.2ta4m073o532p.woff2") format("woff2");
+      font-weight: 300 900;
+      font-display: swap;
+    }
+
+    :root {
+      color-scheme: light;
+      --paper: #fcfcfc;
+      --ink: #17181a;
+      --muted: #62645f;
+      --line: #e9e9e7;
+      --soft: #f0f0ef;
+      --accent: #2945bd;
+      --terminal: #111217;
+      --mono: ui-monospace, SFMono-Regular, Consolas, monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.55 Satoshi, system-ui, sans-serif; }
+    a { color: inherit; text-underline-offset: .19em; }
+    button { font: inherit; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    ::selection { color: var(--ink); background: #dce5ff; }
+
+    .top { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 22px; padding: 14px 24px; }
+    .brand { font-weight: 750; text-decoration: none; }
+    .nav { display: flex; flex-wrap: wrap; align-items: center; gap: 2px; border: 1px solid var(--line); border-radius: 20px; padding: 3px; }
+    .nav a { padding: 6px 10px; border-radius: 16px; color: var(--muted); font-size: .875rem; text-decoration: none; }
+    .nav a:hover { background: var(--soft); color: var(--ink); }
+    .nav a[aria-current] { background: var(--soft); color: var(--ink); font-weight: 700; }
+
+    main, footer { width: min(41.5rem, calc(100% - 3rem)); margin-inline: auto; }
+    main { padding-block: 76px 64px; }
+    .back, .primary { display: inline-flex; width: fit-content; align-items: center; gap: .45em; border-radius: 999px; text-decoration: none; }
+    .back { background: var(--soft); padding: 7px 14px; font-size: .875rem; }
+    .back:hover { background: #e6e6e4; }
+    .terminal { margin: 24px 0 40px; border-radius: 28px; padding: 44px clamp(16px, 6vw, 56px); background: var(--terminal); color: #f1f1f5; }
+    .terminal figcaption { border: 1px solid #3e4049; border-bottom: 0; border-radius: 16px 16px 0 0; padding: 14px 18px 9px; background: #191b22; color: #c5c7d0; font-size: .8125rem; }
+    pre { max-inline-size: 100%; margin: 0; padding: 12px 16px; overflow: auto; font: .8125rem/1.65 var(--mono); }
+    code { font-family: var(--mono); }
+    .terminal pre { border: 1px solid #3e4049; border-top: 0; border-radius: 0 0 16px 16px; padding: 0 18px 16px; background: #191b22; white-space: pre-wrap; overflow-wrap: anywhere; }
+    .terminal .output { color: #b8c8ff; }
+    h1, h2, h3 { line-height: 1.1; text-wrap: balance; }
+    h1 { margin: 0; font-size: 3rem; letter-spacing: -.035em; font-weight: 750; }
+    h1 span { color: var(--accent); }
+    h2 { margin: 0 0 14px; font-size: 1.5rem; letter-spacing: -.02em; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { margin: 0 0 16px; color: var(--muted); }
+    .summary { margin: 16px 0 24px; }
+    .primary { padding: 12px 21px; background: var(--ink); color: white; font-size: .9375rem; font-weight: 650; }
+    .primary:hover { background: #323539; }
+    section { margin-top: 56px; }
+    .steps { padding-left: 1.4em; }
+    .steps li { padding-left: .3em; margin: .6em 0; }
+    .command { border-top: 1px solid var(--line); padding: 16px 0; }
+    .command__line { display: flex; align-items: center; gap: 8px; padding: 4px; border-radius: 12px; background: var(--soft); }
+    .command__line pre { min-width: 0; flex: 1; white-space: pre-wrap; overflow-wrap: anywhere; }
+    .copy { margin-right: 3px; padding: 6px 11px; border: 1px solid #d5d5d2; border-radius: 8px; background: var(--paper); color: var(--ink); font-size: .8125rem; cursor: pointer; }
+    .copy:hover { background: #fff; border-color: #9d9d98; }
+    .status:empty { margin: 0; }
+    .status { margin: 8px 0 0; font-size: .875rem; }
+    .data { display: grid; gap: 0; margin: 0; }
+    .data > div { padding: 12px 0; border-top: 1px solid var(--line); }
+    .data dt { font: 600 .875rem/1.5 var(--mono); }
+    .data dd { margin: 4px 0 0; color: var(--muted); }
+    footer { display: flex; flex-wrap: wrap; gap: 8px 18px; border-top: 1px solid var(--line); padding: 20px 0 32px; color: var(--muted); font-size: .875rem; }
+
+    @media (max-width: 600px) {
+      .top { padding-inline: 16px; gap: 8px 14px; }
+      main, footer { width: calc(100% - 2rem); }
+      main { padding-top: 42px; }
+      .terminal { padding-block: 24px; margin-bottom: 29px; border-radius: 21px; }
+      h1 { font-size: 2.15rem; }
+      section { margin-top: 42px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="../">Muestrario</a>
+    <nav class="nav" aria-label="Catálogo">
+      <a href="../">Todo</a>
+      <a href="../?kind=component">Componentes</a>
+      <a href="../?kind=website">Webs</a>
+      <a href="../?kind=app">Apps</a>
+      <a href="./" aria-current="page">MCP</a>
+    </nav>
+  </header>
+  <main>
+    <a class="back" href="../">Volver a la galería</a>
+    <figure class="terminal">
+      <figcaption>Ejemplo de consulta</figcaption>
+      <pre><code>search_library({"query":"range dial"})
+<span class="output">→ Range dial · Componente</span>
+
+get_entry({"id":"range-dial"})
+<span class="output">→ Descripción, controles y enlace a la demo</span></code></pre>
+    </figure>
+    <h1>Conecta Muestrario <span>a tu IA.</span></h1>
+    <p class="summary">Busca en la biblioteca, abre sus demostraciones y reutiliza el código de los patrones originales con el MCP local. Muestrario funciona sin cuenta ni clave.</p>
+    <a class="primary" href="#instalacion">Ver cómo conectarlo</a>
+
+    <section id="instalacion" aria-labelledby="setup-title">
+      <h2 id="setup-title">Instalación</h2>
+      <ol class="steps">
+        <li>Descarga o clona el <a href="https://github.com/AnglGG/muestrario">repositorio de Muestrario</a>.</li>
+        <li>Comprueba que tienes Node.js 22 o posterior.</li>
+        <li>Para usar los comandos de macOS o Linux, abre la carpeta de Muestrario en la terminal.</li>
+      </ol>
+
+      <div class="command">
+        <h3>Claude Code</h3>
+        <div class="command__line">
+          <pre><code id="claude-command">claude mcp add --transport stdio --scope user muestrario -- "$(command -v node)" "$PWD/mcp.cjs"</code></pre>
+          <button class="copy" type="button" data-copy="claude-command" aria-label="Copiar comando de Claude Code" hidden>Copiar</button>
+        </div>
+        <p class="status" role="status"></p>
+      </div>
+
+      <div class="command">
+        <h3>Codex CLI</h3>
+        <div class="command__line">
+          <pre><code id="codex-command">codex mcp add muestrario -- "$(command -v node)" "$PWD/mcp.cjs"</code></pre>
+          <button class="copy" type="button" data-copy="codex-command" aria-label="Copiar comando de Codex CLI" hidden>Copiar</button>
+        </div>
+        <p class="status" role="status"></p>
+      </div>
+
+      <div class="command">
+        <h3>Cursor, Claude Desktop y otros clientes</h3>
+        <p>Añade la entrada <code>muestrario</code> a <code>mcpServers</code> y sustituye la ruta de ejemplo por la ruta absoluta a <code>mcp.cjs</code>.</p>
+        <a href="../../mcp-config.example.json" download>Descargar configuración de ejemplo</a>
+      </div>
+    </section>
+
+    <section aria-labelledby="data-title">
+      <h2 id="data-title">Qué puedes consultar</h2>
+      <dl class="data">
+        <div><dt>search_library</dt><dd>Busca componentes, webs, apps y patrones originales por texto, tipo, categoría o interacción.</dd></div>
+        <div><dt>get_entry</dt><dd>Abre una ficha con su descripción, controles, origen y vista previa. Los patrones originales incluyen su código editable.</dd></div>
+        <div><dt>list_categories</dt><dd>Devuelve las categorías y sus recuentos.</dd></div>
+        <div><dt>muestrario://catalogue</dt><dd>Índice completo en JSON para clientes que admiten recursos MCP.</dd></div>
+      </dl>
+    </section>
+  </main>
+
+  <footer>
+    <a href="https://github.com/AnglGG/muestrario">Código en GitHub</a>
+    <a href="../../LICENSE">Licencia del código propio</a>
+    <a href="https://www.tobiadonadon.com/projects/construct/design">Referencias de Tobia Donadon</a>
+  </footer>
+  <script>
+    if (navigator.clipboard) {
+      for (const button of document.querySelectorAll('[data-copy]')) {
+        const code = document.getElementById(button.dataset.copy)
+        const status = button.closest('.command').querySelector('[role="status"]')
+        button.hidden = false
+        button.addEventListener('click', async () => {
+          try {
+            await navigator.clipboard.writeText(code.textContent)
+            status.textContent = 'Comando copiado.'
+          } catch {
+            status.textContent = 'Selecciona el comando para copiarlo.'
+          }
+        })
+      }
+    }
+  </script>
+</body>
 </html>

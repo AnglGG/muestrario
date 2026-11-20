@@ -57,7 +57,7 @@ function createLibrary(snapshot) {
     entry,
     name: words(entry.name + ' ' + entry.id),
     labels: words([entry.category, ...(groups[entry.category] ?? []), ...entry.tags].join(' ')),
-    summary: words(entry.summary ?? '')
+    summary: words([entry.summary, entry.description, entry.controls].flat().filter(Boolean).join(' '))
   }))
 
   function search({ query = '', type, category, offset = 0, limit = 24 } = {}) {

@@ -1,6 +1,7 @@
 """Capture the public Construct Design page for the GitHub Pages replica."""
 
 import argparse
+from ast import literal_eval
 from concurrent.futures import ThreadPoolExecutor
 from hashlib import sha256
 from html.parser import HTMLParser
@@ -14,11 +15,20 @@ from urllib.request import urlopen
 
 ORIGIN = "https://www.tobiadonadon.com"
 CATALOGUE = "/projects/construct/design"
+REPO_ROOT = Path(__file__).resolve().parents[1]
 STATIC = "/_next/static/"
 CLIENT_URL_SUFFIX = re.compile(r"\.(?:css|js)\?dpl=[\w-]+")
 IMAGES = re.compile(r"/design/(?:apps|components|site|websites)/[\w./-]+\.webp")
 FONT = re.compile(r"\.\./media/([\w.-]+\.woff2(?:\?[^)'\"]+)?)")
 ANALYTICS = re.compile(r'("analytics":\{"scriptSrc":")[\w/-]+/script\.js(")')
+JS_STRING = r"""(?:"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')"""
+PUBLIC_DETAILS = re.compile(
+    rf'\{{slug:({JS_STRING}),kind:"(?:component|app|website)",component:{JS_STRING},'
+    rf'title:{JS_STRING},category:{JS_STRING},description:({JS_STRING}),'
+    r'(?:(?!\{slug:).)*?controls:(.*?),howItWorks:',
+    re.DOTALL,
+)
+CONTROL_LABEL = re.compile(rf'\{{prop:{JS_STRING},label:({JS_STRING}),type:')
 PATHNAME_HOOK = re.compile(
     r'("usePathname\(\)"\),)(\(0,[\w$]+\.useContext\)\([\w$]+\.PathnameContext\))'
 )
@@ -311,9 +321,16 @@ def redirect_page(destination, label):
     ).encode()
 
 
+def decode_string(value):
+    return literal_eval(value) if value.startswith("'") else json.loads(value)
+
+
 def capture(output, prefix):
+    catalog = json.loads((REPO_ROOT / "catalog.json").read_text())
+    expected = {entry["id"] for entry in catalog["references"]}
     files = ClientFiles()
     assets = {}
+    details = {}
     images = set()
     fonts = set()
     browser = Path(__file__).with_name("construct-browser.js").read_text()
@@ -330,6 +347,13 @@ def capture(output, prefix):
         paths = sorted(files.urls)
         for path, data in zip(paths, pool.map(fetch, paths)):
             source = data.decode()
+            details.update({
+                decode_string(slug): {
+                    "description": decode_string(description),
+                    "controls": [decode_string(label) for label in CONTROL_LABEL.findall(controls)],
+                }
+                for slug, description, controls in PUBLIC_DETAILS.findall(source)
+            })
             images.update(IMAGES.findall(source))
             fonts.update("/_next/static/media/" + name for name in FONT.findall(source))
             source = static_copy(source, prefix)
@@ -346,11 +370,19 @@ def capture(output, prefix):
                 source = browser + ";\n" + source
             assets[path] = source.encode()
 
+        missing = sorted(expected - details.keys())
+        extra = sorted(details.keys() - expected)
+        if missing or extra:
+            raise ValueError(
+                f"La captura no coincide con catalog.json. Faltan: {missing}. Sobran: {extra}. "
+                "Comprueba el formato de las fichas y el índice antes de publicar."
+            )
         revision = client_revision(assets)
         for path, content in assets.items():
             save_clientfile(output, path, content)
         save_clientfile(output, "/index.html", version_client_urls(html, revision).encode())
-        save_clientfile(output, "/mcp/index.html", redirect_page("../../#mcp", "Connect Muestrario"))
+        save_clientfile(output, "/details.json", (json.dumps(details, ensure_ascii=False, indent=2) + "\n").encode())
+        save_clientfile(output, "/mcp/index.html", (REPO_ROOT / "construct/mcp/index.html").read_bytes())
         save_clientfile(output, "/pricing/index.html", redirect_page("../", "Open the catalogue"))
 
         media = sorted(images | fonts)
