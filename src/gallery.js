@@ -23,12 +23,8 @@ function itemLink(entry, className, text = entry.name) {
 }
 
 function previewLink(entry) {
-  const base = location.protocol === 'file:' ? 'https://anglgg.github.io/muestrario/' : location.href
-  const url = new URL('construct/', base)
-  url.searchParams.set('kind', entry.type)
-  url.searchParams.set('block', entry.id)
   const link = newElement('a', 'Ver vista previa', 'source')
-  link.href = url.href
+  link.href = constructPreview(entry, location.protocol === 'file:' ? undefined : location.href)
   link.target = '_blank'
   link.rel = 'noreferrer'
   return link
@@ -258,7 +254,10 @@ for (const [id, change] of [['previous', -1], ['next', 1]]) {
 }
 window.addEventListener('hashchange', () => {
   returningToCatalogue = false
-  updateDetail({ focus: true })
+  const connecting = location.hash === '#mcp'
+  if (connecting) $('mcp').open = true
+  updateDetail({ focus: !connecting })
 })
+if (location.hash === '#mcp') $('mcp').open = true
 populateCategories()
 showResults()

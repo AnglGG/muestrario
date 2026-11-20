@@ -114,4 +114,11 @@ function createLibrary(snapshot) {
   return { search, get, listCategories }
 }
 
-if (typeof module !== 'undefined') module.exports = { createLibrary, categoryLabel, types }
+function constructPreview(entry, base = 'https://anglgg.github.io/muestrario/') {
+  const url = new URL('construct/', base)
+  url.searchParams.set('kind', entry.type)
+  url.searchParams.set('block', entry.id)
+  return url.href
+}
+
+if (typeof module !== 'undefined') module.exports = { createLibrary, categoryLabel, constructPreview, types }

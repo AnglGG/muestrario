@@ -137,7 +137,7 @@ footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6p
         <summary>Conectar MCP</summary>
         <div class="connect__content">
           <h2>Biblioteca para la IA</h2>
-          <p>Conecta el servidor de solo lectura con la configuración incluida. Puede buscar referencias y devolver el código de los patrones originales.</p>
+          <p>El servidor local busca referencias, enlaza sus vistas previas y devuelve el código de los patrones originales. Requiere Node.js 22 o posterior.</p>
           <p class="connect__example">«Busca un patrón de confirmación para archivar notas. Compáralo con dos referencias y adapta el código al proyecto.»</p>
           <a class="plain-link" href="mcp-config.example.json">Ver configuración de ejemplo</a>
           <a class="plain-link" href="https://github.com/AnglGG/muestrario#mcp-local">Guía de conexión</a>
@@ -307,7 +307,14 @@ function createLibrary(snapshot) {
   return { search, get, listCategories }
 }
 
-if (typeof module !== 'undefined') module.exports = { createLibrary, categoryLabel, types }
+function constructPreview(entry, base = 'https://anglgg.github.io/muestrario/') {
+  const url = new URL('construct/', base)
+  url.searchParams.set('kind', entry.type)
+  url.searchParams.set('block', entry.id)
+  return url.href
+}
+
+if (typeof module !== 'undefined') module.exports = { createLibrary, categoryLabel, constructPreview, types }
 
 const snapshot = JSON.parse(document.querySelector('#snapshot').textContent)
 const library = createLibrary(snapshot)
@@ -334,12 +341,8 @@ function itemLink(entry, className, text = entry.name) {
 }
 
 function previewLink(entry) {
-  const base = location.protocol === 'file:' ? 'https://anglgg.github.io/muestrario/' : location.href
-  const url = new URL('construct/', base)
-  url.searchParams.set('kind', entry.type)
-  url.searchParams.set('block', entry.id)
   const link = newElement('a', 'Ver vista previa', 'source')
-  link.href = url.href
+  link.href = constructPreview(entry, location.protocol === 'file:' ? undefined : location.href)
   link.target = '_blank'
   link.rel = 'noreferrer'
   return link
@@ -569,8 +572,11 @@ for (const [id, change] of [['previous', -1], ['next', 1]]) {
 }
 window.addEventListener('hashchange', () => {
   returningToCatalogue = false
-  updateDetail({ focus: true })
+  const connecting = location.hash === '#mcp'
+  if (connecting) $('mcp').open = true
+  updateDetail({ focus: !connecting })
 })
+if (location.hash === '#mcp') $('mcp').open = true
 populateCategories()
 showResults()
 </script>

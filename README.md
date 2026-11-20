@@ -9,7 +9,7 @@ La réplica de la galería pública usa el HTML, los estilos, los archivos JavaS
 - **En GitHub Pages**, cuando esté activo, abre la [réplica](https://anglgg.github.io/muestrario/construct/?kind=component).
 - **En tu equipo**, clona el repositorio en una carpeta llamada `muestrario`. Desde la carpeta que la contiene, ejecuta `python3 -m http.server 8000 --bind 127.0.0.1` y abre `http://127.0.0.1:8000/muestrario/construct/?kind=component`.
 
-La réplica incluye la galería, la búsqueda, las demos navegables y las páginas públicas de MCP y precios. Puedes explorar las vistas previas sin registro. Las acciones de cuenta y Pro se abren en Construct, donde se gestionan las descargas protegidas y el acceso a su MCP Pro. El [MCP de Muestrario](#mcp-local) ofrece la búsqueda de referencias y los ocho patrones originales.
+La réplica incluye la galería, la búsqueda y las demos navegables. Puedes explorar las vistas previas sin registro. El [MCP de Muestrario](#mcp-local) ofrece la búsqueda de referencias y los ocho patrones originales.
 
 Para actualizar la captura, ejecuta `python3 scripts/capture-construct.py <carpeta-temporal>`. La ruta pública predeterminada es `/muestrario/construct/`.
 
@@ -31,7 +31,7 @@ Descarga el repositorio o clónalo con `git clone https://github.com/AnglGG/mues
 ### Herramientas
 
 - `search_library` busca por nombre, interacción, tipo y categoría. Admite paginación. Usa `type: "recipe"` si necesitas código.
-- `get_entry` abre una ficha por su ID. Devuelve código completo para los patrones originales y enlaces a la fuente para las referencias.
+- `get_entry` abre una ficha por su ID. Devuelve código completo para los patrones originales. Para las referencias, devuelve el enlace a la demo en Muestrario y el enlace a la fuente.
 - `list_categories` da los identificadores de las categorías y cuántas fichas tienen.
 
 Prueba este encargo con tu IA.

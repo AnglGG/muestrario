@@ -3,11 +3,14 @@ const fs = require('node:fs')
 const path = require('node:path')
 const catalog = require('./catalog.json')
 const recipeIndex = require('./recipes/index.json')
-const { createLibrary } = require('./src/library.js')
+const { createLibrary, constructPreview } = require('./src/library.js')
 
 const versions = ['2025-11-25', '2025-06-18', '2025-03-26', '2024-11-05']
 const readRecipe = id => fs.readFileSync(path.join(__dirname, 'recipes', id + '.html'), 'utf8')
-const library = createLibrary({ ...catalog, recipes: recipeIndex.map(recipe => ({ ...recipe, code: readRecipe(recipe.id) })) })
+const library = createLibrary({
+  references: catalog.references.map(entry => ({ ...entry, previewUrl: constructPreview(entry) })),
+  recipes: recipeIndex.map(recipe => ({ ...recipe, code: readRecipe(recipe.id) }))
+})
 
 const type = { type: 'string', enum: ['component', 'app', 'website', 'recipe'] }
 const category = { type: 'string', maxLength: 80, description: 'Identificador de list_categories, por ejemplo Drag.' }
@@ -27,7 +30,7 @@ const schemas = {
     }
   },
   get_entry: {
-    description: 'Devuelve la ficha por id. En un patrón original, incluye instrucciones, referencias y código HTML/CSS/JS completo, salvo que includeCode sea false. En una referencia, ofrece el enlace de Construct y los patrones originales relacionados.',
+    description: 'Devuelve la ficha por id. En un patrón original, incluye instrucciones, referencias y código HTML/CSS/JS completo, salvo que includeCode sea false. En una referencia, ofrece la vista previa de Muestrario, el enlace de origen y los patrones originales relacionados.',
     properties: {
       id: { type: 'string', minLength: 1, maxLength: 120 },
       includeCode: { type: 'boolean', default: true }
@@ -101,7 +104,7 @@ function run(request) {
       protocolVersion: version,
       capabilities: { tools: {} },
       serverInfo: { name: 'muestrario', version: '1.0.0' },
-      instructions: 'Busca por interacción, abre la ficha elegida y adapta su patrón original a los componentes y tokens existentes del proyecto. Las referencias de Construct enlazan a la fuente.'
+      instructions: 'Busca por interacción, abre la ficha elegida y adapta su patrón original a los componentes y tokens existentes del proyecto. Usa previewUrl para abrir la demo de una referencia y url para consultar su fuente.'
     } }
   }
   if (method === 'ping') return { result: {} }

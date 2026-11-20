@@ -14,11 +14,6 @@ from urllib.request import urlopen
 
 ORIGIN = "https://www.tobiadonadon.com"
 CATALOGUE = "/projects/construct/design"
-PAGES = {
-    "index.html": "?kind=component",
-    "mcp/index.html": "/mcp",
-    "pricing/index.html": "/pricing",
-}
 STATIC = "/_next/static/"
 CLIENT_URL_SUFFIX = re.compile(r"\.(?:css|js)\?dpl=[\w-]+")
 IMAGES = re.compile(r"/design/(?:apps|components|site|websites)/[\w./-]+\.webp")
@@ -36,6 +31,8 @@ CATALOGUE_PROMOTIONS = re.compile(
     r'<section aria-labelledby="cd-answers"[^>]*>.*?</section>(?=</main>)',
     re.DOTALL,
 )
+HERO_DESCRIPTION = "Explore interactive components, websites and app screens. Connect Muestrario to search references and reuse original patterns in your projects."
+FOOTER_DESCRIPTION = "Interactive components, websites and app screens."
 
 
 class ClientFiles(HTMLParser):
@@ -69,12 +66,98 @@ def replace_fragment(source, fragment, replacement):
     return source.replace(fragment, replacement, 1)
 
 
+def replace_pattern(source, pattern, replacement):
+    source, matches = re.subn(pattern, lambda _: replacement, source, flags=re.DOTALL)
+    if matches != 1:
+        raise ValueError(f"El frontend cambió junto a {pattern[:100]}")
+    return source
+
+
+def apply_catalogue_copy(source):
+    return source.replace(
+        'Hand-made components, website heroes and app screens. Connect once, and Claude, Cursor or Codex drops the real thing into your project.',
+        HERO_DESCRIPTION,
+        1,
+    ).replace(
+        'Hand-made components, websites and app screens, live and ready for your AI to build with.',
+        FOOTER_DESCRIPTION,
+        1,
+    )
+
+
+def clean_catalogue_html(html):
+    html = replace_pattern(
+        html,
+        r'<button type="button" class="cd-cta-ink inline-flex h-12 [^"]+">Join for free<svg.*?</svg></button>',
+        '<a href="#library" class="cd-cta-ink inline-flex h-12 items-center gap-2 rounded-full px-6 text-[15px]">'
+        'Open the library</a>',
+    )
+    for element in (
+        '<span class="h-11 w-[13rem] max-sm:w-[6rem]" aria-hidden="true"></span>',
+        '<a class="hover:text-[#17181a]" href="/projects/construct/design/pricing">Pricing</a>',
+        '<a class="hover:text-[#17181a]" href="/projects/construct/account?from=design">Account</a>',
+        '<p class="mt-7 h-5" aria-hidden="true"></p>',
+    ):
+        html = replace_fragment(html, element, '')
+    return apply_catalogue_copy(replace_fragment(html, '>Free designs<', '>Featured designs<'))
+
+
 def adapt_catalogue_html(html):
     # Keep the initial document consistent with DesignHome during hydration.
     html, sections = CATALOGUE_PROMOTIONS.subn('', html)
     if sections != 1:
         raise ValueError("Cambió el final de la galería de Construct")
-    return replace_fragment(html, '<main class="px-4 md:px-5">', '<main class="px-4 pb-10 md:px-5">')
+    html = replace_fragment(html, '<main class="px-4 md:px-5">', '<main class="px-4 pb-10 md:px-5">')
+    return clean_catalogue_html(html)
+
+
+def clean_catalogue_client(source):
+    source = replace_pattern(
+        source,
+        r',"loading"===e\?\(0,t\.jsx\)\("span",\{className:"h-11 w-\[13rem\].*?\(0,t\.jsx\)\(tB,\{access:e\}\)\]\}\)',
+        '',
+    )
+    source = replace_pattern(
+        source,
+        r'"member"===e\?\(0,t\.jsxs\)\("a",\{href:"#library".*?(?=,\(0,t\.jsxs\)\(y\.default,\{href:\x60\$\{tk\}/mcp\x60)',
+        '(0,t.jsx)("a",{href:"#library",className:n,children:"Open the library"})',
+    )
+    source = replace_fragment(source, 'function tU(){let e=(0,J.useAccess)(),n=', 'function tU(){let n=')
+    source = replace_fragment(source, 'children:"Free designs"', 'children:"Featured designs"')
+    for element in (
+        ',(0,t.jsx)(tK,{})',
+        ',(0,t.jsx)(y.default,{href:`${tk}/pricing`,className:"hover:text-[#17181a]",children:"Pricing"})',
+        ',(0,t.jsx)(y.default,{href:`${G.ACCOUNT_HREF}?from=design`,className:"hover:text-[#17181a]",children:"Account"})',
+    ):
+        source = replace_fragment(source, element, '')
+    source = replace_fragment(source, 'function tH({open:e,onClose:s}){let a=(0,J.useAccess)(),', 'function tH({open:e,onClose:s}){let ')
+    source = replace_pattern(
+        source,
+        r',"loading"===a\|\|\(0,J\.canSee\)\(a,e\)\?null:\(0,t\.jsx\)\("span",\{className:"[^"]+",children:"Pro"\}\)',
+        '',
+    )
+
+    source = replace_pattern(
+        source,
+        r'function te\(\{block:e,allowed:n,source:s,onLoad:a,what:i="code"\}\)\{.*?(?=function tt\()',
+        'function te({block:e,what:i="code"}){let n="prompt"===i;return(0,t.jsxs)("div",'
+        '{className:"absolute inset-0 flex flex-col items-center justify-center gap-4 p-6 text-center",children:['
+        '(0,t.jsx)("p",{className:"text-[1.02rem] font-medium",children:n?"Use this reference with your AI":"Editable patterns live in Muestrario"}),'
+        '(0,t.jsx)("a",{href:n?"mcp/":"../#ficha/"+e.slug,className:"underline underline-offset-4",'
+        'children:n?"Connect Muestrario":"View related patterns"})]})}',
+    )
+    source = replace_pattern(
+        source,
+        r'function tl\(\{block:e,access:s,allowed:a,source:i,onLoad:l,usage:r,tuned:o\}\)\{.*?(?=function to\()',
+        'function tl({block:e}){return(0,t.jsx)("a",{href:"../#ficha/"+e.slug,className:ta,children:"Open in Muestrario"})}',
+    )
+    return apply_catalogue_copy(source)
+
+
+def clean_catalogue_css(source):
+    if ".site-footer" in source:
+        return source + '\nfooter li:has(> a[href*="/projects/construct/join"]) { display: none; }\n'
+    return source
 
 
 def adapt_gallery(source):
@@ -140,8 +223,7 @@ def adapt_gallery(source):
 
 
 def adapt_client(source, prefix):
-    paths = {prefix + route + "/": CATALOGUE + route for route in PAGES.values() if route.startswith("/")}
-    paths[prefix + "/"] = CATALOGUE
+    paths = {prefix + "/": CATALOGUE}
     # Keep Next's UI pathname canonical so the server-rendered navigation matches.
     source = PATHNAME_HOOK.sub(
         lambda match: f'{match[1]}(path=>({json.dumps(paths)})[path]??path)({match[2]})',
@@ -165,6 +247,7 @@ def adapt_client(source, prefix):
         source,
     )
     source = adapt_gallery(source)
+    source = clean_catalogue_client(source)
     # Keep any credential fields inert in the static copy.
     source, fields = AUTH_FIELD.subn(
         lambda match: (
@@ -219,24 +302,29 @@ def download_asset(output, path):
     return True
 
 
+def redirect_page(destination, label):
+    return (
+        '<!doctype html>\n<html lang="en">\n<meta charset="utf-8">\n'
+        '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
+        f'<meta http-equiv="refresh" content="0; url={destination}">\n'
+        f'<title>{label} · Muestrario</title>\n<a href="{destination}">{label}</a>\n</html>\n'
+    ).encode()
+
+
 def capture(output, prefix):
     files = ClientFiles()
-    pages = {}
     assets = {}
     images = set()
     fonts = set()
     browser = Path(__file__).with_name("construct-browser.js").read_text()
     browser = browser.replace("'__CONSTRUCT_MIRROR__'", json.dumps(prefix + "/"))
+    html = fetch(CATALOGUE + "?kind=component").decode()
+    if "__next_f" not in html:
+        raise ValueError("La galería ya no entrega el HTML esperado")
+    files.feed(html)
+    images.update(IMAGES.findall(html))
+    html = static_copy(adapt_catalogue_html(html), prefix)
     with ThreadPoolExecutor(max_workers=5) as pool:
-        for page, data in zip(PAGES, pool.map(fetch, (CATALOGUE + route for route in PAGES.values()))):
-            html = data.decode()
-            if "__next_f" not in html:
-                raise ValueError(f"La página ya no entrega el HTML esperado: {page}")
-            files.feed(html)
-            images.update(IMAGES.findall(html))
-            if page == "index.html":
-                html = adapt_catalogue_html(html)
-            pages[page] = static_copy(html, prefix)
         if not files.urls:
             raise ValueError("La página ya no entrega los archivos de cliente esperados")
         paths = sorted(files.urls)
@@ -249,17 +337,21 @@ def capture(output, prefix):
                 lambda match: match[1] + prefix.lstrip("/") + "/analytics-disabled.js" + match[2],
                 source,
             )
-            if urlsplit(path).path.endswith(".js"):
+            filename = urlsplit(path).path.rsplit("/", 1)[-1]
+            if filename.endswith(".js"):
                 source = adapt_client(source, prefix)
-            if urlsplit(path).path.rsplit("/", 1)[-1].startswith("turbopack-"):
+            elif filename.endswith(".css"):
+                source = clean_catalogue_css(source)
+            if filename.startswith("turbopack-"):
                 source = browser + ";\n" + source
             assets[path] = source.encode()
 
         revision = client_revision(assets)
         for path, content in assets.items():
             save_clientfile(output, path, content)
-        for page, html in pages.items():
-            save_clientfile(output, "/" + page, version_client_urls(html, revision).encode())
+        save_clientfile(output, "/index.html", version_client_urls(html, revision).encode())
+        save_clientfile(output, "/mcp/index.html", redirect_page("../../#mcp", "Connect Muestrario"))
+        save_clientfile(output, "/pricing/index.html", redirect_page("../", "Open the catalogue"))
 
         media = sorted(images | fonts)
         downloaded = sum(pool.map(lambda path: download_asset(output, path), media))
