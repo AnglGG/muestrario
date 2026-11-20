@@ -29,6 +29,11 @@ AUTH_FIELD = re.compile(
     r'((?:type:"email",inputMode:"email"|type:[\w$]+\?"text":"password"),)'
     r'autoComplete:("(?:email|username)"|[\w$]+),'
 )
+CATALOGUE_PROMOTIONS = re.compile(
+    r'<div class="mx-auto max-w-\[46rem\] py-16"><section aria-labelledby="cd-steps">.*?</section></div>'
+    r'<section aria-labelledby="cd-answers"[^>]*>.*?</section>(?=</main>)',
+    re.DOTALL,
+)
 
 
 class ClientFiles(HTMLParser):
@@ -62,10 +67,25 @@ def replace_fragment(source, fragment, replacement):
     return source.replace(fragment, replacement, 1)
 
 
+def adapt_catalogue_html(html):
+    # Keep the initial document consistent with DesignHome during hydration.
+    html, sections = CATALOGUE_PROMOTIONS.subn('', html)
+    if sections != 1:
+        raise ValueError("Cambió el final de la galería de Construct")
+    return replace_fragment(html, '<main class="px-4 md:px-5">', '<main class="px-4 pb-10 md:px-5">')
+
+
 def adapt_gallery(source):
     # Keep server-rendered cards through hydration. Add public previews once the
     # anonymous account request resolves, with the existing open cards first.
     replacements = (
+        # Preserve the gallery's child position and width in React's ID tree.
+        (
+            '(0,t.jsxs)("main",{className:"px-4 md:px-5",children:[(0,t.jsx)(tf,{}),'
+            '(0,t.jsx)("div",{className:"mx-auto max-w-[46rem] py-16",children:(0,t.jsx)(tG,{})}),'
+            '(0,t.jsx)(tQ,{})]})',
+            '(0,t.jsxs)("main",{className:"px-4 pb-10 md:px-5",children:[(0,t.jsx)(tf,{}),null,null]})',
+        ),
         (
             ',(0,n.useEffect)(()=>{if("guest"!==e)return;let t="1";'
             'try{t=localStorage.getItem("cd:welcomed")??""}catch{}'
@@ -196,6 +216,8 @@ def capture(output, prefix):
                 raise ValueError(f"La página ya no entrega el HTML esperado: {page}")
             files.feed(html)
             images.update(IMAGES.findall(html))
+            if page == "index.html":
+                html = adapt_catalogue_html(html)
             save_clientfile(output, "/" + page, static_copy(html, prefix).encode())
         if not files.urls:
             raise ValueError("La página ya no entrega los archivos de cliente esperados")
