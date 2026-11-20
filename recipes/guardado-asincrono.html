@@ -1,0 +1,38 @@
+<button type="button" id="save-note">Guardar nota</button>
+<p id="save-status" role="status"></p>
+<script>
+  {
+    const save = document.querySelector('#save-note')
+    const status = document.querySelector('#save-status')
+    let firstAttempt = true
+    let pending = false
+
+    // Sustituye este ejemplo por la petición real de la aplicación.
+    async function saveNote() {
+      await new Promise(resolve => setTimeout(resolve, 550))
+      if (firstAttempt) {
+        firstAttempt = false
+        throw new Error('La conexión se ha interrumpido.')
+      }
+    }
+
+    save.onclick = async () => {
+      if (pending) return
+      pending = true
+      save.setAttribute('aria-disabled', 'true')
+      save.textContent = 'Guardando…'
+      status.textContent = ''
+      try {
+        await saveNote()
+        save.textContent = 'Guardar otra vez'
+        status.textContent = 'Nota guardada.'
+      } catch (error) {
+        save.textContent = 'Reintentar'
+        status.textContent = error.message
+      } finally {
+        pending = false
+        save.removeAttribute('aria-disabled')
+      }
+    }
+  }
+</script>

@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Referencias de interfaz de Construct y patrones originales consultables por MCP.">
+  <title>Muestrario · Biblioteca de estilos</title>
+  <style>__STYLES__</style>
+</head>
+<body>
+  <header class="top">
+    <div class="wrap top__row">
+      <a class="wordmark" href="#catalogo">Muestrario</a>
+      <details class="connect" id="mcp">
+        <summary>Conectar MCP</summary>
+        <div class="connect__content">
+          <h2>Biblioteca para la IA</h2>
+          <p>Conecta el servidor de solo lectura con la configuración incluida. Puede buscar referencias y devolver el código de los patrones originales.</p>
+          <p class="connect__example">«Busca un patrón de confirmación para archivar notas. Compáralo con dos referencias y adapta el código al proyecto.»</p>
+          <a class="plain-link" href="mcp-config.example.json">Ver configuración de ejemplo</a>
+          <a class="plain-link" href="https://github.com/AnglGG/muestrario#mcp-local">Guía de conexión</a>
+        </div>
+      </details>
+    </div>
+  </header>
+
+  <main class="wrap" id="catalogo">
+    <div class="intro">
+      <div>
+        <h1>Biblioteca de estilos<span>.</span></h1>
+        <p>Referencias de Construct y patrones de interfaz para probar, copiar y adaptar.</p>
+      </div>
+    </div>
+
+    <div class="workspace" id="workspace">
+      <section class="browser" aria-label="Buscar en la biblioteca">
+        <div class="filters">
+          <form id="filters" role="search">
+            <label for="query">Buscar por nombre o interacción</label>
+            <div class="search-row">
+              <input id="query" type="search" maxlength="200" placeholder="Ej. arrastre, vidrio, selector">
+              <select id="category" aria-label="Categoría"><option value="">Todas las categorías</option></select>
+            </div>
+          </form>
+          <nav id="types" aria-label="Tipos de ficha"></nav>
+        </div>
+
+        <div class="result-header">
+          <span id="result-count" role="status"></span>
+          <span id="position"></span>
+        </div>
+        <div class="cards" id="results"></div>
+        <div class="pager" hidden id="pager">
+          <button type="button" id="previous">Anterior</button>
+          <button type="button" id="next">Siguiente</button>
+        </div>
+      </section>
+
+      <aside class="inspector" id="inspector" aria-label="Ficha seleccionada">
+        <button class="back" type="button" id="back">Volver al catálogo</button>
+        <div id="detail"></div>
+      </aside>
+    </div>
+
+    <footer>
+      <span>Catálogo del 20 de noviembre de 2026.</span>
+      <a href="https://www.tobiadonadon.com/projects/construct/design" target="_blank" rel="noreferrer">Fuente · Construct, Tobia Donadon</a>
+    </footer>
+  </main>
+  <noscript>Activa JavaScript para buscar y probar los patrones.</noscript>
+  <script type="application/json" id="snapshot">__SNAPSHOT__</script>
+  <script>__APP__</script>
+</body>
+</html>

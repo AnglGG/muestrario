@@ -1,0 +1,82 @@
+[
+  {
+    "id": "seleccion-intervalo",
+    "name": "Selector de periodo",
+    "category": "Select",
+    "summary": "Opciones excluyentes que permanecen visibles. El indicador secundario confirma qué intervalo está activo.",
+    "usage": "Úsalo para elegir un intervalo de datos o una preferencia corta. Si las opciones abren paneles, adapta la semántica al patrón de pestañas.",
+    "controls": "Elige un periodo. Con el foco en un periodo, usa las flechas.",
+    "tags": ["filtro", "selección", "radios", "tabs", "periodo", "segmented control"],
+    "references": ["segmented-control", "tabs-glide", "plan-cards"]
+  },
+  {
+    "id": "confirmacion-en-dos-pasos",
+    "name": "Confirmación en dos pasos",
+    "category": "Press",
+    "summary": "La primera acción despliega una decisión cerca del botón. Solo la confirmación aplica el cambio.",
+    "usage": "Nombra la consecuencia y ofrece cancelar. Para datos recuperables, valora deshacer tras aplicar el cambio. La demo simula el archivado.",
+    "controls": "Pulsa Archivar y elige Cancelar o Sí, archivar.",
+    "tags": ["confirmación", "borrar", "destructivo", "archivar", "notas", "click", "press"],
+    "references": ["confirm-pop", "hold-to-confirm", "inline-alert", "check-list"]
+  },
+  {
+    "id": "comparador-de-capas",
+    "name": "Comparador de capas",
+    "category": "Drag",
+    "summary": "Un deslizador recorta la segunda capa y mantiene las dos muestras alineadas.",
+    "usage": "Compara dos versiones con el mismo encuadre. Mantén etiquetas visibles en ambos extremos y conserva un control de rango nativo.",
+    "controls": "Arrastra el deslizador o ajústalo con las flechas.",
+    "tags": ["before after", "comparación", "antes después", "arrastre", "slider", "range"],
+    "references": ["before-after", "skeleton-swap", "notch-slider", "split-panes"]
+  },
+  {
+    "id": "realce-de-datos",
+    "name": "Realce de datos",
+    "category": "Hover",
+    "summary": "Un dato activo se resalta y actualiza una lectura común, con el eje siempre visible.",
+    "usage": "Destaca valores sin modificar la escala ni mover las marcas. Permite seleccionar el dato con tacto y teclado.",
+    "controls": "Apunta, toca o enfoca una de las barras.",
+    "tags": ["gráfico", "barras", "hover", "puntero", "tooltip", "datos", "chart"],
+    "references": ["stacked-bars", "bar-chart", "sparkline-scrub", "activity-heatmap"]
+  },
+  {
+    "id": "indice-activo",
+    "name": "Índice de lectura",
+    "category": "Scroll",
+    "summary": "El índice actualiza su sección activa al recorrer el documento y permite saltar a cualquiera.",
+    "usage": "Conserva encabezados reales. Usa aria-current para informar qué sección está visible y respeta la preferencia de movimiento reducido.",
+    "controls": "Desplaza las secciones o pulsa uno de los títulos del índice.",
+    "tags": ["índice", "toc", "scroll", "lectura", "documentación", "navegación"],
+    "references": ["flow-index", "reading-light", "pile-up"]
+  },
+  {
+    "id": "etiquetas-editables",
+    "name": "Etiquetas editables",
+    "category": "Type",
+    "summary": "Convierte la entrada en una lista de etiquetas que se pueden quitar o volver a editar.",
+    "usage": "Separa el valor guardado de la entrada pendiente. Conserva el foco, evita duplicados y deja que termine la composición de teclado.",
+    "controls": "Escribe y añade con Enter. Usa Retroceso en un campo vacío para editar la última etiqueta.",
+    "tags": ["input", "formulario", "texto", "escribir", "chips", "tag input"],
+    "references": ["tag-input", "prompt-input", "search-live"]
+  },
+  {
+    "id": "guardado-asincrono",
+    "name": "Guardado asíncrono",
+    "category": "Loading",
+    "summary": "Una acción conserva su sitio mientras pasa por espera, error recuperable y éxito.",
+    "usage": "En producción, vincula el éxito a la respuesta real. Conserva los cambios locales si falla y evita envíos simultáneos.",
+    "controls": "El primer intento simula un fallo. Reintentar completa el guardado.",
+    "tags": ["loading", "spinner", "carga", "guardado", "error", "retry", "feedback"],
+    "references": ["async-button", "agent-run", "file-hatch", "thinking-shimmer", "pay-button"]
+  },
+  {
+    "id": "luz-localizada",
+    "name": "Luz localizada",
+    "category": "Shader",
+    "summary": "Una capa de luz sigue el puntero sobre un fondo fijo. La demo usa un gradiente CSS.",
+    "usage": "Trabaja con coordenadas relativas al área. Mantén el texto sobre una superficie legible y devuelve la iluminación a una posición estable cuando termina el gesto.",
+    "controls": "Mueve el puntero sobre la muestra o toca un punto.",
+    "tags": ["shader", "css", "gradiente", "background", "luz", "puntero", "efecto visual"],
+    "references": ["powder-light", "flow-card", "light-leak", "wet-paint"]
+  }
+]

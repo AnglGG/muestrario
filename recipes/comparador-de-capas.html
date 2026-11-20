@@ -1,0 +1,28 @@
+<style>
+  .comparacion { --revelado: 50%; width: min(100%, 340px); margin: 0 auto; }
+  .comparacion__muestra { position: relative; border-radius: 8px; overflow: hidden; height: 112px; }
+  .comparacion__capa { position: absolute; inset: 0; display: grid; place-items: center; font-size: 4rem; line-height: 1; font-weight: 800; }
+  .comparacion__antes { color: #31413b; background: #d9e4de; }
+  .comparacion__despues { color: #ffe2b1; background: #551542; clip-path: inset(0 calc(100% - var(--revelado)) 0 0); }
+  .comparacion__marcador { position: absolute; inset: 0 auto 0 var(--revelado); width: 2px; background: white; transform: translateX(-50%); }
+  .comparacion input { width: 100%; accent-color: #551542; margin: 0; }
+  .comparacion label { display: block; text-align: center; margin-top: 8px; }
+</style>
+<div class="comparacion">
+  <div class="comparacion__muestra" aria-hidden="true">
+    <div class="comparacion__capa comparacion__antes">Aa</div>
+    <div class="comparacion__capa comparacion__despues">Aa</div>
+    <div class="comparacion__marcador"></div>
+  </div>
+  <label for="comparacion-rango">Proporción de la segunda versión</label>
+  <input id="comparacion-rango" type="range" value="50" aria-valuetext="50 %">
+</div>
+<script>
+  {
+    const rango = document.querySelector('#comparacion-rango')
+    rango.addEventListener('input', () => {
+      rango.closest('.comparacion').style.setProperty('--revelado', rango.value + '%')
+      rango.setAttribute('aria-valuetext', rango.value + ' %')
+    })
+  }
+</script>

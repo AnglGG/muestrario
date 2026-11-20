@@ -1,0 +1,44 @@
+<style>
+  .lectura { display: grid; grid-template-columns: 90px 1fr; gap: 12px; width: min(100%, 410px); margin: auto; }
+  .lectura nav { display: grid; align-content: start; gap: 4px; }
+  .lectura button { text-align: left; color: #232920; background: transparent; border: 1px solid transparent; border-radius: 5px; padding: 4px; }
+  .lectura button[aria-current="location"] { color: #fff; background: #284a35; }
+  .lectura article { height: 118px; overflow-y: auto; border: 1px solid #b5c6ad; border-radius: 6px; padding-inline: 8px; }
+  .lectura section { min-height: 100%; padding: 10px 0; }
+  .lectura h2, .lectura p { margin: 0 0 5px; }
+  .lectura h2 { font-size: 1rem; }
+</style>
+<div class="lectura">
+  <nav aria-label="Índice de la guía">
+    <button type="button" aria-current="location">Material</button>
+    <button type="button">Medidas</button>
+    <button type="button">Montaje</button>
+  </nav>
+  <article tabindex="0" aria-label="Guía de impresión">
+    <section><h2>Material</h2><p>Escoge papel mate y una tinta de alto contraste.</p></section>
+    <section><h2>Medidas</h2><p>Deja margen junto a los bordes de corte.</p></section>
+    <section><h2>Montaje</h2><p>Comprueba la alineación antes de fijar las piezas.</p></section>
+  </article>
+</div>
+<script>
+  {
+    const reader = document.querySelector('.lectura article')
+    const sections = [...reader.querySelectorAll('section')]
+    const links = [...document.querySelectorAll('.lectura nav button')]
+    const offset = section => reader.scrollTop + section.getBoundingClientRect().top - reader.getBoundingClientRect().top - reader.clientTop
+    function updateIndex() {
+      const active = sections.findLastIndex(section => offset(section) <= reader.scrollTop + 2)
+      links.forEach((link, index) => {
+        if (index === active) link.setAttribute('aria-current', 'location')
+        else link.removeAttribute('aria-current')
+      })
+    }
+    links.forEach((link, index) => {
+      link.onclick = () => {
+        reader.scrollTop = offset(sections[index])
+        reader.focus({ preventScroll: true })
+      }
+    })
+    reader.addEventListener('scroll', updateIndex, { passive: true })
+  }
+</script>

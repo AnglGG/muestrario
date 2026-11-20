@@ -1,0 +1,33 @@
+<style>
+  .grafico { width: min(100%, 340px); margin: auto; }
+  .grafico output { display: block; font-weight: 700; margin-bottom: 9px; }
+  .grafico__fila { display: flex; align-items: flex-end; justify-content: space-between; gap: 7px; min-height: 100px; }
+  .grafico button { display: grid; gap: 5px; flex: 1; min-width: 0; padding: 4px 1px; background: none; border: 0; color: #173627; }
+  .grafico button span { display: block; border-radius: 4px 4px 0 0; height: var(--valor); background: #b2c7b1; }
+  .grafico button[aria-pressed="true"] span { background: #1b6147; }
+</style>
+<section class="grafico" aria-label="Sesiones por día">
+  <output aria-live="off">Lunes · 18 sesiones</output>
+  <div class="grafico__fila">
+    <button type="button" style="--valor: 36px" aria-label="Lunes · 18 sesiones" aria-pressed="true"><span></span>Lu</button>
+    <button type="button" style="--valor: 56px" aria-label="Martes · 28 sesiones" aria-pressed="false"><span></span>Ma</button>
+    <button type="button" style="--valor: 80px" aria-label="Miércoles · 40 sesiones" aria-pressed="false"><span></span>Mi</button>
+    <button type="button" style="--valor: 46px" aria-label="Jueves · 23 sesiones" aria-pressed="false"><span></span>Ju</button>
+    <button type="button" style="--valor: 66px" aria-label="Viernes · 33 sesiones" aria-pressed="false"><span></span>Vi</button>
+  </div>
+</section>
+<script>
+  {
+    const chart = document.querySelector('.grafico')
+    const buttons = [...chart.querySelectorAll('button')]
+    buttons.forEach(button => {
+      function showValue() {
+        for (const item of buttons) item.setAttribute('aria-pressed', String(item === button))
+        chart.querySelector('output').textContent = button.getAttribute('aria-label')
+      }
+      button.addEventListener('pointerenter', showValue)
+      button.addEventListener('focus', showValue)
+      button.addEventListener('click', showValue)
+    })
+  }
+</script>

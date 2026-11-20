@@ -1,0 +1,74 @@
+<style>
+  .etiquetas { width: min(100%, 420px); margin: auto; }
+  .etiquetas label { display: block; margin-bottom: 6px; }
+  .etiquetas input { width: min(55%, 220px); padding: 7px; font: inherit; border: 1px solid #56866b; border-radius: 5px; }
+  .etiquetas ul { display: flex; flex-wrap: wrap; gap: 4px; padding: 0; margin: 8px 0; list-style: none; }
+  .etiquetas li button { padding: 3px 6px; }
+  .etiquetas p { margin: 5px 0; }
+</style>
+<form class="etiquetas">
+  <label for="etiquetas-entrada">Etiquetas de la nota</label>
+  <input id="etiquetas-entrada" placeholder="Ej. contraste" maxlength="30">
+  <button type="submit">Añadir</button>
+  <ul aria-label="Etiquetas añadidas"></ul>
+  <p role="status"></p>
+</form>
+<script>
+  {
+    const form = document.querySelector('.etiquetas')
+    const field = form.querySelector('input')
+    const list = form.querySelector('ul')
+    const status = form.querySelector('[role=status]')
+    const tags = ['Diseño']
+
+    function renderTags() {
+      list.replaceChildren()
+      tags.forEach((tag, index) => {
+        const item = document.createElement('li')
+        const remove = document.createElement('button')
+        remove.type = 'button'
+        remove.textContent = tag + ' ×'
+        remove.setAttribute('aria-label', 'Quitar ' + tag)
+        remove.onclick = () => {
+          tags.splice(index, 1)
+          renderTags()
+          field.focus()
+          status.textContent = 'Etiqueta retirada.'
+        }
+        item.append(remove)
+        list.append(item)
+      })
+    }
+
+    form.onsubmit = event => {
+      event.preventDefault()
+      const tag = field.value.trim()
+      if (!tag) return
+      if (tags.some(value => value.toLocaleLowerCase() === tag.toLocaleLowerCase())) {
+        status.textContent = 'La etiqueta ya existe.'
+        return
+      }
+      if (tags.length >= 4) {
+        status.textContent = 'La muestra admite hasta cuatro etiquetas.'
+        return
+      }
+      tags.push(tag)
+      renderTags()
+      field.value = ''
+      field.focus()
+      status.textContent = 'Etiqueta añadida.'
+    }
+
+    field.onkeydown = event => {
+      if (event.isComposing) return
+      if (event.key === 'Backspace' && !field.value && tags.length) {
+        event.preventDefault()
+        field.value = tags.pop()
+        renderTags()
+        status.textContent = 'Editando la última etiqueta.'
+      }
+    }
+
+    renderTags()
+  }
+</script>

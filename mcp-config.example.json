@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "muestrario": {
+      "command": "node",
+      "args": ["/ruta/absoluta/muestrario/mcp.cjs"]
+    }
+  }
+}

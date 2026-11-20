@@ -1,0 +1,32 @@
+<style>
+  .ensayo-luz {
+    --x: 50%;
+    --y: 45%;
+    display: grid;
+    place-items: center;
+    width: min(100%, 430px);
+    min-height: 130px;
+    margin: auto;
+    border-radius: 8px;
+    background: radial-gradient(ellipse at var(--x) var(--y), #d9f47a 0, #778f45 22%, #26392f 46%, #122019 80%);
+    color: white;
+  }
+  .ensayo-luz strong { background: #16281d; border-radius: 3px; padding: 5px 9px; }
+</style>
+<div class="ensayo-luz"><strong>Estudio de luz</strong></div>
+<script>
+  {
+    const sample = document.querySelector('.ensayo-luz')
+    function moveLight(event) {
+      const rect = sample.getBoundingClientRect()
+      sample.style.setProperty('--x', (event.clientX - rect.left) / rect.width * 100 + '%')
+      sample.style.setProperty('--y', (event.clientY - rect.top) / rect.height * 100 + '%')
+    }
+    sample.addEventListener('pointermove', moveLight)
+    sample.addEventListener('pointerdown', moveLight)
+    sample.addEventListener('pointerleave', () => {
+      sample.style.removeProperty('--x')
+      sample.style.removeProperty('--y')
+    })
+  }
+</script>

@@ -1,0 +1,16 @@
+<style>
+  .periodos { border: 0; margin: 0; padding: 0; }
+  .periodos legend { margin-bottom: 10px; font-weight: 600; }
+  .periodos__fila { display: flex; flex-wrap: wrap; gap: 6px; }
+  .periodos label { display: flex; align-items: center; gap: 6px; padding: 9px; border: 1px solid #137c64; border-radius: 6px; cursor: pointer; }
+  .periodos label:has(:checked) { color: #fff; background: #174d40; }
+  .periodos input { accent-color: #137c64; }
+</style>
+<fieldset class="periodos">
+  <legend>Intervalo de actividad</legend>
+  <div class="periodos__fila">
+    <label><input type="radio" name="intervalo" value="dia"> Día</label>
+    <label><input type="radio" name="intervalo" value="semana" checked> Semana</label>
+    <label><input type="radio" name="intervalo" value="mes"> Mes</label>
+  </div>
+</fieldset>

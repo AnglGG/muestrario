@@ -1,0 +1,574 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Referencias de interfaz de Construct y patrones originales consultables por MCP.">
+  <title>Muestrario · Biblioteca de estilos</title>
+  <style>:root {
+  color-scheme: light;
+  --paper: #f6f6f1;
+  --ink: #22251f;
+  --muted: #50574a;
+  --line: #d5d9cb;
+  --field: #fdfdf9;
+  --lime: #d9edac;
+  --dark: #24311f;
+  --soft: #c8d3bb;
+  --radius: 12px;
+  --space: clamp(16px, 4vw, 52px);
+  font-family: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+  color: var(--ink);
+  background: var(--paper);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; }
+::selection { color: #182018; background: #c5e289; }
+:focus-visible { outline: 3px solid #507524; outline-offset: 3px; }
+button, input, select { font: inherit; color: inherit; }
+button { cursor: pointer; }
+button:disabled { opacity: .42; cursor: default; }
+a { color: inherit; text-underline-offset: .22em; }
+.wrap { max-width: 1480px; padding-inline: var(--space); margin-inline: auto; }
+
+.top { border-bottom: 1px solid var(--line); }
+.top__row { min-height: 65px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.wordmark { font-size: 1.08rem; font-weight: 770; letter-spacing: -.03em; text-decoration: none; }
+.connect { position: relative; }
+.connect summary { display: block; cursor: pointer; background: var(--field); border: 1px solid var(--line); padding: 9px 13px; border-radius: 6px; font-size: .9rem; font-weight: 650; }
+.connect summary::-webkit-details-marker { display: none; }
+.connect[open] summary { background: var(--lime); }
+.connect__content { position: absolute; z-index: 2; right: 0; top: calc(100% + 8px); width: min(385px, calc(100vw - 2 * var(--space))); background: var(--field); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; box-shadow: 0 13px 36px #1e311921; }
+.connect__content h2 { margin: 0; font-size: 1.2rem; }
+.connect__content p { margin: 10px 0; line-height: 1.45; }
+.connect__example { padding: 10px; border-radius: 6px; background: #ebefdf; }
+.plain-link { display: block; width: fit-content; margin-top: 10px; font-weight: 650; }
+
+.intro { padding-block: clamp(29px, 5vw, 68px) clamp(20px, 3vw, 42px); }
+h1 { margin: 0; text-wrap: balance; font-size: clamp(2.75rem, 7.2vw, 5.65rem); font-weight: 750; letter-spacing: -.04em; line-height: .98; }
+h1 span { color: #557820; }
+.intro p { max-width: 52ch; margin: 15px 0 0; color: var(--muted); font-size: 1.08rem; line-height: 1.45; }
+
+.workspace { display: grid; grid-template-columns: minmax(0, 1fr) minmax(290px, 385px); gap: clamp(16px, 4vw, 46px); align-items: start; }
+.filters form { margin: 0; }
+.filters label { font-weight: 660; display: block; margin-bottom: 8px; font-size: .9rem; }
+.search-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(150px, 28%); gap: 8px; }
+.search-row input, .search-row select { width: 100%; min-height: 48px; min-width: 0; border: 1px solid var(--line); background: var(--field); border-radius: 6px; padding: 10px 12px; caret-color: #507524; }
+.search-row input::placeholder { color: var(--muted); opacity: 1; }
+.search-row select { appearance: none; padding-right: 29px; background: linear-gradient(45deg, transparent 50%, currentColor 50%) calc(100% - 18px) 50% / 5px 5px no-repeat, linear-gradient(135deg, currentColor 50%, transparent 50%) calc(100% - 13px) 50% / 5px 5px no-repeat, var(--field); }
+.filters nav { display: flex; flex-wrap: wrap; gap: 5px; margin: 13px 0 14px; }
+.type { border: 1px solid transparent; border-radius: 5px; background: transparent; padding: 7px 9px; min-height: 37px; font-size: .875rem; color: var(--muted); }
+.type span { font-size: .78rem; font-variant-numeric: tabular-nums; margin-left: 3px; }
+.type:hover { background: #e8ecdE; }
+.type[aria-pressed="true"] { background: var(--lime); border-color: #b5cb9a; color: var(--ink); font-weight: 680; }
+
+.result-header { min-height: 39px; display: flex; align-items: center; justify-content: space-between; gap: 8px; border-block: 1px solid var(--line); color: var(--muted); font-size: .875rem; font-variant-numeric: tabular-nums; }
+.cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.card { display: grid; grid-template-columns: 43px minmax(0,1fr); align-items: center; gap: 11px; padding: 10px 8px; min-height: 69px; color: inherit; text-decoration: none; border-bottom: 1px solid var(--line); }
+.card:nth-child(odd) { border-right: 1px solid var(--line); }
+.card:only-of-type { border-right: 0; }
+.card:hover { background: #ecf0e4; }
+.card[aria-current="true"] { background: var(--lime); }
+.card strong { display: block; font-size: 1rem; font-weight: 690; overflow-wrap: anywhere; }
+.card small { color: var(--muted); display: block; font-size: .81rem; margin-top: 2px; }
+.swatch { display: block; width: 43px; height: 43px; border-radius: 5px; background-color: #d5dfce; background-image: repeating-linear-gradient(135deg, transparent 0 8px, #8eab8255 8px 9px); }
+.swatch[data-category="Drag"] { background: repeating-linear-gradient(130deg, #d3ddd6 0 6px, #e2ebe4 6px 9px, #9fb6a8 9px 11px); }
+.swatch[data-category="Press"] { background: radial-gradient(circle, #f2c7a2 20%, #ae5e44 22% 40%, #eec6a4 42% 46%, #f6e4ca 48%); }
+.swatch[data-category="Hover"] { background: radial-gradient(ellipse at 25% 10%, #faf6c4 8%, #e0bd70 41%, #a55e55 68%, #4b3441); }
+.swatch[data-category="Select"] { background: radial-gradient(ellipse at 25% 52%, #e6f4c1 0 21%, transparent 24%), radial-gradient(ellipse at 77% 52%, #91ab6b 0 21%, transparent 24%), #3b5430; }
+.swatch[data-category="Type"] { background: repeating-linear-gradient(0deg, #e2daea 0 5px, #75618d 6px 7px, #e2daea 8px 10px); }
+.swatch[data-category="Scroll"] { background: repeating-linear-gradient(160deg, #234559 0 6px, #b7d4d0 6px 11px, #79a2a6 11px 15px); }
+.swatch[data-category="Loading"] { background: conic-gradient(#93ad6b, #2a4c37, #e7e9b5, #93ad6b); }
+.swatch[data-category="Shader"] { background: radial-gradient(ellipse at 66% 36%, #edf6b1, #a0bc59 24%, #355c50 50%, #283038 72%); }
+.swatch img { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: inherit; }
+.empty { grid-column: 1 / -1; padding: 25px 6px; color: var(--muted); }
+.pager { display: flex; justify-content: space-between; margin-top: 14px; }
+.pager button { min-height: 42px; background: var(--field); border: 1px solid var(--line); border-radius: 6px; padding: 6px 13px; }
+
+.inspector { position: sticky; top: 14px; background: var(--dark); color: #f4f9e9; border-radius: var(--radius); padding: clamp(16px, 2.5vw, 25px); min-width: 0; }
+.inspector :focus-visible { outline-color: var(--lime); }
+.inspector h2 { margin: 8px 0; font-size: clamp(1.65rem, 3vw, 2.25rem); line-height: 1.05; letter-spacing: -.025em; overflow-wrap: anywhere; }
+.inspector h3 { margin: 18px 0 6px; font-size: 1rem; }
+.inspector p { margin: 8px 0 13px; line-height: 1.45; }
+.inspector .meta { color: var(--soft); font-size: .88rem; }
+.inspector .detail-art { width: 100%; height: 94px; margin-block: 0 17px; border: 1px solid #ffffff30; border-radius: 6px; }
+.inspector .detail-art:has(img) { height: auto; aspect-ratio: 2 / 1; }
+.inspector .detail-art img { object-fit: cover; }
+.inspector .tags { display: flex; flex-wrap: wrap; gap: 5px; padding: 0; margin: 10px 0 16px; list-style: none; }
+.tags li { color: #e8eddf; border: 1px solid #a6b19475; border-radius: 4px; padding: 3px 6px; font-size: .81rem; }
+.inspector .source { display: inline-block; color: #1d2d17; background: var(--lime); border-radius: 5px; padding: 9px 12px; font-weight: 670; text-decoration: none; }
+.inspector .source:hover { background: #e7f4c7; }
+.inspector .related { display: flex; flex-wrap: wrap; gap: 5px 12px; }
+.inspector iframe { display: block; width: 100%; height: 216px; background: #eaf2e3; border-radius: 6px; border: 1px solid #a9bba3; }
+.inspector details { border-top: 1px solid #67775f; margin-top: 14px; padding-top: 10px; }
+.inspector summary { cursor: pointer; font-weight: 620; }
+.inspector textarea { display: block; width: 100%; margin: 10px 0; min-height: 160px; padding: 10px; background: #182218; color: #fff; border: 1px solid #76856e; border-radius: 5px; resize: vertical; font: .79rem/1.45 monospace; }
+.copy, .back { background: transparent; border: 1px solid #a6b194; border-radius: 5px; padding: 7px 10px; min-height: 42px; }
+.copy:hover, .back:hover { background: #43593b; }
+.back { display: none; margin-bottom: 13px; }
+footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 20px; padding-block: 18px; margin-top: 28px; border-top: 1px solid var(--line); color: var(--muted); font-size: .85rem; }
+
+@media (min-width: 880px) {
+  .inspector { max-height: calc(100dvh - 28px); overflow-y: auto; scrollbar-color: #849775 var(--dark); }
+}
+
+@media (max-width: 879px) {
+  .workspace { display: block; }
+  .inspector { display: none; position: static; }
+  .workspace[data-open="true"] .inspector { display: block; }
+  .workspace[data-open="true"] .browser { display: none; }
+  .workspace[data-open="true"] .back { display: inline-block; }
+}
+
+@media (max-width: 530px) {
+  .search-row { grid-template-columns: 1fr; }
+  .cards { grid-template-columns: 1fr; }
+  .card:nth-child(odd) { border-right: 0; }
+}
+</style>
+</head>
+<body>
+  <header class="top">
+    <div class="wrap top__row">
+      <a class="wordmark" href="#catalogo">Muestrario</a>
+      <details class="connect" id="mcp">
+        <summary>Conectar MCP</summary>
+        <div class="connect__content">
+          <h2>Biblioteca para la IA</h2>
+          <p>Conecta el servidor de solo lectura con la configuración incluida. Puede buscar referencias y devolver el código de los patrones originales.</p>
+          <p class="connect__example">«Busca un patrón de confirmación para archivar notas. Compáralo con dos referencias y adapta el código al proyecto.»</p>
+          <a class="plain-link" href="mcp-config.example.json">Ver configuración de ejemplo</a>
+          <a class="plain-link" href="https://github.com/AnglGG/muestrario#mcp-local">Guía de conexión</a>
+        </div>
+      </details>
+    </div>
+  </header>
+
+  <main class="wrap" id="catalogo">
+    <div class="intro">
+      <div>
+        <h1>Biblioteca de estilos<span>.</span></h1>
+        <p>Referencias de Construct y patrones de interfaz para probar, copiar y adaptar.</p>
+      </div>
+    </div>
+
+    <div class="workspace" id="workspace">
+      <section class="browser" aria-label="Buscar en la biblioteca">
+        <div class="filters">
+          <form id="filters" role="search">
+            <label for="query">Buscar por nombre o interacción</label>
+            <div class="search-row">
+              <input id="query" type="search" maxlength="200" placeholder="Ej. arrastre, vidrio, selector">
+              <select id="category" aria-label="Categoría"><option value="">Todas las categorías</option></select>
+            </div>
+          </form>
+          <nav id="types" aria-label="Tipos de ficha"></nav>
+        </div>
+
+        <div class="result-header">
+          <span id="result-count" role="status"></span>
+          <span id="position"></span>
+        </div>
+        <div class="cards" id="results"></div>
+        <div class="pager" hidden id="pager">
+          <button type="button" id="previous">Anterior</button>
+          <button type="button" id="next">Siguiente</button>
+        </div>
+      </section>
+
+      <aside class="inspector" id="inspector" aria-label="Ficha seleccionada">
+        <button class="back" type="button" id="back">Volver al catálogo</button>
+        <div id="detail"></div>
+      </aside>
+    </div>
+
+    <footer>
+      <span>Catálogo del 20 de noviembre de 2026.</span>
+      <a href="https://www.tobiadonadon.com/projects/construct/design" target="_blank" rel="noreferrer">Fuente · Construct, Tobia Donadon</a>
+    </footer>
+  </main>
+  <noscript>Activa JavaScript para buscar y probar los patrones.</noscript>
+  <script type="application/json" id="snapshot">{"source":"https://www.tobiadonadon.com/projects/construct/design","author":"Tobia Donadon","capturedAt":"2026-11-20","references":[{"id":"plan-cards","type":"component","name":"Plan cards","category":"Select","url":"https://www.tobiadonadon.com/projects/construct/design?block=plan-cards","free":false,"added":"2026-11-19","tags":["selección","color","movimiento elástico","navegación"],"summary":"Planes de suscripción con un borde que acompaña el cambio de selección."},{"id":"frost-card","type":"component","name":"Frosted card","category":"Hover","url":"https://www.tobiadonadon.com/projects/construct/design?block=frost-card","free":false,"added":"2026-11-19","tags":["pulsación","puntero","vidrio","texto animado","luz","tarjetas"],"summary":"Tarjeta translúcida con inclinación bajo el puntero y revelado de cifras."},{"id":"glyph-photo","type":"component","name":"Glyph photo","category":"Shader","url":"https://www.tobiadonadon.com/projects/construct/design?block=glyph-photo","free":false,"added":"2026-11-19","tags":["puntero","tipografía","fotografía"],"summary":"Fotografía convertida en caracteres con una lente que recupera la imagen."},{"id":"event-card","type":"component","name":"Event card","category":"Press","url":"https://www.tobiadonadon.com/projects/construct/design?block=event-card","free":false,"added":"2026-11-19","tags":["pulsación","fotografía","color","vidrio","transición de estado"],"summary":"Ficha de evento con inscripción reversible y cambio de estado en el botón."},{"id":"glass-tabs","type":"component","name":"Glass tabs","category":"Select","url":"https://www.tobiadonadon.com/projects/construct/design?block=glass-tabs","free":false,"added":"2026-11-19","tags":["selección","vidrio","movimiento elástico","navegación"],"summary":"Barra de pestañas flotante con un indicador elástico y una acción separada."},{"id":"flow-card","type":"component","name":"Flow card","category":"Shader","url":"https://www.tobiadonadon.com/projects/construct/design?block=flow-card","free":false,"added":"2026-11-19","tags":["pulsación","puntero","color","tarjetas"],"summary":"Bandas de color que se separan ante el puntero y producen ondas al pulsar."},{"id":"memory-card","type":"component","name":"Memory card","category":"Drag","url":"https://www.tobiadonadon.com/projects/construct/design?block=memory-card","free":false,"added":"2026-11-19","tags":["arrastre","tipografía","fotografía","vidrio","luz","tarjetas"],"summary":"Pila de recuerdos para clasificar con un gesto hacia un lado u otro."},{"id":"action-tiles","type":"component","name":"Action tiles","category":"Press","url":"https://www.tobiadonadon.com/projects/construct/design?block=action-tiles","free":false,"added":"2026-11-19","tags":["pulsación","transición de estado"],"summary":"Acciones financieras con respuesta direccional y confirmación temporal."},{"id":"perk-marquee","type":"component","name":"Perk marquee","category":"Drag","url":"https://www.tobiadonadon.com/projects/construct/design?block=perk-marquee","free":false,"added":"2026-11-19","tags":["arrastre","color","luz"],"summary":"Carrusel continuo de ventajas que se puede frenar y arrastrar."},{"id":"tab-bar","type":"component","name":"Tab bar","category":"Select","url":"https://www.tobiadonadon.com/projects/construct/design?block=tab-bar","free":false,"added":"2026-11-19","tags":["selección","vidrio","movimiento elástico","navegación"],"summary":"Navegación móvil con iconos que cambian al seleccionar y avisos pendientes."},{"id":"light-leak","type":"component","name":"Light leak","category":"Shader","url":"https://www.tobiadonadon.com/projects/construct/design?block=light-leak","free":false,"added":"2026-11-19","tags":["pulsación","puntero","color","luz"],"summary":"Prisma luminoso que desvía el color al mover el puntero."},{"id":"ring-avatar","type":"component","name":"Ring avatar","category":"Press","url":"https://www.tobiadonadon.com/projects/construct/design?block=ring-avatar","free":false,"added":"2026-11-19","tags":["pulsación","carga","color","luz"],"summary":"Indicador de novedad alrededor de un avatar con estados de carga y visto."},{"id":"glass-deck","type":"component","name":"Glass deck","category":"Drag","url":"https://www.tobiadonadon.com/projects/construct/design?block=glass-deck","free":false,"added":"2026-10-31","tags":["arrastre","pulsación","color","vidrio","tarjetas"],"summary":"Clasificación de tarjetas translúcidas con arrastre y respuesta al umbral."},{"id":"range-dial","type":"component","name":"Range dial","category":"Drag","url":"https://www.tobiadonadon.com/projects/construct/design?block=range-dial","free":false,"added":"2026-10-23","tags":["arrastre","desplazamiento","luz"],"summary":"Termostato circular ajustable con arrastre, rueda y teclado."},{"id":"now-playing","type":"component","name":"Now playing","category":"Press","url":"https://www.tobiadonadon.com/projects/construct/design?block=now-playing","free":false,"added":"2026-11-18","tags":["arrastre","desplazamiento","fotografía","movimiento elástico","tarjetas"],"summary":"Reproductor musical con vinilo animado y control de posición."},{"id":"weather","type":"component","name":"Weather","category":"Drag","url":"https://www.tobiadonadon.com/projects/construct/design?block=weather","free":false,"added":"2026-11-18","tags":["arrastre","pulsación","fotografía","texto animado"],"summary":"Previsión por horas con cinta desplazable y fondo según la hora."},{"id":"batteries","type":"component","name":"Batteries","category":"Press","url":"https://www.tobiadonadon.com/projects/construct/design?block=batteries","free":false,"added":"2026-11-18","tags":["pulsación","puntero","texto animado"],"summary":"Nivel de batería representado con líquido que sube durante la carga."},{"id":"focus-mode","type":"component","name":"Focus","category":"Press","url":"https://www.tobiadonadon.com/projects/construct/design?block=focus-mode","free":false,"added":"2026-10-31","tags":["pulsación","luz"],"summary":"Interruptor de concentración con cambios de iluminación y estado."},{"id":"agenda","type":"component","name":"Day agenda","category":"Drag","url":"https://www.tobiadonadon.com/projects/construct/design?block=agenda","free":false,"added":"2026-11-18","tags":["arrastre","movimiento elástico"],"summary":"Selector horario con inercia y ajuste a intervalos de quince minutos."},{"id":"stacked-bars","type":"component","name":"Stacked bars","category":"Hover","url":"https://www.tobiadonadon.com/projects/construct/design?block=stacked-bars","free":false,"added":"2026-10-23","tags":["puntero","luz"],"summary":"Gráfico apilado con énfasis por fecha y aislamiento por serie."},{"id":"rolling-counter","type":"component","name":"Rolling counter","category":"Drag","url":"https://www.tobiadonadon.com/projects/construct/design?block=rolling-counter","free":false,"added":"2026-10-23","tags":["arrastre","desplazamiento","pulsación","texto animado"],"summary":"Contador de pasos con dígitos rodantes y progreso hacia un objetivo."},{"id":"member-card","type":"component","name":"Member card","category":"Hover","url":"https://www.tobiadonadon.com/projects/construct/design?block=member-card","free":false,"added":"2026-10-23","tags":["puntero","color","efecto 3D","tarjetas"],"summary":"Tarjeta de membresía con relieve y reflejos que siguen el puntero."},{"id":"pay-button","type":"component","name":"Pay button","category":"Press","url":"https://www.tobiadonadon.com/projects/construct/design?block=pay-button","free":false,"added":"2026-10-23","tags":["pulsación","luz","sonido","transición de estado"],"summary":"Botón de pago que pasa por espera y confirmación dentro del mismo espacio."},{"id":"limelight","type":"website","name":"Limelight","category":"Agency","url":"https://www.tobiadonadon.com/projects/construct/design?block=limelight","free":false,"added":"2026-11-19","tags":["pulsación","puntero","fotografía","color","luz"],"poster":"https://www.tobiadonadon.com/design/websites/limelight/poster.webp"},{"id":"swipe-deck","type":"component","name":"Swipe deck","category":"Drag","url":"https://www.tobiadonadon.com/projects/construct/design?block=swipe-deck","free":false,"added":"2026-10-23","tags":["arrastre","movimiento elástico","efecto 3D","tarjetas"],"summary":"Pila de tarjetas para elegir o descartar con umbral y retorno."},{"id":"sora","type":"website","name":"Sora","category":"Finance","url":"https://www.tobiadonadon.com/projects/construct/design?block=sora","free":false,"added":"2026-11-19","tags":["puntero","movimiento elástico","efecto 3D","formularios","tarjetas"],"poster":"https://www.tobiadonadon.com/design/websites/sora/poster.webp"},{"id":"ora-call","type":"website","name":"Ora","category":"AI","url":"https://www.tobiadonadon.com/projects/construct/design?block=ora-call","free":false,"added":"2026-11-19","tags":["selección","tipografía","vidrio"],"poster":"https://www.tobiadonadon.com/design/websites/ora-call/poster.webp"},{"id":"leo","type":"website","name":"Leo","category":"Portfolio","url":"https://www.tobiadonadon.com/projects/construct/design?block=leo","free":false,"added":"2026-11-19","tags":["pulsación","puntero","fotografía"],"poster":"https://www.tobiadonadon.com/design/websites/leo/poster.webp"},{"id":"alpina","type":"website","name":"Alpina","category":"Travel","url":"https://www.tobiadonadon.com/projects/construct/design?block=alpina","free":false,"added":"2026-11-19","tags":["puntero","selección"],"poster":"https://www.tobiadonadon.com/design/websites/alpina/poster.webp"},{"id":"hana","type":"website","name":"Hana","category":"Portfolio","url":"https://www.tobiadonadon.com/projects/construct/design?block=hana","free":false,"added":"2026-11-19","tags":["puntero","fotografía","vidrio","transición de estado"],"poster":"https://www.tobiadonadon.com/design/websites/hana/poster.webp"},{"id":"petal","type":"website","name":"Petal","category":"Commerce","url":"https://www.tobiadonadon.com/projects/construct/design?block=petal","free":false,"added":"2026-11-19","tags":[],"poster":"https://www.tobiadonadon.com/design/websites/petal/poster.webp"},{"id":"aerie","type":"website","name":"Aerie","category":"Studio","url":"https://www.tobiadonadon.com/projects/construct/design?block=aerie","free":false,"added":"2026-11-19","tags":["puntero","sonido"],"poster":"https://www.tobiadonadon.com/design/websites/aerie/poster.webp"},{"id":"halcyon","type":"website","name":"Halcyon","category":"AI","url":"https://www.tobiadonadon.com/projects/construct/design?block=halcyon","free":false,"added":"2026-11-19","tags":["puntero","tipografía","efecto 3D","luz"],"poster":"https://www.tobiadonadon.com/design/websites/halcyon/poster.webp"},{"id":"prism","type":"app","name":"Prism","category":"Productivity","url":"https://www.tobiadonadon.com/projects/construct/design?block=prism","free":false,"added":"2026-11-19","tags":["arrastre","selección","fotografía","color","vidrio","luz","precios"],"poster":"https://www.tobiadonadon.com/design/apps/prism/poster.webp"},{"id":"album-stack","type":"component","name":"Album stack","category":"Drag","url":"https://www.tobiadonadon.com/projects/construct/design?block=album-stack","free":false,"added":"2026-10-23","tags":["arrastre","pulsación","movimiento elástico"],"summary":"Pila de portadas que se reordena con un gesto y revela el disco al reproducir."},{"id":"dot-globe","type":"component","name":"Dot globe","category":"Drag","url":"https://www.tobiadonadon.com/projects/construct/design?block=dot-globe","free":false,"added":"2026-10-23","tags":["arrastre","vidrio","luz"],"summary":"Globo de puntos con rotación, inercia y saltos angulares."},{"id":"recall","type":"app","name":"Recall","category":"Productivity","url":"https://www.tobiadonadon.com/projects/construct/design?block=recall","free":false,"added":"2026-11-19","tags":["arrastre","selección","tipografía","fotografía","vidrio","texto animado","tarjetas","navegación"],"poster":"https://www.tobiadonadon.com/design/apps/recall/poster.webp"},{"id":"eye-follow","type":"component","name":"Eyes","category":"Hover","url":"https://www.tobiadonadon.com/projects/construct/design?block=eye-follow","free":false,"added":"2026-10-23","tags":["pulsación","puntero"],"summary":"Figura cuyas pupilas siguen el puntero y reaccionan a su velocidad."},{"id":"ember","type":"app","name":"Ember","category":"Finance","url":"https://www.tobiadonadon.com/projects/construct/design?block=ember","free":false,"added":"2026-11-19","tags":["pulsación","vidrio","texto animado","luz","tarjetas"],"poster":"https://www.tobiadonadon.com/design/apps/ember/poster.webp"},{"id":"gather","type":"app","name":"Gather","category":"Social","url":"https://www.tobiadonadon.com/projects/construct/design?block=gather","free":false,"added":"2026-11-19","tags":["fotografía","color","movimiento elástico","tarjetas"],"poster":"https://www.tobiadonadon.com/design/apps/gather/poster.webp"},{"id":"lump","type":"app","name":"Lump","category":"Finance","url":"https://www.tobiadonadon.com/projects/construct/design?block=lump","free":false,"added":"2026-11-18","tags":["arrastre","pulsación"],"poster":"https://www.tobiadonadon.com/design/apps/lump/poster.webp"},{"id":"vane","type":"app","name":"Vane","category":"Travel","url":"https://www.tobiadonadon.com/projects/construct/design?block=vane","free":false,"added":"2026-11-18","tags":["arrastre","color","luz"],"poster":"https://www.tobiadonadon.com/design/apps/vane/poster.webp"},{"id":"forge","type":"website","name":"Forge","category":"AI","url":"https://www.tobiadonadon.com/projects/construct/design?block=forge","free":false,"added":"2026-11-17","tags":["tipografía"],"poster":"https://www.tobiadonadon.com/design/websites/forge/poster.webp"},{"id":"halo","type":"app","name":"Halo","category":"Productivity","url":"https://www.tobiadonadon.com/projects/construct/design?block=halo","free":false,"added":"2026-11-18","tags":["vidrio","tarjetas"],"poster":"https://www.tobiadonadon.com/design/apps/halo/poster.webp"},{"id":"knead","type":"app","name":"Knead","category":"Finance","url":"https://www.tobiadonadon.com/projects/construct/design?block=knead","free":false,"added":"2026-11-18","tags":["arrastre","pulsación"],"poster":"https://www.tobiadonadon.com/design/apps/knead/poster.webp"},{"id":"torus","type":"app","name":"Torus","category":"Health","url":"https://www.tobiadonadon.com/projects/construct/design?block=torus","free":false,"added":"2026-11-18","tags":["arrastre","desplazamiento","pulsación","luz","tarjetas"],"poster":"https://www.tobiadonadon.com/design/apps/torus/poster.webp"},{"id":"kin","type":"website","name":"Kin","category":"Health","url":"https://www.tobiadonadon.com/projects/construct/design?block=kin","free":false,"added":"2026-11-17","tags":["desplazamiento","puntero","vidrio","luz"],"poster":"https://www.tobiadonadon.com/design/websites/kin/poster.webp"},{"id":"particle-word","type":"component","name":"Particles","category":"Hover","url":"https://www.tobiadonadon.com/projects/construct/design?block=particle-word","free":false,"added":"2026-10-23","tags":["pulsación"],"summary":"Texto construido con partículas que se dispersan y vuelven a formar letras."},{"id":"alba","type":"app","name":"Alba","category":"Home","url":"https://www.tobiadonadon.com/projects/construct/design?block=alba","free":false,"added":"2026-11-18","tags":["luz"],"poster":"https://www.tobiadonadon.com/design/apps/alba/poster.webp"},{"id":"nightshift","type":"website","name":"Nightshift","category":"AI","url":"https://www.tobiadonadon.com/projects/construct/design?block=nightshift","free":false,"added":"2026-11-18","tags":["arrastre","desplazamiento","pulsación","formularios"],"poster":"https://www.tobiadonadon.com/design/websites/nightshift/poster.webp"},{"id":"nova","type":"website","name":"Nova","category":"AI","url":"https://www.tobiadonadon.com/projects/construct/design?block=nova","free":false,"added":"2026-11-18","tags":["pulsación","tipografía"],"poster":"https://www.tobiadonadon.com/design/websites/nova/poster.webp"},{"id":"vault","type":"website","name":"Vault","category":"Finance","url":"https://www.tobiadonadon.com/projects/construct/design?block=vault","free":false,"added":"2026-11-18","tags":["vidrio","luz","precios"],"poster":"https://www.tobiadonadon.com/design/websites/vault/poster.webp"},{"id":"wren","type":"app","name":"Wren","category":"Productivity","url":"https://www.tobiadonadon.com/projects/construct/design?block=wren","free":false,"added":"2026-11-18","tags":["tarjetas"],"poster":"https://www.tobiadonadon.com/design/apps/wren/poster.webp"},{"id":"phone-island","type":"component","name":"Island","category":"Press","url":"https://www.tobiadonadon.com/projects/construct/design?block=phone-island","free":false,"added":"2026-10-23","tags":["pulsación"],"summary":"Indicador compacto que se expande para mostrar una actividad."},{"id":"bottom-sheet","type":"component","name":"Bottom sheet","category":"Drag","url":"https://www.tobiadonadon.com/projects/construct/design?block=bottom-sheet","free":false,"added":"2026-11-18","tags":["arrastre","movimiento elástico"],"summary":"Panel inferior con tres alturas y ajuste según la distancia y velocidad del gesto."},{"id":"brasa","type":"app","name":"Brasa","category":"Home","url":"https://www.tobiadonadon.com/projects/construct/design?block=brasa","free":false,"added":"2026-11-18","tags":["arrastre","pulsación","color","precios"],"poster":"https://www.tobiadonadon.com/design/apps/brasa/poster.webp"},{"id":"ciao","type":"website","name":"Ciao","category":"Portfolio","url":"https://www.tobiadonadon.com/projects/construct/design?block=ciao","free":false,"added":"2026-11-18","tags":["pulsación","tipografía","efecto 3D"],"poster":"https://www.tobiadonadon.com/design/websites/ciao/poster.webp"},{"id":"pitch","type":"website","name":"Pitch","category":"AI","url":"https://www.tobiadonadon.com/projects/construct/design?block=pitch","free":false,"added":"2026-11-18","tags":["arrastre","desplazamiento","luz"],"poster":"https://www.tobiadonadon.com/design/websites/pitch/poster.webp"},{"id":"notch-slider","type":"component","name":"Notch slider","category":"Drag","url":"https://www.tobiadonadon.com/projects/construct/design?block=notch-slider","free":false,"added":"2026-11-17","tags":["arrastre","pulsación","texto animado","luz"],"summary":"Deslizador con marcas, puntos de atracción y cifra animada."},{"id":"onboard","type":"app","name":"Onboard","category":"Productivity","url":"https://www.tobiadonadon.com/projects/construct/design?block=onboard","free":false,"added":"2026-11-17","tags":["arrastre","selección","color","precios"],"poster":"https://www.tobiadonadon.com/design/apps/onboard/poster.webp"},{"id":"envelope","type":"component","name":"Envelope","category":"Hover","url":"https://www.tobiadonadon.com/projects/construct/design?block=envelope","free":false,"added":"2026-10-23","tags":["pulsación","puntero","selección","movimiento elástico","efecto 3D","sonido","tarjetas","navegación"],"summary":"Sobre que se abre para revelar una tarjeta con ratón, tacto o teclado."},{"id":"dozen","type":"website","name":"Dozen","category":"Agency","url":"https://www.tobiadonadon.com/projects/construct/design?block=dozen","free":false,"added":"2026-11-18","tags":["puntero","fotografía","color"],"poster":"https://www.tobiadonadon.com/design/websites/dozen/poster.webp"},{"id":"gassa","type":"website","name":"Gassa","category":"Commerce","url":"https://www.tobiadonadon.com/projects/construct/design?block=gassa","free":false,"added":"2026-11-18","tags":["selección","fotografía","color"],"poster":"https://www.tobiadonadon.com/design/websites/gassa/poster.webp"},{"id":"quanta","type":"website","name":"Quanta","category":"AI","url":"https://www.tobiadonadon.com/projects/construct/design?block=quanta","free":true,"added":"2026-11-18","tags":[],"poster":"https://www.tobiadonadon.com/design/websites/quanta/poster.webp"},{"id":"till","type":"app","name":"Till","category":"Finance","url":"https://www.tobiadonadon.com/projects/construct/design?block=till","free":false,"added":"2026-11-18","tags":["vidrio","luz"],"poster":"https://www.tobiadonadon.com/design/apps/till/poster.webp"},{"id":"dash","type":"app","name":"Dash","category":"Food","url":"https://www.tobiadonadon.com/projects/construct/design?block=dash","free":false,"added":"2026-11-18","tags":["arrastre","pulsación","efecto 3D","tarjetas"],"poster":"https://www.tobiadonadon.com/design/apps/dash/poster.webp"},{"id":"data-table","type":"component","name":"Data table","category":"Select","url":"https://www.tobiadonadon.com/projects/construct/design?block=data-table","free":false,"added":"2026-11-18","tags":["pulsación","selección","movimiento elástico","datos"],"summary":"Tabla ordenable en la que se animan las filas y sus barras de escala."},{"id":"drift","type":"app","name":"Drift","category":"Health","url":"https://www.tobiadonadon.com/projects/construct/design?block=drift","free":false,"added":"2026-11-18","tags":["arrastre","desplazamiento","pulsación","luz"],"poster":"https://www.tobiadonadon.com/design/apps/drift/poster.webp"},{"id":"lumen","type":"website","name":"Lumen","category":"Finance","url":"https://www.tobiadonadon.com/projects/construct/design?block=lumen","free":false,"added":"2026-11-18","tags":["puntero","vidrio","efecto 3D","luz","tarjetas"],"poster":"https://www.tobiadonadon.com/design/websites/lumen/poster.webp"},{"id":"tooltip-follow","type":"component","name":"Tooltip follow","category":"Hover","url":"https://www.tobiadonadon.com/projects/construct/design?block=tooltip-follow","free":false,"added":"2026-11-18","tags":["movimiento elástico"],"summary":"Ayuda contextual compartida que se desplaza entre controles."},{"id":"breathe","type":"app","name":"Breathe","category":"Health","url":"https://www.tobiadonadon.com/projects/construct/design?block=breathe","free":false,"added":"2026-11-17","tags":["pulsación","luz"],"poster":"https://www.tobiadonadon.com/design/apps/breathe/poster.webp"},{"id":"check-list","type":"component","name":"Check list","category":"Press","url":"https://www.tobiadonadon.com/projects/construct/design?block=check-list","free":false,"added":"2026-11-17","tags":["arrastre","transición de estado"],"summary":"Una animación conecta la marca de tarea con el tachado de su texto."},{"id":"trail","type":"app","name":"Trail","category":"Health","url":"https://www.tobiadonadon.com/projects/construct/design?block=trail","free":false,"added":"2026-11-17","tags":["pulsación","sonido"],"poster":"https://www.tobiadonadon.com/design/apps/trail/poster.webp"},{"id":"before-after","type":"component","name":"Before & after","category":"Drag","url":"https://www.tobiadonadon.com/projects/construct/design?block=before-after","free":false,"added":"2026-10-23","tags":["arrastre","pulsación"],"summary":"Comparador de dos imágenes alineadas con un divisor deslizante."},{"id":"chat","type":"app","name":"Chat","category":"Social","url":"https://www.tobiadonadon.com/projects/construct/design?block=chat","free":false,"added":"2026-11-18","tags":["pulsación"],"poster":"https://www.tobiadonadon.com/design/apps/chat/poster.webp"},{"id":"madder","type":"website","name":"Madder","category":"Commerce","url":"https://www.tobiadonadon.com/projects/construct/design?block=madder","free":false,"added":"2026-11-18","tags":["arrastre","selección","tipografía","color"],"poster":"https://www.tobiadonadon.com/design/websites/madder/poster.webp"},{"id":"plan-picker","type":"component","name":"Plan picker","category":"Select","url":"https://www.tobiadonadon.com/projects/construct/design?block=plan-picker","free":false,"added":"2026-11-18","tags":["pulsación","texto animado","movimiento elástico"],"summary":"Comparador de planes en columnas que cambia al alternar el periodo de cobro."},{"id":"pocket","type":"app","name":"Pocket","category":"Finance","url":"https://www.tobiadonadon.com/projects/construct/design?block=pocket","free":false,"added":"2026-11-18","tags":["arrastre","pulsación","vidrio"],"poster":"https://www.tobiadonadon.com/design/apps/pocket/poster.webp"},{"id":"lift","type":"app","name":"Lift","category":"Health","url":"https://www.tobiadonadon.com/projects/construct/design?block=lift","free":false,"added":"2026-11-17","tags":["sonido"],"poster":"https://www.tobiadonadon.com/design/apps/lift/poster.webp"},{"id":"card-fan","type":"component","name":"Card fan","category":"Press","url":"https://www.tobiadonadon.com/projects/construct/design?block=card-fan","free":false,"added":"2026-10-23","tags":["pulsación","tarjetas"],"summary":"Pila de tarjetas bancarias que se abre en abanico para elegir una."},{"id":"daybook","type":"app","name":"Daybook","category":"Productivity","url":"https://www.tobiadonadon.com/projects/construct/design?block=daybook","free":false,"added":"2026-11-18","tags":["pulsación","color","efecto 3D","transición de estado"],"poster":"https://www.tobiadonadon.com/design/apps/daybook/poster.webp"},{"id":"loop","type":"app","name":"Loop","category":"Social","url":"https://www.tobiadonadon.com/projects/construct/design?block=loop","free":false,"added":"2026-11-18","tags":["arrastre","pulsación","fotografía","color","tarjetas"],"poster":"https://www.tobiadonadon.com/design/apps/loop/poster.webp"},{"id":"pith","type":"website","name":"Pith","category":"Commerce","url":"https://www.tobiadonadon.com/projects/construct/design?block=pith","free":false,"added":"2026-11-18","tags":["selección","tipografía","color","precios"],"poster":"https://www.tobiadonadon.com/design/websites/pith/poster.webp"},{"id":"pod","type":"app","name":"Pod","category":"Music","url":"https://www.tobiadonadon.com/projects/construct/design?block=pod","free":false,"added":"2026-11-17","tags":["arrastre","desplazamiento","luz"],"poster":"https://www.tobiadonadon.com/design/apps/pod/poster.webp"},{"id":"volt","type":"app","name":"Volt","category":"Travel","url":"https://www.tobiadonadon.com/projects/construct/design?block=volt","free":false,"added":"2026-11-17","tags":["arrastre","desplazamiento"],"poster":"https://www.tobiadonadon.com/design/apps/volt/poster.webp"},{"id":"command-menu","type":"component","name":"Command menu","category":"Type","url":"https://www.tobiadonadon.com/projects/construct/design?block=command-menu","free":false,"added":"2026-10-23","tags":["tipografía"],"summary":"Paleta de comandos con filtro, navegación por flechas y ejecución."},{"id":"maison-sel","type":"website","name":"Maison Sel","category":"Commerce","url":"https://www.tobiadonadon.com/projects/construct/design?block=maison-sel","free":false,"added":"2026-11-18","tags":["puntero","selección","vidrio"],"poster":"https://www.tobiadonadon.com/design/websites/maison-sel/poster.webp"},{"id":"notes","type":"app","name":"Notes","category":"Productivity","url":"https://www.tobiadonadon.com/projects/construct/design?block=notes","free":false,"added":"2026-11-18","tags":["arrastre","selección","movimiento elástico","transición de estado"],"poster":"https://www.tobiadonadon.com/design/apps/notes/poster.webp"},{"id":"hold-to-confirm","type":"component","name":"Hold to confirm","category":"Press","url":"https://www.tobiadonadon.com/projects/construct/design?block=hold-to-confirm","free":true,"added":"2026-10-23","tags":["color","transición de estado"],"summary":"Pulsación sostenida con progreso visible y cancelación al soltar pronto."},{"id":"add-to-cart","type":"component","name":"Add to cart","category":"Press","url":"https://www.tobiadonadon.com/projects/construct/design?block=add-to-cart","free":false,"added":"2026-11-18","tags":["arrastre","pulsación","selección","fotografía","color","tarjetas"],"summary":"Selector de color y confirmación de añadir mediante un gesto visual hacia la bolsa."},{"id":"context-menu","type":"component","name":"Context menu","category":"Press","url":"https://www.tobiadonadon.com/projects/construct/design?block=context-menu","free":false,"added":"2026-11-18","tags":["arrastre","pulsación","movimiento elástico"],"summary":"Menú contextual anclado al punto de pulsación con selección por arrastre."},{"id":"select-menu","type":"component","name":"Select menu","category":"Select","url":"https://www.tobiadonadon.com/projects/construct/design?block=select-menu","free":false,"added":"2026-11-18","tags":["pulsación","selección","movimiento elástico","tarjetas"],"summary":"Selector cuyos elementos se despliegan desde una pila compacta."},{"id":"signal","type":"website","name":"Signal","category":"Agency","url":"https://www.tobiadonadon.com/projects/construct/design?block=signal","free":false,"added":"2026-11-18","tags":["arrastre","color","luz"],"poster":"https://www.tobiadonadon.com/design/websites/signal/poster.webp"},{"id":"split-gate","type":"component","name":"Split gate","category":"Scroll","url":"https://www.tobiadonadon.com/projects/construct/design?block=split-gate","free":false,"added":"2026-11-18","tags":["desplazamiento","tipografía"],"summary":"Titular que se separa por la mitad al desplazar para destapar el contenido."},{"id":"gate","type":"app","name":"Gate","category":"Travel","url":"https://www.tobiadonadon.com/projects/construct/design?block=gate","free":false,"added":"2026-11-17","tags":["pulsación"],"poster":"https://www.tobiadonadon.com/design/apps/gate/poster.webp"},{"id":"hearth","type":"app","name":"Hearth","category":"Home","url":"https://www.tobiadonadon.com/projects/construct/design?block=hearth","free":false,"added":"2026-11-17","tags":["arrastre","fotografía","luz"],"poster":"https://www.tobiadonadon.com/design/apps/hearth/poster.webp"},{"id":"file-tree","type":"component","name":"File tree","category":"Press","url":"https://www.tobiadonadon.com/projects/construct/design?block=file-tree","free":false,"added":"2026-11-18","tags":["color","movimiento elástico"],"summary":"Árbol de carpetas con entrada escalonada y continuidad de la selección."},{"id":"profile-card","type":"component","name":"Profile card","category":"Hover","url":"https://www.tobiadonadon.com/projects/construct/design?block=profile-card","free":false,"added":"2026-11-18","tags":["puntero","tarjetas"],"summary":"Ficha de perfil que se expande desde una etiqueta e incluye seguimiento."},{"id":"relay","type":"website","name":"Relay","category":"AI","url":"https://www.tobiadonadon.com/projects/construct/design?block=relay","free":false,"added":"2026-11-18","tags":["selección","efecto 3D","transición de estado"],"poster":"https://www.tobiadonadon.com/design/websites/relay/poster.webp"},{"id":"tabs-glide","type":"component","name":"Tabs glide","category":"Select","url":"https://www.tobiadonadon.com/projects/construct/design?block=tabs-glide","free":false,"added":"2026-11-18","tags":["puntero","selección","movimiento elástico","navegación"],"summary":"Pestañas con un indicador que se estira al viajar entre opciones."},{"id":"ledger","type":"app","name":"Ledger","category":"Finance","url":"https://www.tobiadonadon.com/projects/construct/design?block=ledger","free":false,"added":"2026-11-17","tags":["desplazamiento","datos","precios"],"poster":"https://www.tobiadonadon.com/design/apps/ledger/poster.webp"},{"id":"async-button","type":"component","name":"Async button","category":"Press","url":"https://www.tobiadonadon.com/projects/construct/design?block=async-button","free":false,"added":"2026-11-18","tags":["pulsación","carga","movimiento elástico","transición de estado"],"summary":"Botón de guardado con estados de espera, éxito, fallo y reintento."},{"id":"canopy","type":"website","name":"Canopy","category":"SaaS","url":"https://www.tobiadonadon.com/projects/construct/design?block=canopy","free":false,"added":"2026-11-18","tags":["arrastre","luz","tarjetas"],"poster":"https://www.tobiadonadon.com/design/websites/canopy/poster.webp"},{"id":"pile-up","type":"component","name":"Pile up","category":"Scroll","url":"https://www.tobiadonadon.com/projects/construct/design?block=pile-up","free":false,"added":"2026-11-18","tags":["desplazamiento","movimiento elástico","efecto 3D"],"summary":"Pasos que se apilan al desplazar mientras los previos pierden protagonismo."},{"id":"bar-chart","type":"component","name":"Bar chart","category":"Hover","url":"https://www.tobiadonadon.com/projects/construct/design?block=bar-chart","free":false,"added":"2026-11-17","tags":["puntero"],"summary":"Gráfico de barras que cambia el nivel de detalle y señala valores al apuntar."},{"id":"scrub-number","type":"component","name":"Scrub number","category":"Drag","url":"https://www.tobiadonadon.com/projects/construct/design?block=scrub-number","free":false,"added":"2026-11-17","tags":["arrastre","desplazamiento","pulsación","puntero","tipografía","formularios"],"summary":"Campo numérico ajustable arrastrando su etiqueta o escribiendo una expresión."},{"id":"stay","type":"app","name":"Stay","category":"Travel","url":"https://www.tobiadonadon.com/projects/construct/design?block=stay","free":false,"added":"2026-11-17","tags":["arrastre","pulsación","selección","fotografía","precios"],"poster":"https://www.tobiadonadon.com/design/apps/stay/poster.webp"},{"id":"ledgerline","type":"website","name":"Ledgerline","category":"Finance","url":"https://www.tobiadonadon.com/projects/construct/design?block=ledgerline","free":false,"added":"2026-11-18","tags":["arrastre","luz"],"poster":"https://www.tobiadonadon.com/design/websites/ledgerline/poster.webp"},{"id":"date-range","type":"component","name":"Date range","category":"Drag","url":"https://www.tobiadonadon.com/projects/construct/design?block=date-range","free":false,"added":"2026-11-18","tags":["arrastre","pulsación","movimiento elástico"],"summary":"Calendario con selección por arrastre y conexión visual entre semanas."},{"id":"donut-chart","type":"component","name":"Donut chart","category":"Drag","url":"https://www.tobiadonadon.com/projects/construct/design?block=donut-chart","free":false,"added":"2026-11-18","tags":["arrastre","movimiento elástico","luz"],"summary":"Gráfico circular giratorio que resalta el sector bajo una marca fija."},{"id":"side-reel","type":"component","name":"Side reel","category":"Scroll","url":"https://www.tobiadonadon.com/projects/construct/design?block=side-reel","free":false,"added":"2026-11-18","tags":["desplazamiento","movimiento elástico"],"summary":"Carrusel horizontal gobernado por el desplazamiento vertical y con parallax."},{"id":"stepper-flow","type":"component","name":"Stepper flow","category":"Press","url":"https://www.tobiadonadon.com/projects/construct/design?block=stepper-flow","free":false,"added":"2026-11-18","tags":["pulsación","movimiento elástico","transición de estado"],"summary":"Flujo por pasos con confirmación y progreso alrededor de la acción principal."},{"id":"ferment","type":"website","name":"Ferment","category":"Commerce","url":"https://www.tobiadonadon.com/projects/construct/design?block=ferment","free":false,"added":"2026-11-17","tags":[],"poster":"https://www.tobiadonadon.com/design/websites/ferment/poster.webp"},{"id":"mise","type":"app","name":"Mise","category":"Food","url":"https://www.tobiadonadon.com/projects/construct/design?block=mise","free":false,"added":"2026-11-17","tags":["pulsación","formularios"],"poster":"https://www.tobiadonadon.com/design/apps/mise/poster.webp"},{"id":"scan","type":"app","name":"Scan","category":"Productivity","url":"https://www.tobiadonadon.com/projects/construct/design?block=scan","free":false,"added":"2026-11-17","tags":["pulsación","fotografía"],"poster":"https://www.tobiadonadon.com/design/apps/scan/poster.webp"},{"id":"paper-loader","type":"component","name":"Paper loader","category":"Loading","url":"https://www.tobiadonadon.com/projects/construct/design?block=paper-loader","free":false,"added":"2026-10-23","tags":["arrastre","tarjetas"],"summary":"Indicador de espera con piezas que cambian de forma al reordenarse."},{"id":"harvest","type":"website","name":"Harvest","category":"Commerce","url":"https://www.tobiadonadon.com/projects/construct/design?block=harvest","free":false,"added":"2026-11-18","tags":["precios"],"poster":"https://www.tobiadonadon.com/design/websites/harvest/poster.webp"},{"id":"inline-alert","type":"component","name":"Inline alert","category":"Press","url":"https://www.tobiadonadon.com/projects/construct/design?block=inline-alert","free":false,"added":"2026-11-18","tags":["arrastre","pulsación","transición de estado"],"summary":"Aviso cuya acción actualiza el estado y deja sitio al siguiente mensaje."},{"id":"activity-heatmap","type":"component","name":"Activity heatmap","category":"Hover","url":"https://www.tobiadonadon.com/projects/construct/design?block=activity-heatmap","free":false,"added":"2026-11-17","tags":["pulsación","puntero"],"summary":"Calendario de actividad con detalle por día y filtro por mes."},{"id":"receipt","type":"component","name":"Receipt","category":"Loading","url":"https://www.tobiadonadon.com/projects/construct/design?block=receipt","free":false,"added":"2026-10-23","tags":["pulsación"],"summary":"Animación de impresión que sustituye un recibo y despliega sus líneas."},{"id":"bloom","type":"website","name":"Bloom","category":"Health","url":"https://www.tobiadonadon.com/projects/construct/design?block=bloom","free":false,"added":"2026-11-18","tags":["puntero","vidrio","luz"],"poster":"https://www.tobiadonadon.com/design/websites/bloom/poster.webp"},{"id":"confirm-pop","type":"component","name":"Confirm pop","category":"Press","url":"https://www.tobiadonadon.com/projects/construct/design?block=confirm-pop","free":false,"added":"2026-11-18","tags":["pulsación"],"summary":"Acción de borrado que se abre en dos opciones de cancelación y confirmación."},{"id":"promo-code","type":"component","name":"Promo code","category":"Type","url":"https://www.tobiadonadon.com/projects/construct/design?block=promo-code","free":false,"added":"2026-11-18","tags":["formularios"],"summary":"Código promocional con confirmación visual del descuento y error explicativo."},{"id":"reading-light","type":"component","name":"Reading light","category":"Scroll","url":"https://www.tobiadonadon.com/projects/construct/design?block=reading-light","free":false,"added":"2026-11-18","tags":["desplazamiento","luz"],"summary":"Texto que adquiere énfasis por tramos según el desplazamiento."},{"id":"tag-input","type":"component","name":"Tag input","category":"Type","url":"https://www.tobiadonadon.com/projects/construct/design?block=tag-input","free":false,"added":"2026-11-18","tags":["pulsación","selección","tipografía","navegación"],"summary":"Campo que convierte texto en etiquetas y permite volver a editarlas."},{"id":"sleeve","type":"app","name":"Sleeve","category":"Music","url":"https://www.tobiadonadon.com/projects/construct/design?block=sleeve","free":false,"added":"2026-11-17","tags":["pulsación"],"poster":"https://www.tobiadonadon.com/design/apps/sleeve/poster.webp"},{"id":"split-panes","type":"component","name":"Split view","category":"Drag","url":"https://www.tobiadonadon.com/projects/construct/design?block=split-panes","free":false,"added":"2026-10-23","tags":["arrastre","navegación"],"summary":"Editor con divisores redimensionables y barra lateral plegable."},{"id":"price-switch","type":"component","name":"Price switch","category":"Drag","url":"https://www.tobiadonadon.com/projects/construct/design?block=price-switch","free":false,"added":"2026-11-18","tags":["arrastre","texto animado","movimiento elástico","precios"],"summary":"Conmutador de facturación que anima cifras y ahorro con el movimiento."},{"id":"tidal","type":"website","name":"Tidal","category":"SaaS","url":"https://www.tobiadonadon.com/projects/construct/design?block=tidal","free":false,"added":"2026-11-17","tags":["puntero","tarjetas"],"poster":"https://www.tobiadonadon.com/design/websites/tidal/poster.webp"},{"id":"image-accordion","type":"component","name":"Image accordion","category":"Hover","url":"https://www.tobiadonadon.com/projects/construct/design?block=image-accordion","free":false,"added":"2026-11-18","tags":["puntero","fotografía","movimiento elástico"],"summary":"Galería de franjas que abren una foto y revelan su pie."},{"id":"search-live","type":"component","name":"Search live","category":"Type","url":"https://www.tobiadonadon.com/projects/construct/design?block=search-live","free":false,"added":"2026-11-18","tags":["tipografía"],"summary":"Buscador que destaca la mejor coincidencia y permite recorrer alternativas."},{"id":"skeleton-swap","type":"component","name":"Skeleton swap","category":"Loading","url":"https://www.tobiadonadon.com/projects/construct/design?block=skeleton-swap","free":false,"added":"2026-11-18","tags":["arrastre","desplazamiento","carga"],"summary":"Transición entre esqueleto y contenido con un divisor manipulable."},{"id":"year-ring","type":"component","name":"Year ring","category":"Scroll","url":"https://www.tobiadonadon.com/projects/construct/design?block=year-ring","free":false,"added":"2026-11-18","tags":["desplazamiento","texto animado"],"summary":"Resumen anual que añade arcos mensuales conforme se desplaza la página."},{"id":"prompt-input","type":"component","name":"Prompt input","category":"Type","url":"https://www.tobiadonadon.com/projects/construct/design?block=prompt-input","free":false,"added":"2026-10-23","tags":["pulsación","tipografía","formularios"],"summary":"Caja de chat que crece al escribir y permite detener la respuesta."},{"id":"flow-index","type":"component","name":"Flow index","category":"Scroll","url":"https://www.tobiadonadon.com/projects/construct/design?block=flow-index","free":false,"added":"2026-11-18","tags":["desplazamiento","pulsación"],"summary":"Índice que sigue la sección activa con un indicador que se desplaza entre filas."},{"id":"kanban-drag","type":"component","name":"Kanban drag","category":"Drag","url":"https://www.tobiadonadon.com/projects/construct/design?block=kanban-drag","free":false,"added":"2026-11-18","tags":["pulsación","selección","movimiento elástico","transición de estado","tarjetas"],"summary":"Tablero con previsualización del hueco y actualización de recuentos al mover tarjetas."},{"id":"file-folder","type":"component","name":"Folder","category":"Hover","url":"https://www.tobiadonadon.com/projects/construct/design?block=file-folder","free":false,"added":"2026-10-23","tags":["pulsación","puntero","selección"],"summary":"Carpeta que revela sus archivos en abanico y permite seleccionar uno."},{"id":"assignee-picker","type":"component","name":"Assignees","category":"Drag","url":"https://www.tobiadonadon.com/projects/construct/design?block=assignee-picker","free":false,"added":"2026-11-18","tags":["arrastre","pulsación","movimiento elástico"],"summary":"Asignación de un miembro al arrastrar su avatar a una tarea."},{"id":"toast-stack","type":"component","name":"Toast stack","category":"Press","url":"https://www.tobiadonadon.com/projects/construct/design?block=toast-stack","free":false,"added":"2026-11-18","tags":["arrastre","pulsación","puntero","movimiento elástico","transición de estado"],"summary":"Pila de avisos con deshacer temporal, expansión y descarte por gesto."},{"id":"agent-run","type":"component","name":"Agent run","category":"Loading","url":"https://www.tobiadonadon.com/projects/construct/design?block=agent-run","free":false,"added":"2026-11-17","tags":["carga","transición de estado"],"summary":"Registro de ejecución que actualiza pasos y culmina en un resumen de cambios."},{"id":"bead-rail","type":"component","name":"Bead rail","category":"Drag","url":"https://www.tobiadonadon.com/projects/construct/design?block=bead-rail","free":false,"added":"2026-11-18","tags":["arrastre"],"summary":"Control de cantidad mediante cuentas que se empujan entre sí."},{"id":"marble-pick","type":"component","name":"Marble pick","category":"Select","url":"https://www.tobiadonadon.com/projects/construct/design?block=marble-pick","free":false,"added":"2026-11-18","tags":["arrastre","selección"],"summary":"Selector con una esfera que se ajusta a posiciones discretas."},{"id":"pull-cord","type":"component","name":"Pull cord","category":"Drag","url":"https://www.tobiadonadon.com/projects/construct/design?block=pull-cord","free":false,"added":"2026-11-18","tags":["pulsación","luz"],"summary":"Interruptor accionado por un cordón que supera un umbral de arrastre."},{"id":"swing-bell","type":"component","name":"Swing bell","category":"Press","url":"https://www.tobiadonadon.com/projects/construct/design?block=swing-bell","free":false,"added":"2026-11-18","tags":[],"summary":"Preferencia de notificaciones con campana y respuesta pendular."},{"id":"taut-line","type":"component","name":"Taut line","category":"Drag","url":"https://www.tobiadonadon.com/projects/construct/design?block=taut-line","free":false,"added":"2026-11-18","tags":["arrastre"],"summary":"Deslizador que representa la tensión al apartar el tirador de su eje."},{"id":"wax-seal","type":"component","name":"Wax seal","category":"Press","url":"https://www.tobiadonadon.com/projects/construct/design?block=wax-seal","free":false,"added":"2026-11-18","tags":["pulsación","movimiento elástico","transición de estado"],"summary":"Casilla de verificación que se representa como un sello reversible."},{"id":"voice-note","type":"component","name":"Voice note","category":"Press","url":"https://www.tobiadonadon.com/projects/construct/design?block=voice-note","free":false,"added":"2026-11-17","tags":["sonido"],"summary":"Grabación por pulsación sostenida, gesto de cancelación y control de reproducción."},{"id":"like-burst","type":"component","name":"Like burst","category":"Press","url":"https://www.tobiadonadon.com/projects/construct/design?block=like-burst","free":false,"added":"2026-10-23","tags":["color","texto animado","sonido"],"summary":"Reacción reversible con contador y respuesta breve al activarla."},{"id":"picker-wheel","type":"component","name":"Picker wheel","category":"Drag","url":"https://www.tobiadonadon.com/projects/construct/design?block=picker-wheel","free":false,"added":"2026-10-23","tags":["arrastre","selección","efecto 3D","sonido"],"summary":"Selector de hora con columnas desplazables y ajuste a filas."},{"id":"reactions","type":"component","name":"Reactions","category":"Drag","url":"https://www.tobiadonadon.com/projects/construct/design?block=reactions","free":false,"added":"2026-11-18","tags":["arrastre","pulsación","puntero"],"summary":"Pegatinas que se colocan sobre un mensaje mediante arrastre y se pueden retirar."},{"id":"pull-refresh","type":"component","name":"Pull to refresh","category":"Scroll","url":"https://www.tobiadonadon.com/projects/construct/design?block=pull-refresh","free":false,"added":"2026-11-17","tags":["carga","color","movimiento elástico"],"summary":"Actualización de un listado tras arrastrar más allá de un umbral."},{"id":"swipe-to-pay","type":"component","name":"Swipe to pay","category":"Drag","url":"https://www.tobiadonadon.com/projects/construct/design?block=swipe-to-pay","free":false,"added":"2026-10-23","tags":["arrastre","movimiento elástico","sonido","transición de estado"],"summary":"Control deslizante que confirma un pago al llegar al extremo y vuelve si se suelta pronto."},{"id":"app-sidebar","type":"component","name":"Sidebar","category":"Press","url":"https://www.tobiadonadon.com/projects/construct/design?block=app-sidebar","free":false,"added":"2026-11-18","tags":["pulsación","movimiento elástico","navegación"],"summary":"Barra lateral que se pliega en un carril de iconos conservando el estado activo."},{"id":"upload-drop","type":"component","name":"Upload drop","category":"Drag","url":"https://www.tobiadonadon.com/projects/construct/design?block=upload-drop","free":false,"added":"2026-11-18","tags":["selección","efecto 3D","transición de estado"],"summary":"Zona de subida donde la tarjeta del archivo muestra su progreso."},{"id":"notif-stack","type":"component","name":"Notification stack","category":"Drag","url":"https://www.tobiadonadon.com/projects/construct/design?block=notif-stack","free":false,"added":"2026-11-17","tags":["arrastre","pulsación"],"summary":"Agrupación de notificaciones que se despliega y permite descarte individual."},{"id":"segmented-control","type":"component","name":"Segmented control","category":"Select","url":"https://www.tobiadonadon.com/projects/construct/design?block=segmented-control","free":true,"added":"2026-10-23","tags":["selección","movimiento elástico"],"summary":"Selector de periodo con indicador móvil y navegación mediante teclado."},{"id":"star-rating","type":"component","name":"Star rating","category":"Select","url":"https://www.tobiadonadon.com/projects/construct/design?block=star-rating","free":false,"added":"2026-11-18","tags":[],"summary":"Valoración por estrellas con respuesta continua y etiqueta legible."},{"id":"sparkline-scrub","type":"component","name":"Price chart","category":"Hover","url":"https://www.tobiadonadon.com/projects/construct/design?block=sparkline-scrub","free":false,"added":"2026-11-18","tags":["puntero","datos","tarjetas","precios"],"summary":"Serie de precios con cursor que muestra fecha y valor."},{"id":"signature-pad","type":"component","name":"Signature pad","category":"Drag","url":"https://www.tobiadonadon.com/projects/construct/design?block=signature-pad","free":false,"added":"2026-11-18","tags":["arrastre"],"summary":"Captura de firma con grosor variable según la velocidad del trazo."},{"id":"stretch-switch","type":"component","name":"Stretch switch","category":"Press","url":"https://www.tobiadonadon.com/projects/construct/design?block=stretch-switch","free":false,"added":"2026-10-23","tags":["pulsación"],"summary":"Conmutador binario cuyo tirador se estira al desplazarse."},{"id":"reorder-list","type":"component","name":"Reorder list","category":"Drag","url":"https://www.tobiadonadon.com/projects/construct/design?block=reorder-list","free":false,"added":"2026-11-18","tags":["luz"],"summary":"Lista de prioridades con asa, posición de destino y reordenación."},{"id":"seat-stepper","type":"component","name":"Seat stepper","category":"Press","url":"https://www.tobiadonadon.com/projects/construct/design?block=seat-stepper","free":false,"added":"2026-10-23","tags":["texto animado","precios"],"summary":"Selector de cantidad con repetición sostenida, límites y actualización de precio."},{"id":"code-boxes","type":"component","name":"Code boxes","category":"Type","url":"https://www.tobiadonadon.com/projects/construct/design?block=code-boxes","free":false,"added":"2026-10-23","tags":["tipografía"],"summary":"Entrada de código de verificación con pegado y feedback de validación."},{"id":"thinking-shimmer","type":"component","name":"Thinking shimmer","category":"Loading","url":"https://www.tobiadonadon.com/projects/construct/design?block=thinking-shimmer","free":true,"added":"2026-10-23","tags":[],"summary":"Texto de espera para mostrar que una respuesta se está preparando."},{"id":"magnetic-button","type":"component","name":"Magnetic button","category":"Hover","url":"https://www.tobiadonadon.com/projects/construct/design?block=magnetic-button","free":false,"added":"2026-10-23","tags":["puntero","movimiento elástico"],"summary":"Acción que inclina su contenido hacia el puntero y vuelve al centro."},{"id":"password-strength","type":"component","name":"Password strength","category":"Type","url":"https://www.tobiadonadon.com/projects/construct/design?block=password-strength","free":false,"added":"2026-11-18","tags":["movimiento elástico"],"summary":"Indicador por reglas para mostrar requisitos de contraseña cumplidos."},{"id":"copy-field","type":"component","name":"Copy field","category":"Press","url":"https://www.tobiadonadon.com/projects/construct/design?block=copy-field","free":false,"added":"2026-10-23","tags":["pulsación","transición de estado"],"summary":"Campo copiable que destaca el texto y confirma el resultado."},{"id":"dot-field","type":"component","name":"Dot field","category":"Hover","url":"https://www.tobiadonadon.com/projects/construct/design?block=dot-field","free":false,"added":"2026-10-23","tags":["pulsación","puntero"],"summary":"Paisaje de semitono que deforma sus puntos cerca del puntero."},{"id":"avatar-stack","type":"component","name":"Avatar stack","category":"Hover","url":"https://www.tobiadonadon.com/projects/construct/design?block=avatar-stack","free":false,"added":"2026-10-23","tags":["puntero"],"summary":"Grupo de avatares que se abre y muestra el nombre bajo el puntero."},{"id":"magnify-dock","type":"component","name":"Dock","category":"Hover","url":"https://www.tobiadonadon.com/projects/construct/design?block=magnify-dock","free":false,"added":"2026-10-23","tags":["pulsación","puntero","movimiento elástico"],"summary":"Dock de aplicaciones que aumenta los elementos cerca del puntero."},{"id":"bit-dunes","type":"component","name":"Bit dunes","category":"Shader","url":"https://www.tobiadonadon.com/projects/construct/design?block=bit-dunes","free":false,"added":"2026-11-18","tags":["puntero","color","luz","formularios"],"summary":"Escena de dunas con tramado binario e iluminación localizada."},{"id":"card-printer","type":"component","name":"Card printer","category":"Press","url":"https://www.tobiadonadon.com/projects/construct/design?block=card-printer","free":false,"added":"2026-11-18","tags":["puntero","efecto 3D","luz","tarjetas"],"summary":"Creación de tarjeta virtual con animación de emisión desde una ranura."},{"id":"door-code","type":"component","name":"Door code","category":"Type","url":"https://www.tobiadonadon.com/projects/construct/design?block=door-code","free":false,"added":"2026-11-18","tags":["pulsación","tipografía","formularios"],"summary":"Inicio de sesión sin contraseña que expande la acción en un campo de código."},{"id":"file-hatch","type":"component","name":"File hatch","category":"Loading","url":"https://www.tobiadonadon.com/projects/construct/design?block=file-hatch","free":false,"added":"2026-11-18","tags":["pulsación","datos"],"summary":"Descarga cancelable que se transforma en una vista del archivo recibido."},{"id":"glyph-smoke","type":"component","name":"Glyph smoke","category":"Shader","url":"https://www.tobiadonadon.com/projects/construct/design?block=glyph-smoke","free":false,"added":"2026-11-18","tags":["puntero","tipografía","color","formularios"],"summary":"Simulación de humo con caracteres e interacción localizada."},{"id":"high-window","type":"component","name":"High window","category":"Shader","url":"https://www.tobiadonadon.com/projects/construct/design?block=high-window","free":false,"added":"2026-11-18","tags":["puntero","luz"],"summary":"Haces de luz volumétrica cuyo ángulo responde al puntero."},{"id":"lost-zero","type":"component","name":"Lost zero","category":"Drag","url":"https://www.tobiadonadon.com/projects/construct/design?block=lost-zero","free":false,"added":"2026-11-18","tags":["arrastre","selección","movimiento elástico"],"summary":"Página de error con un dígito manipulable que recupera su posición."},{"id":"open-strings","type":"component","name":"Open strings","category":"Shader","url":"https://www.tobiadonadon.com/projects/construct/design?block=open-strings","free":false,"added":"2026-11-18","tags":["puntero","formularios"],"summary":"Campo de líneas flexibles que se apartan y oscilan al atravesarlas."},{"id":"poured-chrome","type":"component","name":"Poured chrome","category":"Shader","url":"https://www.tobiadonadon.com/projects/construct/design?block=poured-chrome","free":false,"added":"2026-11-18","tags":["arrastre","puntero","fotografía","luz"],"summary":"Superficie metálica con reflejos que se deforman en ondas."},{"id":"powder-light","type":"component","name":"Powder light","category":"Shader","url":"https://www.tobiadonadon.com/projects/construct/design?block=powder-light","free":false,"added":"2026-11-18","tags":["puntero","color","luz"],"summary":"Halo de luz con grano y centro que se desplaza con el puntero."},{"id":"shower-door","type":"component","name":"Shower door","category":"Shader","url":"https://www.tobiadonadon.com/projects/construct/design?block=shower-door","free":false,"added":"2026-11-18","tags":["puntero","color","vidrio","luz"],"summary":"Distorsión de luces en franjas para simular vidrio acanalado."},{"id":"streak-flame","type":"component","name":"Streak flame","category":"Press","url":"https://www.tobiadonadon.com/projects/construct/design?block=streak-flame","free":false,"added":"2026-11-18","tags":["arrastre","texto animado","transición de estado"],"summary":"Recompensa visual por registrar un día y continuar una racha."},{"id":"tear-stub","type":"component","name":"Tear stub","category":"Drag","url":"https://www.tobiadonadon.com/projects/construct/design?block=tear-stub","free":false,"added":"2026-11-18","tags":["arrastre","transición de estado"],"summary":"Confirmación por arrastre con un efecto de desgarro al superar el umbral."},{"id":"wet-paint","type":"component","name":"Wet paint","category":"Shader","url":"https://www.tobiadonadon.com/projects/construct/design?block=wet-paint","free":false,"added":"2026-11-18","tags":["puntero","color"],"summary":"Malla de color que sigue el trazo del puntero y recupera la forma."}],"recipes":[{"id":"seleccion-intervalo","name":"Selector de periodo","category":"Select","summary":"Opciones excluyentes que permanecen visibles. El indicador secundario confirma qué intervalo está activo.","usage":"Úsalo para elegir un intervalo de datos o una preferencia corta. Si las opciones abren paneles, adapta la semántica al patrón de pestañas.","controls":"Elige un periodo. Con el foco en un periodo, usa las flechas.","tags":["filtro","selección","radios","tabs","periodo","segmented control"],"references":["segmented-control","tabs-glide","plan-cards"],"code":"\u003cstyle>\n  .periodos { border: 0; margin: 0; padding: 0; }\n  .periodos legend { margin-bottom: 10px; font-weight: 600; }\n  .periodos__fila { display: flex; flex-wrap: wrap; gap: 6px; }\n  .periodos label { display: flex; align-items: center; gap: 6px; padding: 9px; border: 1px solid #137c64; border-radius: 6px; cursor: pointer; }\n  .periodos label:has(:checked) { color: #fff; background: #174d40; }\n  .periodos input { accent-color: #137c64; }\n\u003c/style>\n\u003cfieldset class=\"periodos\">\n  \u003clegend>Intervalo de actividad\u003c/legend>\n  \u003cdiv class=\"periodos__fila\">\n    \u003clabel>\u003cinput type=\"radio\" name=\"intervalo\" value=\"dia\"> Día\u003c/label>\n    \u003clabel>\u003cinput type=\"radio\" name=\"intervalo\" value=\"semana\" checked> Semana\u003c/label>\n    \u003clabel>\u003cinput type=\"radio\" name=\"intervalo\" value=\"mes\"> Mes\u003c/label>\n  \u003c/div>\n\u003c/fieldset>\n"},{"id":"confirmacion-en-dos-pasos","name":"Confirmación en dos pasos","category":"Press","summary":"La primera acción despliega una decisión cerca del botón. Solo la confirmación aplica el cambio.","usage":"Nombra la consecuencia y ofrece cancelar. Para datos recuperables, valora deshacer tras aplicar el cambio. La demo simula el archivado.","controls":"Pulsa Archivar y elige Cancelar o Sí, archivar.","tags":["confirmación","borrar","destructivo","archivar","notas","click","press"],"references":["confirm-pop","hold-to-confirm","inline-alert","check-list"],"code":"\u003cbutton type=\"button\" id=\"archive-start\" aria-expanded=\"false\" aria-controls=\"archive-options\">Archivar nota\u003c/button>\n\u003cdiv id=\"archive-options\" hidden>\n  \u003cp>La nota se moverá al archivo.\u003c/p>\n  \u003cbutton type=\"button\" id=\"archive-cancel\">Cancelar\u003c/button>\n  \u003cbutton type=\"button\" id=\"archive-confirm\">Sí, archivar\u003c/button>\n\u003c/div>\n\u003cp id=\"archive-result\" role=\"status\" tabindex=\"-1\">\u003c/p>\n\u003cscript>\n  {\n    const start = document.querySelector('#archive-start')\n    const options = document.querySelector('#archive-options')\n    const result = document.querySelector('#archive-result')\n    const cancel = document.querySelector('#archive-cancel')\n\n    start.onclick = () => {\n      options.hidden = false\n      start.setAttribute('aria-expanded', 'true')\n      cancel.focus()\n    }\n\n    function closeConfirmation() {\n      options.hidden = true\n      start.setAttribute('aria-expanded', 'false')\n      start.focus()\n    }\n\n    cancel.onclick = closeConfirmation\n    options.onkeydown = event => {\n      if (event.key === 'Escape') closeConfirmation()\n    }\n\n    document.querySelector('#archive-confirm').onclick = () => {\n      options.hidden = true\n      start.hidden = true\n      start.setAttribute('aria-expanded', 'false')\n      result.textContent = 'Nota archivada.'\n      result.focus()\n    }\n  }\n\u003c/script>\n"},{"id":"comparador-de-capas","name":"Comparador de capas","category":"Drag","summary":"Un deslizador recorta la segunda capa y mantiene las dos muestras alineadas.","usage":"Compara dos versiones con el mismo encuadre. Mantén etiquetas visibles en ambos extremos y conserva un control de rango nativo.","controls":"Arrastra el deslizador o ajústalo con las flechas.","tags":["before after","comparación","antes después","arrastre","slider","range"],"references":["before-after","skeleton-swap","notch-slider","split-panes"],"code":"\u003cstyle>\n  .comparacion { --revelado: 50%; width: min(100%, 340px); margin: 0 auto; }\n  .comparacion__muestra { position: relative; border-radius: 8px; overflow: hidden; height: 112px; }\n  .comparacion__capa { position: absolute; inset: 0; display: grid; place-items: center; font-size: 4rem; line-height: 1; font-weight: 800; }\n  .comparacion__antes { color: #31413b; background: #d9e4de; }\n  .comparacion__despues { color: #ffe2b1; background: #551542; clip-path: inset(0 calc(100% - var(--revelado)) 0 0); }\n  .comparacion__marcador { position: absolute; inset: 0 auto 0 var(--revelado); width: 2px; background: white; transform: translateX(-50%); }\n  .comparacion input { width: 100%; accent-color: #551542; margin: 0; }\n  .comparacion label { display: block; text-align: center; margin-top: 8px; }\n\u003c/style>\n\u003cdiv class=\"comparacion\">\n  \u003cdiv class=\"comparacion__muestra\" aria-hidden=\"true\">\n    \u003cdiv class=\"comparacion__capa comparacion__antes\">Aa\u003c/div>\n    \u003cdiv class=\"comparacion__capa comparacion__despues\">Aa\u003c/div>\n    \u003cdiv class=\"comparacion__marcador\">\u003c/div>\n  \u003c/div>\n  \u003clabel for=\"comparacion-rango\">Proporción de la segunda versión\u003c/label>\n  \u003cinput id=\"comparacion-rango\" type=\"range\" value=\"50\" aria-valuetext=\"50 %\">\n\u003c/div>\n\u003cscript>\n  {\n    const rango = document.querySelector('#comparacion-rango')\n    rango.addEventListener('input', () => {\n      rango.closest('.comparacion').style.setProperty('--revelado', rango.value + '%')\n      rango.setAttribute('aria-valuetext', rango.value + ' %')\n    })\n  }\n\u003c/script>\n"},{"id":"realce-de-datos","name":"Realce de datos","category":"Hover","summary":"Un dato activo se resalta y actualiza una lectura común, con el eje siempre visible.","usage":"Destaca valores sin modificar la escala ni mover las marcas. Permite seleccionar el dato con tacto y teclado.","controls":"Apunta, toca o enfoca una de las barras.","tags":["gráfico","barras","hover","puntero","tooltip","datos","chart"],"references":["stacked-bars","bar-chart","sparkline-scrub","activity-heatmap"],"code":"\u003cstyle>\n  .grafico { width: min(100%, 340px); margin: auto; }\n  .grafico output { display: block; font-weight: 700; margin-bottom: 9px; }\n  .grafico__fila { display: flex; align-items: flex-end; justify-content: space-between; gap: 7px; min-height: 100px; }\n  .grafico button { display: grid; gap: 5px; flex: 1; min-width: 0; padding: 4px 1px; background: none; border: 0; color: #173627; }\n  .grafico button span { display: block; border-radius: 4px 4px 0 0; height: var(--valor); background: #b2c7b1; }\n  .grafico button[aria-pressed=\"true\"] span { background: #1b6147; }\n\u003c/style>\n\u003csection class=\"grafico\" aria-label=\"Sesiones por día\">\n  \u003coutput aria-live=\"off\">Lunes · 18 sesiones\u003c/output>\n  \u003cdiv class=\"grafico__fila\">\n    \u003cbutton type=\"button\" style=\"--valor: 36px\" aria-label=\"Lunes · 18 sesiones\" aria-pressed=\"true\">\u003cspan>\u003c/span>Lu\u003c/button>\n    \u003cbutton type=\"button\" style=\"--valor: 56px\" aria-label=\"Martes · 28 sesiones\" aria-pressed=\"false\">\u003cspan>\u003c/span>Ma\u003c/button>\n    \u003cbutton type=\"button\" style=\"--valor: 80px\" aria-label=\"Miércoles · 40 sesiones\" aria-pressed=\"false\">\u003cspan>\u003c/span>Mi\u003c/button>\n    \u003cbutton type=\"button\" style=\"--valor: 46px\" aria-label=\"Jueves · 23 sesiones\" aria-pressed=\"false\">\u003cspan>\u003c/span>Ju\u003c/button>\n    \u003cbutton type=\"button\" style=\"--valor: 66px\" aria-label=\"Viernes · 33 sesiones\" aria-pressed=\"false\">\u003cspan>\u003c/span>Vi\u003c/button>\n  \u003c/div>\n\u003c/section>\n\u003cscript>\n  {\n    const chart = document.querySelector('.grafico')\n    const buttons = [...chart.querySelectorAll('button')]\n    buttons.forEach(button => {\n      function showValue() {\n        for (const item of buttons) item.setAttribute('aria-pressed', String(item === button))\n        chart.querySelector('output').textContent = button.getAttribute('aria-label')\n      }\n      button.addEventListener('pointerenter', showValue)\n      button.addEventListener('focus', showValue)\n      button.addEventListener('click', showValue)\n    })\n  }\n\u003c/script>\n"},{"id":"indice-activo","name":"Índice de lectura","category":"Scroll","summary":"El índice actualiza su sección activa al recorrer el documento y permite saltar a cualquiera.","usage":"Conserva encabezados reales. Usa aria-current para informar qué sección está visible y respeta la preferencia de movimiento reducido.","controls":"Desplaza las secciones o pulsa uno de los títulos del índice.","tags":["índice","toc","scroll","lectura","documentación","navegación"],"references":["flow-index","reading-light","pile-up"],"code":"\u003cstyle>\n  .lectura { display: grid; grid-template-columns: 90px 1fr; gap: 12px; width: min(100%, 410px); margin: auto; }\n  .lectura nav { display: grid; align-content: start; gap: 4px; }\n  .lectura button { text-align: left; color: #232920; background: transparent; border: 1px solid transparent; border-radius: 5px; padding: 4px; }\n  .lectura button[aria-current=\"location\"] { color: #fff; background: #284a35; }\n  .lectura article { height: 118px; overflow-y: auto; border: 1px solid #b5c6ad; border-radius: 6px; padding-inline: 8px; }\n  .lectura section { min-height: 100%; padding: 10px 0; }\n  .lectura h2, .lectura p { margin: 0 0 5px; }\n  .lectura h2 { font-size: 1rem; }\n\u003c/style>\n\u003cdiv class=\"lectura\">\n  \u003cnav aria-label=\"Índice de la guía\">\n    \u003cbutton type=\"button\" aria-current=\"location\">Material\u003c/button>\n    \u003cbutton type=\"button\">Medidas\u003c/button>\n    \u003cbutton type=\"button\">Montaje\u003c/button>\n  \u003c/nav>\n  \u003carticle tabindex=\"0\" aria-label=\"Guía de impresión\">\n    \u003csection>\u003ch2>Material\u003c/h2>\u003cp>Escoge papel mate y una tinta de alto contraste.\u003c/p>\u003c/section>\n    \u003csection>\u003ch2>Medidas\u003c/h2>\u003cp>Deja margen junto a los bordes de corte.\u003c/p>\u003c/section>\n    \u003csection>\u003ch2>Montaje\u003c/h2>\u003cp>Comprueba la alineación antes de fijar las piezas.\u003c/p>\u003c/section>\n  \u003c/article>\n\u003c/div>\n\u003cscript>\n  {\n    const reader = document.querySelector('.lectura article')\n    const sections = [...reader.querySelectorAll('section')]\n    const links = [...document.querySelectorAll('.lectura nav button')]\n    const offset = section => reader.scrollTop + section.getBoundingClientRect().top - reader.getBoundingClientRect().top - reader.clientTop\n    function updateIndex() {\n      const active = sections.findLastIndex(section => offset(section) \u003c= reader.scrollTop + 2)\n      links.forEach((link, index) => {\n        if (index === active) link.setAttribute('aria-current', 'location')\n        else link.removeAttribute('aria-current')\n      })\n    }\n    links.forEach((link, index) => {\n      link.onclick = () => {\n        reader.scrollTop = offset(sections[index])\n        reader.focus({ preventScroll: true })\n      }\n    })\n    reader.addEventListener('scroll', updateIndex, { passive: true })\n  }\n\u003c/script>\n"},{"id":"etiquetas-editables","name":"Etiquetas editables","category":"Type","summary":"Convierte la entrada en una lista de etiquetas que se pueden quitar o volver a editar.","usage":"Separa el valor guardado de la entrada pendiente. Conserva el foco, evita duplicados y deja que termine la composición de teclado.","controls":"Escribe y añade con Enter. Usa Retroceso en un campo vacío para editar la última etiqueta.","tags":["input","formulario","texto","escribir","chips","tag input"],"references":["tag-input","prompt-input","search-live"],"code":"\u003cstyle>\n  .etiquetas { width: min(100%, 420px); margin: auto; }\n  .etiquetas label { display: block; margin-bottom: 6px; }\n  .etiquetas input { width: min(55%, 220px); padding: 7px; font: inherit; border: 1px solid #56866b; border-radius: 5px; }\n  .etiquetas ul { display: flex; flex-wrap: wrap; gap: 4px; padding: 0; margin: 8px 0; list-style: none; }\n  .etiquetas li button { padding: 3px 6px; }\n  .etiquetas p { margin: 5px 0; }\n\u003c/style>\n\u003cform class=\"etiquetas\">\n  \u003clabel for=\"etiquetas-entrada\">Etiquetas de la nota\u003c/label>\n  \u003cinput id=\"etiquetas-entrada\" placeholder=\"Ej. contraste\" maxlength=\"30\">\n  \u003cbutton type=\"submit\">Añadir\u003c/button>\n  \u003cul aria-label=\"Etiquetas añadidas\">\u003c/ul>\n  \u003cp role=\"status\">\u003c/p>\n\u003c/form>\n\u003cscript>\n  {\n    const form = document.querySelector('.etiquetas')\n    const field = form.querySelector('input')\n    const list = form.querySelector('ul')\n    const status = form.querySelector('[role=status]')\n    const tags = ['Diseño']\n\n    function renderTags() {\n      list.replaceChildren()\n      tags.forEach((tag, index) => {\n        const item = document.createElement('li')\n        const remove = document.createElement('button')\n        remove.type = 'button'\n        remove.textContent = tag + ' ×'\n        remove.setAttribute('aria-label', 'Quitar ' + tag)\n        remove.onclick = () => {\n          tags.splice(index, 1)\n          renderTags()\n          field.focus()\n          status.textContent = 'Etiqueta retirada.'\n        }\n        item.append(remove)\n        list.append(item)\n      })\n    }\n\n    form.onsubmit = event => {\n      event.preventDefault()\n      const tag = field.value.trim()\n      if (!tag) return\n      if (tags.some(value => value.toLocaleLowerCase() === tag.toLocaleLowerCase())) {\n        status.textContent = 'La etiqueta ya existe.'\n        return\n      }\n      if (tags.length >= 4) {\n        status.textContent = 'La muestra admite hasta cuatro etiquetas.'\n        return\n      }\n      tags.push(tag)\n      renderTags()\n      field.value = ''\n      field.focus()\n      status.textContent = 'Etiqueta añadida.'\n    }\n\n    field.onkeydown = event => {\n      if (event.isComposing) return\n      if (event.key === 'Backspace' && !field.value && tags.length) {\n        event.preventDefault()\n        field.value = tags.pop()\n        renderTags()\n        status.textContent = 'Editando la última etiqueta.'\n      }\n    }\n\n    renderTags()\n  }\n\u003c/script>\n"},{"id":"guardado-asincrono","name":"Guardado asíncrono","category":"Loading","summary":"Una acción conserva su sitio mientras pasa por espera, error recuperable y éxito.","usage":"En producción, vincula el éxito a la respuesta real. Conserva los cambios locales si falla y evita envíos simultáneos.","controls":"El primer intento simula un fallo. Reintentar completa el guardado.","tags":["loading","spinner","carga","guardado","error","retry","feedback"],"references":["async-button","agent-run","file-hatch","thinking-shimmer","pay-button"],"code":"\u003cbutton type=\"button\" id=\"save-note\">Guardar nota\u003c/button>\n\u003cp id=\"save-status\" role=\"status\">\u003c/p>\n\u003cscript>\n  {\n    const save = document.querySelector('#save-note')\n    const status = document.querySelector('#save-status')\n    let firstAttempt = true\n    let pending = false\n\n    // Sustituye este ejemplo por la petición real de la aplicación.\n    async function saveNote() {\n      await new Promise(resolve => setTimeout(resolve, 550))\n      if (firstAttempt) {\n        firstAttempt = false\n        throw new Error('La conexión se ha interrumpido.')\n      }\n    }\n\n    save.onclick = async () => {\n      if (pending) return\n      pending = true\n      save.setAttribute('aria-disabled', 'true')\n      save.textContent = 'Guardando…'\n      status.textContent = ''\n      try {\n        await saveNote()\n        save.textContent = 'Guardar otra vez'\n        status.textContent = 'Nota guardada.'\n      } catch (error) {\n        save.textContent = 'Reintentar'\n        status.textContent = error.message\n      } finally {\n        pending = false\n        save.removeAttribute('aria-disabled')\n      }\n    }\n  }\n\u003c/script>\n"},{"id":"luz-localizada","name":"Luz localizada","category":"Shader","summary":"Una capa de luz sigue el puntero sobre un fondo fijo. La demo usa un gradiente CSS.","usage":"Trabaja con coordenadas relativas al área. Mantén el texto sobre una superficie legible y devuelve la iluminación a una posición estable cuando termina el gesto.","controls":"Mueve el puntero sobre la muestra o toca un punto.","tags":["shader","css","gradiente","background","luz","puntero","efecto visual"],"references":["powder-light","flow-card","light-leak","wet-paint"],"code":"\u003cstyle>\n  .ensayo-luz {\n    --x: 50%;\n    --y: 45%;\n    display: grid;\n    place-items: center;\n    width: min(100%, 430px);\n    min-height: 130px;\n    margin: auto;\n    border-radius: 8px;\n    background: radial-gradient(ellipse at var(--x) var(--y), #d9f47a 0, #778f45 22%, #26392f 46%, #122019 80%);\n    color: white;\n  }\n  .ensayo-luz strong { background: #16281d; border-radius: 3px; padding: 5px 9px; }\n\u003c/style>\n\u003cdiv class=\"ensayo-luz\">\u003cstrong>Estudio de luz\u003c/strong>\u003c/div>\n\u003cscript>\n  {\n    const sample = document.querySelector('.ensayo-luz')\n    function moveLight(event) {\n      const rect = sample.getBoundingClientRect()\n      sample.style.setProperty('--x', (event.clientX - rect.left) / rect.width * 100 + '%')\n      sample.style.setProperty('--y', (event.clientY - rect.top) / rect.height * 100 + '%')\n    }\n    sample.addEventListener('pointermove', moveLight)\n    sample.addEventListener('pointerdown', moveLight)\n    sample.addEventListener('pointerleave', () => {\n      sample.style.removeProperty('--x')\n      sample.style.removeProperty('--y')\n    })\n  }\n\u003c/script>\n"}]}</script>
+  <script>const groups = {
+  Drag: ['Arrastre', 'arrastrar gesto swipe drag'],
+  Press: ['Pulsación', 'pulsar botón press click tap'],
+  Hover: ['Puntero', 'hover foco puntero ratón'],
+  Select: ['Selección', 'selector select elegir'],
+  Type: ['Escritura', 'escribir entrada formulario type'],
+  Scroll: ['Desplazamiento', 'scroll desplazamiento'],
+  Loading: ['Carga', 'loading espera progreso asíncrono'],
+  Shader: ['Efectos visuales', 'shader luz visual gradiente'],
+  Productivity: ['Productividad', 'productivity'],
+  Finance: ['Finanzas', 'finance pago dinero'],
+  Health: ['Salud', 'health bienestar'],
+  Travel: ['Viajes', 'travel'],
+  Social: ['Social', 'comunidad'],
+  Home: ['Hogar', 'home'],
+  Food: ['Comida', 'food cocina'],
+  Music: ['Música', 'music audio'],
+  AI: ['IA', 'ai inteligencia artificial'],
+  Commerce: ['Comercio', 'commerce tienda ecommerce'],
+  Agency: ['Agencia', 'agency'],
+  Portfolio: ['Portafolio', 'portfolio'],
+  SaaS: ['SaaS', 'software'],
+  Studio: ['Estudio', 'studio']
+}
+
+const types = {
+  component: 'Componente',
+  app: 'App',
+  website: 'Web',
+  recipe: 'Patrón original'
+}
+
+function words(value) {
+  return value.normalize('NFD').replace(/\p{Diacritic}/gu, '')
+    .toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim()
+}
+
+const stopWords = new Set('a al con de del el en for la las los me para por que un una y and the with'.split(' '))
+
+function includesTerm(text, term) {
+  if (term.length <= 2) return (' ' + text + ' ').includes(' ' + term + ' ')
+  return text.includes(term)
+}
+
+function categoryLabel(category) {
+  return groups[category]?.[0] ?? category
+}
+
+function createLibrary(snapshot) {
+  const entries = [
+    ...snapshot.references,
+    ...snapshot.recipes.map(({ code, ...entry }) => ({ ...entry, type: 'recipe' }))
+  ]
+  const byId = new Map(entries.map(entry => [entry.id, entry]))
+  const recipesById = new Map(snapshot.recipes.map(entry => [entry.id, entry]))
+  const indexed = entries.map(entry => ({
+    entry,
+    name: words(entry.name + ' ' + entry.id),
+    labels: words([entry.category, ...(groups[entry.category] ?? []), ...entry.tags].join(' ')),
+    summary: words(entry.summary ?? '')
+  }))
+
+  function search({ query = '', type, category, offset = 0, limit = 24 } = {}) {
+    const phrase = words(query)
+    let terms = [...new Set(phrase.split(' ').filter(term => term && !stopWords.has(term)))]
+    if (phrase && !terms.length) terms = [phrase]
+    const matches = []
+    for (const { entry, name, labels, summary } of indexed) {
+      if ((type && entry.type !== type) || (category && entry.category !== category)) continue
+      let score = phrase && includesTerm(name, phrase) ? 8 : 0
+      const matched = terms.every(term => {
+        const weight = includesTerm(name, term) ? 5
+          : includesTerm(labels, term) ? 3
+          : includesTerm(summary, term) ? 1
+          : 0
+        score += weight
+        return weight > 0
+      })
+      if (matched) matches.push({ entry, score })
+    }
+    matches.sort((a, b) => b.score - a.score)
+    return {
+      total: matches.length,
+      offset,
+      items: matches.slice(offset, offset + limit).map(({ entry }) => entry)
+    }
+  }
+
+  function listCategories(type) {
+    const totals = new Map()
+    for (const entry of entries) {
+      if (type && entry.type !== type) continue
+      totals.set(entry.category, (totals.get(entry.category) ?? 0) + 1)
+    }
+    return [...totals].map(([id, count]) => ({ id, label: categoryLabel(id), count }))
+      .sort((a, b) => a.label.localeCompare(b.label, 'es'))
+  }
+
+  function get(id, includeCode = false) {
+    const entry = byId.get(id)
+    if (!entry) return null
+    if (entry.type === 'recipe') {
+      const references = entry.references.map(id => byId.get(id))
+      const result = { ...entry, references }
+      if (includeCode) result.code = recipesById.get(id).code
+      return result
+    }
+
+    const originals = entries.filter(item => item.type === 'recipe' && item.references.includes(id))
+    const categoryRecipe = entries.find(item => item.type === 'recipe' && item.category === entry.category)
+    return { ...entry, originals, categoryRecipe: categoryRecipe ?? null }
+  }
+
+  return { search, get, listCategories }
+}
+
+if (typeof module !== 'undefined') module.exports = { createLibrary, categoryLabel, types }
+
+const snapshot = JSON.parse(document.querySelector('#snapshot').textContent)
+const library = createLibrary(snapshot)
+const $ = id => document.getElementById(id)
+const mobile = matchMedia('(max-width: 879px)')
+const pageSize = 24
+let type = ''
+let offset = 0
+let listed = []
+let renderedDetail = null
+let returningToCatalogue = false
+
+const newElement = (tag, text, className) => {
+  const element = document.createElement(tag)
+  if (text) element.textContent = text
+  if (className) element.className = className
+  return element
+}
+
+function itemLink(entry, className, text = entry.name) {
+  const link = newElement('a', text, className)
+  link.href = '#ficha/' + entry.id
+  return link
+}
+
+function externalLink(text, url, className) {
+  const link = newElement('a', text, className)
+  link.href = url
+  link.target = '_blank'
+  link.rel = 'noreferrer'
+  return link
+}
+
+function art(entry, large = false) {
+  const swatch = newElement('span', '', large ? 'swatch detail-art' : 'swatch')
+  swatch.dataset.category = entry.category
+  swatch.setAttribute('aria-hidden', 'true')
+  if (entry.poster) {
+    const image = newElement('img')
+    image.alt = ''
+    image.loading = 'lazy'
+    image.referrerPolicy = 'no-referrer'
+    image.addEventListener('error', () => image.remove(), { once: true })
+    image.src = entry.poster
+    swatch.append(image)
+  }
+  return swatch
+}
+
+function renderCard(entry) {
+  const link = itemLink(entry, 'card', '')
+  const text = newElement('span')
+  text.append(newElement('strong', entry.name), newElement('small', categoryLabel(entry.category) + ' · ' + types[entry.type]))
+  link.dataset.id = entry.id
+  link.append(art(entry), text)
+  return link
+}
+
+function currentEntry() {
+  const id = location.hash.startsWith('#ficha/') ? location.hash.slice(7) : null
+  return id ? library.get(id, true) : null
+}
+
+function addTags(container, tags) {
+  if (!tags.length) return
+  const list = newElement('ul', '', 'tags')
+  list.setAttribute('aria-label', 'Características')
+  list.append(...tags.map(tag => newElement('li', tag)))
+  container.append(list)
+}
+
+function addRelated(container, label, entries) {
+  if (!entries.length) return
+  const links = newElement('div', '', 'related')
+  links.append(...entries.map(entry => itemLink(entry)))
+  container.append(newElement('h3', label), links)
+}
+
+const demoStyles = `
+  *, *::before, *::after { box-sizing: border-box; }
+  html { color-scheme: light; }
+  body { min-height: calc(100dvh - 24px); display: grid; align-content: center; padding: 0 1px; margin: 12px; color: #222b23; background: #eaf2e3; font: 15px/1.42 system-ui, sans-serif; }
+  button { font: inherit; padding: 7px; border: 1px solid #56866b; background: #f8fbf5; border-radius: 5px; cursor: pointer; color: inherit; }
+  button[aria-disabled="true"] { cursor: wait; }
+  :focus-visible { outline: 2px solid #226040; outline-offset: 2px; }
+`
+
+function renderRecipe(entry, container) {
+  const frame = newElement('iframe')
+  frame.title = 'Demostración de ' + entry.name
+  frame.setAttribute('sandbox', 'allow-scripts allow-forms')
+  frame.srcdoc = '<!doctype html><html lang="es"><meta charset="utf-8"><style>' + demoStyles + '</style><body>' + entry.code
+  container.append(frame, newElement('p', entry.controls, 'meta'), newElement('p', entry.usage))
+
+  const disclosure = newElement('details')
+  const code = newElement('textarea')
+  code.readOnly = true
+  code.spellcheck = false
+  code.setAttribute('aria-label', 'Código HTML de ' + entry.name)
+  code.value = entry.code
+  const copy = newElement('button', 'Copiar código', 'copy')
+  const status = newElement('p', '', 'meta')
+  status.setAttribute('role', 'status')
+  status.hidden = true
+  copy.onclick = async () => {
+    try {
+      await navigator.clipboard.writeText(entry.code)
+      status.textContent = 'Código copiado.'
+    } catch {
+      code.focus()
+      code.select()
+      status.textContent = 'Código seleccionado. Pulsa ⌘C o Ctrl+C para copiar.'
+    }
+    status.hidden = false
+  }
+  disclosure.append(newElement('summary', 'Ver código HTML'), code, copy, status)
+  container.append(disclosure)
+  addRelated(container, 'Referencias de Construct', entry.references)
+}
+
+function renderDetail(entry) {
+  const container = $('detail')
+  container.replaceChildren()
+  if (!entry) {
+    container.append(newElement('h2', 'Explora una ficha'), newElement('p', 'Elige un resultado para ver sus características y referencias.'))
+    return
+  }
+
+  if (entry.type !== 'recipe') container.append(art(entry, true))
+  const title = newElement('h2', entry.name)
+  title.tabIndex = -1
+  const meta = types[entry.type] + ' · ' + categoryLabel(entry.category)
+  container.append(newElement('div', meta, 'meta'), title)
+  if (entry.summary) container.append(newElement('p', entry.summary))
+  if (entry.type === 'recipe') {
+    renderRecipe(entry, container)
+  } else {
+    addTags(container, entry.tags)
+    container.append(externalLink('Ver demo en Construct', entry.url, 'source'))
+    if (entry.originals.length) {
+      addRelated(container, 'Patrones originales relacionados', entry.originals)
+    } else if (entry.categoryRecipe) {
+      addRelated(container, 'Patrón original de esta categoría', [entry.categoryRecipe])
+    }
+  }
+}
+
+function updateDetail({ focus = false } = {}) {
+  const selected = currentEntry()
+  $('workspace').dataset.open = String(Boolean(selected))
+  for (const link of $('results').querySelectorAll('.card')) {
+    if (selected?.id === link.dataset.id) link.setAttribute('aria-current', 'true')
+    else link.removeAttribute('aria-current')
+  }
+  const detailId = selected?.id ?? listed[0]?.id ?? null
+  if (renderedDetail !== detailId || !$('detail').firstChild) {
+    renderDetail(selected ?? library.get(detailId, true))
+    $('inspector').scrollTop = 0
+    renderedDetail = detailId
+  }
+  if (!focus) return
+  if (mobile.matches && selected) $('inspector').scrollIntoView()
+  if (selected) $('detail').querySelector('h2')?.focus({ preventScroll: true })
+  else if (mobile.matches) $('query').focus({ preventScroll: true })
+}
+
+function showResults() {
+  const { total, items } = library.search({
+    query: $('query').value, type, category: $('category').value, offset, limit: pageSize
+  })
+  listed = items
+  const label = total === 1 ? 'ficha' : 'fichas'
+  $('result-count').textContent = total + ' ' + label
+  $('position').textContent = total > pageSize ? (offset + 1) + '–' + (offset + items.length) + ' de ' + total : ''
+  const empty = newElement('p', 'Prueba otro término o quita un filtro.', 'empty')
+  $('results').replaceChildren(...(items.length ? items.map(renderCard) : [empty]))
+  $('pager').hidden = total <= pageSize
+  $('previous').disabled = offset === 0
+  $('next').disabled = offset + pageSize >= total
+  updateDetail()
+}
+
+function populateCategories() {
+  $('category').replaceChildren(new Option('Todas las categorías', ''))
+  for (const group of library.listCategories(type)) {
+    $('category').append(new Option(group.label + ' (' + group.count + ')', group.id))
+  }
+}
+
+function returnToCatalogue() {
+  if (returningToCatalogue) return
+  if (history.state?.fromCatalogue) {
+    returningToCatalogue = true
+    history.back()
+  } else {
+    history.replaceState(null, '', '#catalogo')
+    updateDetail({ focus: true })
+    if (mobile.matches) $('query').scrollIntoView({ block: 'center' })
+  }
+}
+
+function resetFilters() {
+  offset = 0
+  if (currentEntry()) returnToCatalogue()
+  showResults()
+}
+
+const options = [
+  ['', 'Todo'], ['component', 'Componentes'], ['app', 'Apps'],
+  ['website', 'Webs'], ['recipe', 'Patrones originales']
+]
+for (const [value, label] of options) {
+  const count = library.search({ type: value, limit: 0 }).total
+  const button = newElement('button', label, 'type')
+  button.type = 'button'
+  button.setAttribute('aria-pressed', String(!value))
+  button.append(newElement('span', String(count)))
+  button.onclick = () => {
+    type = value
+    for (const other of $('types').children) other.setAttribute('aria-pressed', String(other === button))
+    populateCategories()
+    resetFilters()
+  }
+  $('types').append(button)
+}
+
+$('filters').onsubmit = event => event.preventDefault()
+$('query').addEventListener('input', resetFilters)
+$('category').addEventListener('change', resetFilters)
+$('workspace').addEventListener('click', event => {
+  const link = event.target.closest('a[href^="#ficha/"]')
+  if (!link || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
+  event.preventDefault()
+  if (currentEntry()) {
+    history.replaceState(history.state, '', link.hash)
+  } else {
+    history.pushState({ fromCatalogue: true }, '', link.hash)
+  }
+  updateDetail({ focus: true })
+})
+
+$('back').onclick = returnToCatalogue
+document.querySelector('.wordmark').addEventListener('click', event => {
+  if (!currentEntry() || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
+  event.preventDefault()
+  returnToCatalogue()
+})
+for (const [id, change] of [['previous', -1], ['next', 1]]) {
+  $(id).onclick = () => {
+    offset += change * pageSize
+    showResults()
+    const first = $('results').querySelector('.card')
+    first?.focus()
+  }
+}
+window.addEventListener('hashchange', () => {
+  returningToCatalogue = false
+  updateDetail({ focus: true })
+})
+populateCategories()
+showResults()
+</script>
+</body>
+</html>

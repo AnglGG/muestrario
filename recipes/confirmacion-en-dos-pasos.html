@@ -1,0 +1,40 @@
+<button type="button" id="archive-start" aria-expanded="false" aria-controls="archive-options">Archivar nota</button>
+<div id="archive-options" hidden>
+  <p>La nota se moverá al archivo.</p>
+  <button type="button" id="archive-cancel">Cancelar</button>
+  <button type="button" id="archive-confirm">Sí, archivar</button>
+</div>
+<p id="archive-result" role="status" tabindex="-1"></p>
+<script>
+  {
+    const start = document.querySelector('#archive-start')
+    const options = document.querySelector('#archive-options')
+    const result = document.querySelector('#archive-result')
+    const cancel = document.querySelector('#archive-cancel')
+
+    start.onclick = () => {
+      options.hidden = false
+      start.setAttribute('aria-expanded', 'true')
+      cancel.focus()
+    }
+
+    function closeConfirmation() {
+      options.hidden = true
+      start.setAttribute('aria-expanded', 'false')
+      start.focus()
+    }
+
+    cancel.onclick = closeConfirmation
+    options.onkeydown = event => {
+      if (event.key === 'Escape') closeConfirmation()
+    }
+
+    document.querySelector('#archive-confirm').onclick = () => {
+      options.hidden = true
+      start.hidden = true
+      start.setAttribute('aria-expanded', 'false')
+      result.textContent = 'Nota archivada.'
+      result.focus()
+    }
+  }
+</script>
