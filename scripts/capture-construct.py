@@ -13,10 +13,22 @@ from urllib.request import urlopen
 
 ORIGIN = "https://www.tobiadonadon.com"
 CATALOGUE = "/projects/construct/design"
+PAGES = {
+    "index.html": "?kind=component",
+    "mcp/index.html": "/mcp",
+    "pricing/index.html": "/pricing",
+}
 STATIC = "/_next/static/"
 IMAGES = re.compile(r"/design/(?:apps|components|site|websites)/[\w./-]+\.webp")
 FONT = re.compile(r"\.\./media/([\w.-]+\.woff2(?:\?[^)'\"]+)?)")
 ANALYTICS = re.compile(r'("analytics":\{"scriptSrc":")[\w/-]+/script\.js(")')
+PATHNAME_HOOK = re.compile(
+    r'("usePathname\(\)"\),)(\(0,[\w$]+\.useContext\)\([\w$]+\.PathnameContext\))'
+)
+AUTH_FIELD = re.compile(
+    r'((?:type:"email",inputMode:"email"|type:[\w$]+\?"text":"password"),)'
+    r'autoComplete:("(?:email|username)"|[\w$]+),'
+)
 
 
 class ClientFiles(HTMLParser):
@@ -27,7 +39,7 @@ class ClientFiles(HTMLParser):
     def handle_starttag(self, tag, attrs):
         attributes = dict(attrs)
         asset = attributes.get("src" if tag == "script" else "href") or ""
-        if tag in ("link", "script") and asset.startswith(STATIC):
+        if tag in ("link", "script") and asset.startswith(STATIC + "chunks/"):
             self.urls.add(asset)
 
 
@@ -42,6 +54,51 @@ def static_copy(source, prefix):
     source = source.replace("/_next/", prefix + "/_next/")
     source = source.replace(prefix + "/_next/image", ORIGIN + "/_next/image")
     return IMAGES.sub(lambda match: prefix + match[0], source)
+
+
+def adapt_client(source, prefix):
+    paths = {prefix + route + "/": CATALOGUE + route for route in PAGES.values() if route.startswith("/")}
+    paths[prefix + "/"] = CATALOGUE
+    # Keep Next's UI pathname canonical so the server-rendered navigation matches.
+    source = PATHNAME_HOOK.sub(
+        lambda match: f'{match[1]}(path=>({json.dumps(paths)})[path]??path)({match[2]})',
+        source,
+    )
+    if not ("cd:kind" in source and "cd:open" in source):
+        return source
+
+    route = re.search(r'\blet ([\w$]+)="' + re.escape(CATALOGUE) + r'",', source)
+    if not route:
+        raise ValueError("No se pudo adaptar la navegación de Construct")
+    binding = re.escape(route[1])
+    source, checks = re.subn(
+        r'(window\.location\.pathname(?:===|!==))' + binding + r'\b',
+        lambda match: match[1] + json.dumps(prefix + "/"),
+        source,
+    )
+    source, jumps = re.subn(
+        r'(window\.location\.assign\(`)\$\{' + binding + r'\}(?=\?)',
+        lambda match: match[1] + prefix + "/",
+        source,
+    )
+    # Keep the original dialogs and let the original domain accept credentials.
+    source, fields = AUTH_FIELD.subn(
+        lambda match: (
+            match[1] + 'readOnly:!0,autoComplete:"off",title:"Continue on tobiadonadon.com",'
+            + ('"data-account-mode":"signin",' if match[2] == '"username"' else "")
+        ),
+        source,
+    )
+    if (checks, jumps, fields) != (3, 2, 4):
+        raise ValueError(
+            f"El frontend cambió ({checks} comparaciones, {jumps} saltos, {fields} campos). "
+            "Revisa la navegación y los diálogos antes de publicar."
+        )
+    return source.replace(
+        'sub:"Type your email and we\'ll send you a code."',
+        'sub:"Choose Forgot it? on Construct to reset your password."',
+        1,
+    ).replace('children:"Send the code"', 'children:"Open Construct sign-in"', 1)
 
 
 def save_clientfile(output, path, content):
@@ -65,16 +122,21 @@ def download_asset(output, path):
 
 
 def capture(output, prefix):
-    page_url = CATALOGUE + "?kind=component"
-    html = fetch(page_url).decode()
     files = ClientFiles()
-    files.feed(html)
-    if "__next_f" not in html or not files.urls:
-        raise ValueError("La página ya no entrega el HTML y los archivos esperados")
-    images = set(IMAGES.findall(html))
+    images = set()
     fonts = set()
     browser = Path(__file__).with_name("construct-browser.js").read_text()
+    browser = browser.replace("'__CONSTRUCT_MIRROR__'", json.dumps(prefix + "/"))
     with ThreadPoolExecutor(max_workers=5) as pool:
+        for page, data in zip(PAGES, pool.map(fetch, (CATALOGUE + route for route in PAGES.values()))):
+            html = data.decode()
+            if "__next_f" not in html:
+                raise ValueError(f"La página ya no entrega el HTML esperado: {page}")
+            files.feed(html)
+            images.update(IMAGES.findall(html))
+            save_clientfile(output, "/" + page, static_copy(html, prefix).encode())
+        if not files.urls:
+            raise ValueError("La página ya no entrega los archivos de cliente esperados")
         paths = sorted(files.urls)
         for path, data in zip(paths, pool.map(fetch, paths)):
             source = data.decode()
@@ -85,6 +147,8 @@ def capture(output, prefix):
                 lambda match: match[1] + prefix.lstrip("/") + "/analytics-disabled.js" + match[2],
                 source,
             )
+            if urlsplit(path).path.endswith(".js"):
+                source = adapt_client(source, prefix)
             if urlsplit(path).path.rsplit("/", 1)[-1].startswith("turbopack-"):
                 source = browser + ";\n" + source
             save_clientfile(output, path, source.encode())
@@ -97,7 +161,6 @@ def capture(output, prefix):
         raise ValueError("La captura requiere una sesión anónima")
     save_clientfile(output, "/stats.json", fetch("/api/design/stats"))
     save_clientfile(output, "/analytics-disabled.js", b"// Analytics stays on the original site.\n")
-    save_clientfile(output, "/index.html", static_copy(html, prefix).encode())
     print(f"{len(files.urls)} archivos de cliente y {downloaded}/{len(media)} recursos.", flush=True)
 
 

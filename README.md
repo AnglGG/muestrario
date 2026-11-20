@@ -9,7 +9,7 @@ La réplica de la galería pública usa el HTML, los estilos, los archivos JavaS
 - **En GitHub Pages**, cuando esté activo, abre la [réplica](https://anglgg.github.io/muestrario/construct/?kind=component).
 - **En tu equipo**, clona el repositorio en una carpeta llamada `muestrario`. Desde la carpeta que la contiene, ejecuta `python3 -m http.server 8000 --bind 127.0.0.1` y abre `http://127.0.0.1:8000/muestrario/construct/?kind=component`.
 
-Las acciones de cuenta y suscripción llevan a Construct. Las descargas protegidas y el MCP Pro requieren acceso al servicio original. El [MCP de Muestrario](#mcp-local) sigue ofreciendo la búsqueda de referencias y los ocho patrones originales.
+La réplica incluye la galería, la búsqueda, las demos navegables y las páginas públicas de MCP y precios. Los diálogos de cuenta llevan al dominio de Construct al continuar. Las descargas protegidas y el MCP Pro requieren acceso al servicio original. El [MCP de Muestrario](#mcp-local) ofrece la búsqueda de referencias y los ocho patrones originales.
 
 Para actualizar la captura, ejecuta `python3 scripts/capture-construct.py <carpeta-temporal>`. La ruta pública predeterminada es `/muestrario/construct/`.
 

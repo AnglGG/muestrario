@@ -1,28 +1,41 @@
 (() => {
   const original = new URL('https://www.tobiadonadon.com/projects/construct/design')
-  const officialAccount = new URL('/projects/construct/account?from=design', original)
-  const officialJoin = new URL('/projects/construct/join', original)
+  const mirror = new URL("/muestrario/construct/", location.origin)
+  const publicPages = new Set(['', '/mcp', '/pricing'])
+  const officialAccount = new URL('/projects/construct/account', original)
   const officialPricing = new URL(original.pathname + '/pricing', original)
   const nativeFetch = window.fetch.bind(window)
-  const stats = new URL('stats.json', location.href.split('?')[0].split('#')[0])
+  const stats = new URL('stats.json', mirror)
   const internalLink = 'a[href^="/"]:not([href^="//"])'
   const rewrittenLinks = new WeakSet()
+  let proBilling = null
 
-  try {
-    // The welcome form belongs on the original domain, like the join button.
-    localStorage.setItem('cd:welcomed', '1')
-  } catch {}
+  window.addEventListener('cd:auth', ({ detail }) => {
+    proBilling = detail?.step === 'plan' ? detail.billing || 'monthly' : null
+  })
 
-  function openOriginal() {
-    const url = new URL(original)
-    url.search = location.search
-    location.assign(url)
+  function openOfficialAccount(form) {
+    if (!form.querySelector('input.cd-field')) {
+      location.assign(officialPricing)
+      return
+    }
+    const destination = new URL(officialAccount)
+    const suffix = location.pathname.slice(mirror.pathname.length).replace(/\/$/, '')
+    const mode = form.querySelector('input[id$="-pw"], input[data-account-mode="signin"]') ? 'signin' : 'signup'
+    destination.searchParams.set('mode', mode)
+    destination.searchParams.set('next', original.pathname + (suffix ? '/' + suffix : '') + location.search)
+    if (proBilling) {
+      destination.searchParams.set('plan', 'pro')
+      destination.searchParams.set('billing', proBilling)
+    }
+    location.assign(destination)
   }
 
   function rewriteLink(link) {
     const destination = new URL(link.getAttribute('href'), original)
-    if (destination.pathname === original.pathname) {
-      const local = new URL(location.pathname, location.origin)
+    const suffix = destination.pathname.slice(original.pathname.length)
+    if (destination.pathname.startsWith(original.pathname) && publicPages.has(suffix)) {
+      const local = new URL(suffix ? suffix.slice(1) + '/' : '', mirror)
       local.search = destination.search
       local.hash = destination.hash
       destination.href = local.href
@@ -69,9 +82,6 @@
         return nativeFetch(stats)
       case '/api/design/event':
         return Promise.resolve(new Response(null, { status: 204 }))
-      case '/api/design/source':
-        openOriginal()
-        break
     }
     return Promise.resolve(Response.json({}, { status: 401 }))
   }
@@ -81,33 +91,28 @@
     const link = event.target.closest('a[href]')
     if (link?.matches(internalLink)) rewriteLink(link)
     if (link && rewrittenLinks.has(link)) {
-      event.stopPropagation()
+      const destination = new URL(link.href)
+      const normalClick = !(event.altKey || event.ctrlKey || event.metaKey || event.shiftKey || event.button)
+      const catalogueTab = destination.origin + destination.pathname === mirror.href &&
+        location.pathname === mirror.pathname && link.closest('nav[aria-label="Main"]')
+      if (!(catalogueTab && normalClick)) {
+        event.stopPropagation()
+      }
       return
     }
 
-    const button = event.target.closest('button')
-    if (!button) return
-    const text = button.textContent.trim().replace(/\s+/g, ' ')
-    if (/^(Sign in|Save and sign in)$/i.test(text)) {
-      event.preventDefault()
-      event.stopPropagation()
-      location.assign(officialAccount)
-    } else if (/^(Get Pro|Start 7 days free)/i.test(text)) {
-      event.preventDefault()
-      event.stopPropagation()
-      location.assign(officialPricing)
-    } else if (/^(Join (?:for )?free|Join Construct Design)/i.test(text)) {
-      event.preventDefault()
-      event.stopPropagation()
-      location.assign(officialJoin)
-    }
+    const field = event.target.closest('.cd-sized input.cd-field')
+    if (!field?.form) return
+    event.preventDefault()
+    event.stopPropagation()
+    openOfficialAccount(field.form)
   }, true)
 
   window.addEventListener('submit', event => {
-    if (!event.target.querySelector('input[type="email"], input[autocomplete="one-time-code"]')) return
+    if (!(event.target instanceof HTMLFormElement) || !event.target.closest('.cd-sized')) return
     event.preventDefault()
     event.stopPropagation()
-    location.assign(officialAccount)
+    openOfficialAccount(event.target)
   }, true)
 })()
 ;
