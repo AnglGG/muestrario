@@ -4,7 +4,10 @@ Biblioteca de interfaz. Reúne 184 referencias públicas de Construct de Tobia D
 
 ## Réplica de Construct
 
-La [réplica de la galería pública](https://anglgg.github.io/muestrario/construct/?kind=component) usa el HTML, los estilos, los archivos JavaScript de cliente y los recursos que publica Construct. El código y el diseño de la réplica son de [Tobia Donadon](https://www.tobiadonadon.com/projects/construct/design?kind=component).
+La réplica de la galería pública usa el HTML, los estilos, los archivos JavaScript de cliente y los recursos que publica Construct. El código y el diseño de la réplica son de [Tobia Donadon](https://www.tobiadonadon.com/projects/construct/design?kind=component).
+
+- **En GitHub Pages**, cuando esté activo, abre la [réplica](https://anglgg.github.io/muestrario/construct/?kind=component).
+- **En tu equipo**, clona el repositorio en una carpeta llamada `muestrario`. Desde la carpeta que la contiene, ejecuta `python3 -m http.server 8000 --bind 127.0.0.1` y abre `http://127.0.0.1:8000/muestrario/construct/?kind=component`.
 
 Las acciones de cuenta y suscripción llevan a Construct. Las descargas protegidas y el MCP Pro requieren acceso al servicio original. El [MCP de Muestrario](#mcp-local) sigue ofreciendo la búsqueda de referencias y los ocho patrones originales.
 
