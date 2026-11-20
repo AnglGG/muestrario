@@ -333,9 +333,13 @@ function itemLink(entry, className, text = entry.name) {
   return link
 }
 
-function externalLink(text, url, className) {
-  const link = newElement('a', text, className)
-  link.href = url
+function previewLink(entry) {
+  const base = location.protocol === 'file:' ? 'https://anglgg.github.io/muestrario/' : location.href
+  const url = new URL('construct/', base)
+  url.searchParams.set('kind', entry.type)
+  url.searchParams.set('block', entry.id)
+  const link = newElement('a', 'Ver vista previa', 'source')
+  link.href = url.href
   link.target = '_blank'
   link.rel = 'noreferrer'
   return link
@@ -446,7 +450,7 @@ function renderDetail(entry) {
     renderRecipe(entry, container)
   } else {
     addTags(container, entry.tags)
-    container.append(externalLink('Ver demo en Construct', entry.url, 'source'))
+    container.append(previewLink(entry))
     if (entry.originals.length) {
       addRelated(container, 'Patrones originales relacionados', entry.originals)
     } else if (entry.categoryRecipe) {

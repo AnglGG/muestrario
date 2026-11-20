@@ -2,6 +2,7 @@
 
 import argparse
 from concurrent.futures import ThreadPoolExecutor
+from hashlib import sha256
 from html.parser import HTMLParser
 import json
 from pathlib import Path
@@ -19,6 +20,7 @@ PAGES = {
     "pricing/index.html": "/pricing",
 }
 STATIC = "/_next/static/"
+CLIENT_URL_SUFFIX = re.compile(r"\.(?:css|js)\?dpl=[\w-]+")
 IMAGES = re.compile(r"/design/(?:apps|components|site|websites)/[\w./-]+\.webp")
 FONT = re.compile(r"\.\./media/([\w.-]+\.woff2(?:\?[^)'\"]+)?)")
 ANALYTICS = re.compile(r'("analytics":\{"scriptSrc":")[\w/-]+/script\.js(")')
@@ -192,6 +194,20 @@ def save_clientfile(output, path, content):
     target.write_bytes(content)
 
 
+def client_revision(assets):
+    checksum = sha256()
+    for path, content in sorted(assets.items()):
+        checksum.update(path.encode())
+        checksum.update(b"\0")
+        checksum.update(content)
+    return checksum.hexdigest()[:12]
+
+
+def version_client_urls(html, revision):
+    # The streamed document may split a chunk path across two script tags.
+    return CLIENT_URL_SUFFIX.sub(lambda match: f"{match[0]}&mirror={revision}", html)
+
+
 def download_asset(output, path):
     try:
         save_clientfile(output, path, fetch(path))
@@ -205,6 +221,8 @@ def download_asset(output, path):
 
 def capture(output, prefix):
     files = ClientFiles()
+    pages = {}
+    assets = {}
     images = set()
     fonts = set()
     browser = Path(__file__).with_name("construct-browser.js").read_text()
@@ -218,7 +236,7 @@ def capture(output, prefix):
             images.update(IMAGES.findall(html))
             if page == "index.html":
                 html = adapt_catalogue_html(html)
-            save_clientfile(output, "/" + page, static_copy(html, prefix).encode())
+            pages[page] = static_copy(html, prefix)
         if not files.urls:
             raise ValueError("La página ya no entrega los archivos de cliente esperados")
         paths = sorted(files.urls)
@@ -235,7 +253,13 @@ def capture(output, prefix):
                 source = adapt_client(source, prefix)
             if urlsplit(path).path.rsplit("/", 1)[-1].startswith("turbopack-"):
                 source = browser + ";\n" + source
-            save_clientfile(output, path, source.encode())
+            assets[path] = source.encode()
+
+        revision = client_revision(assets)
+        for path, content in assets.items():
+            save_clientfile(output, path, content)
+        for page, html in pages.items():
+            save_clientfile(output, "/" + page, version_client_urls(html, revision).encode())
 
         media = sorted(images | fonts)
         downloaded = sum(pool.map(lambda path: download_asset(output, path), media))
