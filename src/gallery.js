@@ -22,9 +22,9 @@ function itemLink(entry, className, text = entry.name) {
   return link
 }
 
-function externalLink(text, url, className) {
-  const link = newElement('a', text, className)
-  link.href = url
+function previewLink(entry) {
+  const link = newElement('a', 'Ver vista previa', 'source')
+  link.href = constructPreview(entry, location.protocol === 'file:' ? undefined : location.href)
   link.target = '_blank'
   link.rel = 'noreferrer'
   return link
@@ -130,12 +130,18 @@ function renderDetail(entry) {
   title.tabIndex = -1
   const meta = types[entry.type] + ' · ' + categoryLabel(entry.category)
   container.append(newElement('div', meta, 'meta'), title)
-  if (entry.summary) container.append(newElement('p', entry.summary))
+  const summary = entry.summary ?? entry.description
+  if (summary) {
+    const description = newElement('p', summary)
+    if (!entry.summary) description.lang = 'en'
+    container.append(description)
+  }
   if (entry.type === 'recipe') {
     renderRecipe(entry, container)
   } else {
     addTags(container, entry.tags)
-    container.append(externalLink('Ver demo en Construct', entry.url, 'source'))
+    if (entry.controls?.length) container.append(newElement('p', 'Controles: ' + entry.controls.join(', '), 'meta'))
+    container.append(previewLink(entry))
     if (entry.originals.length) {
       addRelated(container, 'Patrones originales relacionados', entry.originals)
     } else if (entry.categoryRecipe) {
@@ -254,7 +260,10 @@ for (const [id, change] of [['previous', -1], ['next', 1]]) {
 }
 window.addEventListener('hashchange', () => {
   returningToCatalogue = false
-  updateDetail({ focus: true })
+  const connecting = location.hash === '#mcp'
+  if (connecting) $('mcp').open = true
+  updateDetail({ focus: !connecting })
 })
+if (location.hash === '#mcp') $('mcp').open = true
 populateCategories()
 showResults()

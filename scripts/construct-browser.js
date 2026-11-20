@@ -1,30 +1,13 @@
 (() => {
   const original = new URL('https://www.tobiadonadon.com/projects/construct/design')
   const mirror = new URL('__CONSTRUCT_MIRROR__', location.origin)
-  const publicPages = new Set(['', '/mcp', '/pricing'])
-  const officialAccount = new URL('/projects/construct/account', original)
+  const publicPages = new Set(['', '/mcp'])
   const nativeFetch = window.fetch.bind(window)
   const stats = new URL('stats.json', mirror)
   const internalLink = 'a[href^="/"]:not([href^="//"])'
   const rewrittenLinks = new WeakSet()
 
-  window.addEventListener('cd:auth', event => {
-    event.stopImmediatePropagation()
-    const { step, slug, billing } = event.detail ?? {}
-    const destination = new URL(officialAccount)
-    const next = new URL(original)
-    const suffix = location.pathname.slice(mirror.pathname.length).replace(/\/$/, '')
-    if (publicPages.has('/' + suffix)) next.pathname += '/' + suffix
-    next.search = location.search
-    if (slug) next.searchParams.set('block', slug)
-    destination.searchParams.set('mode', step === 'signin' || step === 'account' ? 'signin' : 'signup')
-    destination.searchParams.set('next', next.pathname + next.search)
-    if (step === 'plan') {
-      destination.searchParams.set('plan', 'pro')
-      destination.searchParams.set('billing', ['monthly', 'yearly', 'lifetime'].includes(billing) ? billing : 'monthly')
-    }
-    location.assign(destination)
-  }, true)
+  window.addEventListener('cd:auth', event => event.stopImmediatePropagation(), true)
 
   function rewriteLink(link) {
     const destination = new URL(link.getAttribute('href'), original)

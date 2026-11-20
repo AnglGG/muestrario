@@ -1,0 +1,1292 @@
+{
+  "plan-cards": {
+    "description": "Plans on black. The chosen one wears a rim whose gradient turns slowly, with a tab on top. Choose another and the rim travels across with a spring while the tab and the small print change. The white pill thinks, then says you are in.",
+    "controls": [
+      "Rim",
+      "Plans"
+    ]
+  },
+  "frost-card": {
+    "description": "A panel of hot, grainy light that never sits still, and a glass card floating over its corner. Point at it: the card leans your way and the glow slides the other. Click and the hidden digits roll open one by one. Left alone, it drifts.",
+    "controls": [
+      "Glow",
+      "Glass"
+    ]
+  },
+  "glyph-photo": {
+    "description": "A photograph set in type: the bright parts are drawn as small characters over a blurred copy, re-read line by line. Your pointer is a lens that clears the type and shows the real picture. The eye opens it over everything.",
+    "controls": [
+      "Picture",
+      "Lens",
+      "Ink"
+    ]
+  },
+  "event-card": {
+    "description": "An event as one photograph that fades into its own colour. Press the white pill: it squeezes into a tick and opens again as glass that says Added, the chip's clock spins and its words roll to how long is left. Press again to undo.",
+    "controls": [
+      "Fades to",
+      "Plays itself"
+    ]
+  },
+  "glass-tabs": {
+    "description": "A floating glass tab bar: three tabs in one pill and a round key standing apart. The dark lozenge under the chosen tab stretches to the next one and lands with a wobble, the icon fills in amber, and the round key squeezes and listens.",
+    "controls": [
+      "Accent",
+      "Steps itself"
+    ]
+  },
+  "flow-card": {
+    "description": "A card filled with a slow river of blurred colour, deep blue through orange and amber, under a fine grain. The bands drift by themselves, open round your pointer, and a press sends one ring of shifted colour travelling out.",
+    "controls": [
+      "River",
+      "Speed"
+    ]
+  },
+  "memory-card": {
+    "description": "A deck of memories. Each picture is a photograph set in type, melting into a warm frost with a date, a line and three glass keys. Drag right to keep, left to let go: the key you head for lights up and the next card rises. Left alone, it sorts itself.",
+    "controls": [
+      "Accent",
+      "Sorts itself"
+    ]
+  },
+  "action-tiles": {
+    "description": "Request and Withdraw as two big dark tiles. Press one: it dips, its arrow shoots off along its own direction and a new one comes in from the opposite corner. A short line confirms the amount, then tucks away. Left alone, they take turns.",
+    "controls": [
+      "Amount",
+      "Corners"
+    ]
+  },
+  "perk-marquee": {
+    "description": "Bands of perk chips drifting across black and fading at the edges. The icon of the chip nearest the middle lights up with a halo of its own colour. Point and a band slows to read; grab it and throw it, and it ticks past chip by chip before it drifts again.",
+    "controls": [
+      "Bands",
+      "Drift"
+    ]
+  },
+  "tab-bar": {
+    "description": "The bottom of a phone: five tabs on dark glass with the page showing through. Choose one and its line icon fills and lands with a spring while the page behind slides away. A dot pops onto Inbox and clears when you open it. Arrow keys move.",
+    "controls": [
+      "Dot",
+      "Labels"
+    ]
+  },
+  "light-leak": {
+    "description": "A light on black: a thin white beam lands in a white-hot bloom and leaves as a spectrum that fans apart the farther it goes. It breathes. Bring the pointer in and the colours lean toward it, like turning a prism. Press and it flares.",
+    "controls": [
+      "Light",
+      "Spread",
+      "Speed"
+    ]
+  },
+  "ring-avatar": {
+    "description": "A face in a rounded square inside a spectral ring that turns slowly: something is new. Press it: the ring breaks into dashes and spins like a loader, then closes grey, seen. A moment later the colours light again. Left alone, it opens itself.",
+    "controls": [
+      "Shape",
+      "Size",
+      "Turn"
+    ]
+  },
+  "glass-deck": {
+    "description": "Glass cards to sort with a flick. Clouds of deep colour drift inside each one, bending at the rim like real glass. Drag the top card: it clicks as it crosses the line and whooshes when thrown. Left alone, it sorts itself.",
+    "controls": [
+      "Palette",
+      "Throw"
+    ]
+  },
+  "range-dial": {
+    "description": "A thermostat dial: a white disc ringed with fine ticks that darken up to the setpoint, a hand that glows orange while heating and blue while cooling, the number huge in the middle. Drag, scroll or use the arrows; each step ticks. Left alone, it turns itself.",
+    "controls": [
+      "Unit"
+    ]
+  },
+  "now-playing": {
+    "description": "A record player with no card: a photographed sleeve, the record, the controls. Play and the record slides out and turns; drag the scrubber and it spins with your hand. Skip throws the sleeve aside and springs the next one in. Left alone, it plays itself.",
+    "controls": [
+      "Accent"
+    ]
+  },
+  "weather": {
+    "description": "A day of weather on a tape. Drag or fling it: the hours slide under the needle with momentum and tick, and the sky behind is a real photograph for the hour you land on, from stars to rain to the blue hour. The temperature rolls like a counter.",
+    "controls": [
+      "City",
+      "Unit"
+    ]
+  },
+  "batteries": {
+    "description": "Three cells of liquid: phone, watch, buds. Press one to put it on the charger: the liquid takes the jolt, turns green and climbs while the number counts up. Sweep the pointer across and it sloshes with your speed. Charges itself when idle.",
+    "controls": [
+      "Charging",
+      "Speed"
+    ]
+  },
+  "focus-mode": {
+    "description": "A dark, grained Focus widget with a moon and a switch. Turn it on and moonlight rises in the corner, breathing and drifting; the moon lights up from inside, the words roll from Off to On, with a soft two-step click. Left alone, it flips by itself.",
+    "controls": [
+      "Light",
+      "Second light"
+    ]
+  },
+  "agenda": {
+    "description": "The day as a drum of hours under a fixed needle. Drag to wind it; throw it and it keeps your speed, ticks past the quarter hours and springs onto one. The needle leans with the speed. Whatever is under it reads out large: the time, the event, how long is left.",
+    "controls": [
+      "Clock",
+      "Needle"
+    ]
+  },
+  "stacked-bars": {
+    "description": "A week of traffic as a widget: the total huge, seven bars stacked by source in quiet greys, today's in full tone. Point at a day and it lights up with a tick while the number becomes that day's; point at a source to isolate it. Left alone, it walks the week.",
+    "controls": [
+      "Colour"
+    ]
+  },
+  "rolling-counter": {
+    "description": "A step-count widget: the day's steps huge, the goal share under it, an ink line that fills toward the goal, a small streak flame. Drag, scroll or flick the number and each digit rolls on its own reel, clicking like an odometer. Left alone, it counts itself up.",
+    "controls": [
+      "Start"
+    ]
+  },
+  "member-card": {
+    "description": "A titanium-like membership card that turns toward your pointer: fine brushed grain, a holographic foil that slides through violet, sky, mint and coral with the tilt, an iridescent edge and chip. Left alone, it drifts in a slow figure-eight.",
+    "controls": [
+      "Finish",
+      "Light"
+    ]
+  },
+  "pay-button": {
+    "description": "A black checkout pill. Press it: it gives with a soft click, a white ring spins, closes into a check, and the button fills green from the centre with a shine, a glow and a two-note chime. It resets, and presses itself (silently) when idle.",
+    "controls": [
+      "Amount",
+      "Paid"
+    ]
+  },
+  "limelight": {
+    "description": "A brand studio's first screen: a woman stands as a black silhouette over a giant SPOTTED on a yellow halftone. A soft light wanders over her and shows the colour photograph inside the black. The pointer is a torch; press for a studio flash.",
+    "controls": [
+      "Ground",
+      "Word",
+      "Light"
+    ]
+  },
+  "swipe-deck": {
+    "description": "Five app ideas to sort. Drag the top card and it tilts with your hand while a Keep or Skip stamp fades in; throw it off with a swish, or let go and it springs back. The card behind rises to meet you. Out of cards? Shuffle again.",
+    "controls": [
+      "Palette",
+      "Throw"
+    ]
+  },
+  "sora": {
+    "description": "A travel-money card over a 3D field of enamel tiles rolling in red swells. Every few seconds it hops, flips and lands on a spring, a bouncy ring of tiles pops out under it and the receipt rolls to the next city. The pointer tilts the card.",
+    "controls": [
+      "Enamel",
+      "Waves",
+      "Button"
+    ]
+  },
+  "ora-call": {
+    "description": "An AI receptionist's first screen on electric blue. A glossy red-orange marbled glass ball drifts across the white headline like a lens: the words swell and split into a faint rainbow inside it. Hear it answer: a ring, a pick-up, a greeting.",
+    "controls": [
+      "Blue",
+      "Italic",
+      "Drift"
+    ]
+  },
+  "leo": {
+    "description": "A film photographer's first screen: his name huge in red, Leo in front of it in black and white. He turns his head to follow your pointer and glances around on his own; his prints shuffle at the bottom right. Press one to bring it up.",
+    "controls": [
+      "Name",
+      "Button"
+    ]
+  },
+  "alpina": {
+    "description": "A night train's first screen: a stone viaduct over an Alpine gorge at sunrise. The red train really runs across it, car by car, into the trees; mist rolls through the valley and the planes part under the pointer. Pick a date, the fare updates.",
+    "controls": [
+      "Train",
+      "Accent",
+      "Button"
+    ]
+  },
+  "hana": {
+    "description": "A speaker's first screen: a portrait on mint paper behind a tall panel of real reeded glass. Each flute refracts her into strips with a soft blur and highlights; the panel glides across her on its own and follows the pointer. Book a talk confirms.",
+    "controls": [
+      "Flutes",
+      "Glide",
+      "Button"
+    ]
+  },
+  "petal": {
+    "description": "A skincare brand's first screen: a freckled face half hidden behind peonies in low sun. The peonies are their own plane and sway in a slow breeze, warm light sweeps across, petals drift past the lens and \"spring.\" writes itself on. Add to bag works.",
+    "controls": [
+      "Word",
+      "Accent",
+      "Breeze"
+    ]
+  },
+  "aerie": {
+    "description": "A game's first screen: a painted monastery city on floating rock at golden hour, and the camera never stops flying into it. Bell towers pass the lens, islets come out of the haze. The pointer steers; the button sounds a horn and the flight surges.",
+    "controls": [
+      "Flight",
+      "Accent",
+      "Button"
+    ]
+  },
+  "halcyon": {
+    "description": "A city in orbit with an AI guide: a garden city on a viaduct above the clouds at sunrise. Small craft fly through it at real depth, behind the towers and in front, with glowing trails. The view leans with the pointer and Juno types hello.",
+    "controls": [
+      "Traffic",
+      "Trails",
+      "Button"
+    ]
+  },
+  "prism": {
+    "description": "A paywall in the dark: a glass prism photograph melts into black while a live light breathes over it and leans to your finger. Perks drift past in a band you can throw, and the chosen plan wears a slowly turning gradient rim that travels when you switch.",
+    "controls": [
+      "Rim",
+      "Opens on"
+    ]
+  },
+  "album-stack": {
+    "description": "A pile of record sleeves. Throw the front one either way and it swings out and tucks in at the back while the rest step up; let go short and it springs home. Press play and the record slides out of its sleeve and spins.",
+    "controls": [
+      "Palette",
+      "Throw"
+    ]
+  },
+  "dot-globe": {
+    "description": "The world in dots on a ball of dark glass: cold white in the light, cobalt on the night side, the far continents showing through. Throw it: the dots smear into streaks, it ticks past a detent every 15°, the axis nods and bobs back. Alone, it throws itself.",
+    "controls": [
+      "Accent",
+      "Drift",
+      "Routes"
+    ]
+  },
+  "recall": {
+    "description": "A voice journal hands your day back as cards. Each picture is a photograph set in type, read line by line. Drag a card right to keep it, left to let it go; the next rises, the counters roll, and a glass bar of tabs slides underneath.",
+    "controls": [
+      "Accent",
+      "Plays itself"
+    ]
+  },
+  "eye-follow": {
+    "description": "A vinyl creature with two eye domes that watches your pointer anywhere on the page. Rush past and it winces; circle it and it gets dizzy, spirals for eyes. Press it flat, let go and it jumps and lands like jelly. Left alone, a fly lands on its nose.",
+    "controls": [
+      "Skin",
+      "Top"
+    ]
+  },
+  "ember": {
+    "description": "A payout wallet in black with one point of light: a panel of hot, grainy glow that drifts, and a frosted glass card over its corner. Tap the card and its digits roll open. Press a tile and its arrow flies. Left alone, it plays itself.",
+    "controls": [
+      "Glow",
+      "Glass"
+    ]
+  },
+  "gather": {
+    "description": "Today's feed for small local circles. A photograph fades into its own colour above a white pill that squeezes into a tick; two cards run with slow rivers of blurred colour; the feed coasts and rubber-bands; a red dot lands on Inbox. It plays itself.",
+    "controls": [
+      "River",
+      "Photo fades to"
+    ]
+  },
+  "lump": {
+    "description": "Send or get paid on one screen. The amount is the right edge, turned 90°: drag it like a thumbwheel. Who is a jelly blob with a monogram. Press the white disc and the blob swells into the whole screen, the amount swings flat and a black bubble says it landed.",
+    "controls": [
+      "Colour",
+      "Amount"
+    ]
+  },
+  "vane": {
+    "description": "Weather read as light: the whole screen is one aura whose colours are the conditions. Drag the sun round a 24-hour ring and the glow, the dot-matrix temperature, UV, rain, wind and air all follow; flick the wind vane, wipe the air clean.",
+    "controls": [
+      "Units",
+      "Starts at"
+    ]
+  },
+  "forge": {
+    "description": "An AI coding agent launch on white: the repo lies on a floor running to the horizon, and every line the agent writes is typed white-hot and cools to ink as it recedes. A run console walks read, fix, test, ship.",
+    "controls": [
+      "First task",
+      "Floor speed",
+      "Button"
+    ]
+  },
+  "halo": {
+    "description": "An assistant's home screen as a wheel of glass marbles, each with its own aura. Turn it and it spins with inertia; the marble that lands on top opens into a card with dot-matrix figures. Hold the pill to speak and its dot meter follows your voice.",
+    "controls": [
+      "Pill"
+    ]
+  },
+  "knead": {
+    "description": "A month's budget you build by hand. Each pot is a piece of dough, as big as what is in it: drag one onto the dotted canvas and it fuses with the rest, a seam between kinds. Tap to feed or thin it. The total and the split roll; the tick sets the plan.",
+    "controls": [
+      "Needs",
+      "Income"
+    ]
+  },
+  "torus": {
+    "description": "A smart ring's morning read as a deck of aura cards, each a glow with one figure in dots. Flick the pile, fan it into a hand and spin it, tap a card and its aura fills the screen while a tick ring lets you scrub the night.",
+    "controls": [
+      "Cards",
+      "Grain"
+    ]
+  },
+  "kin": {
+    "description": "A blood-testing clinic hero: one tube of blood lies across a dark screen and a cold beam reads along it. Move the pointer along the tube to scrub all 112 biomarkers; each reading rides the light, with a glassy tick per marker.",
+    "controls": [
+      "Button",
+      "Sound"
+    ]
+  },
+  "particle-word": {
+    "description": "A word made of particles. Run through it and they part; click and it explodes and rebuilds. Left alone, it bursts and its particles pull back together as the next word.",
+    "controls": [
+      "Colour",
+      "Word"
+    ]
+  },
+  "alba": {
+    "description": "An alarm set by its light. The time stands in huge dots beside a wheel of the day; turn it and the glow shifts from night indigo to a hot morning coral, then the time lands dot by dot. A switch, the days, and a wind-down you can start.",
+    "controls": [
+      "Morning light",
+      "Wind-down"
+    ]
+  },
+  "nightshift": {
+    "description": "AI teammates for founders, shown as the company at night: one floor per agent, lit while it works, the task typing beside it as a clock runs 23:00 to dawn. Hand an agent a task or click a floor; drag the night's score to scrub it.",
+    "controls": [
+      "Opens at",
+      "Night length",
+      "Button"
+    ]
+  },
+  "nova": {
+    "description": "An image and video model's launch where the whole first screen is the picture being made: it resolves from noise step by step behind a calm headline and a real prompt bar. Click for another take, or type your own; snow and rain drift near the lens.",
+    "controls": [
+      "First shot",
+      "Steps",
+      "Button"
+    ]
+  },
+  "vault": {
+    "description": "A trading platform where the market is a landscape at blue hour: the live price is the crest of a ridge over still water, and the sun sits on the last trade, lighting the haze and the glass order ticket that rides it. Crosshair, markets, fills.",
+    "controls": [
+      "Market",
+      "Light"
+    ]
+  },
+  "wren": {
+    "description": "An AI assistant at work: a drop of black ferrofluid bristles into spikes while you hold to talk, swirls as the task ticks off step by step, swells as the answer streams in, then tightens into a tick and the answer becomes a card you keep.",
+    "controls": [
+      "Live colour",
+      "Pace"
+    ]
+  },
+  "phone-island": {
+    "description": "The pill at the top of a phone. Press it to open the live activity.",
+    "controls": [
+      "Activity",
+      "Wallpaper"
+    ]
+  },
+  "bottom-sheet": {
+    "description": "The lower half of a phone and one sheet with three heights. Drag or flick it: it rubber-bands past the ends, a flick always carries it to the next height and it lands with weight. The grabber bends into a chevron pointing the way it flies.",
+    "controls": [
+      "Accent",
+      "Start"
+    ]
+  },
+  "brasa": {
+    "description": "A one-brand shop's product page: an enamelled pot lit in a room of its own colour. Swipe the pot to turn in the next colour, drag the ruler and it grows while the price rolls, add it and a small pot arcs into the bag, then press and hold to pay.",
+    "controls": [
+      "Colour",
+      "Size"
+    ]
+  },
+  "ciao": {
+    "description": "A designer-founder's personal site as a surreal collage: a lemon moon over pink grass, a gondola in a red sky, a giant moka pot. It all drifts and parts in depth; click an object and the three-line headline rolls to that part of him.",
+    "controls": [
+      "Opens on",
+      "Sky",
+      "Tour"
+    ]
+  },
+  "pitch": {
+    "description": "A sales-call coach for founders: the call runs through a dark office as a wall of light, the buyer's mood with the transcript written on it. The room warms pink as she leans in; moments get flagged, the coach whispers. Drag the line to scrub.",
+    "controls": [
+      "Warm buyer",
+      "Call speed",
+      "Button"
+    ]
+  },
+  "notch-slider": {
+    "description": "A range you can feel. Ticks light and get plucked as the needle passes, harder the faster you drag; named values are magnetic and hold the needle until you pull free with a click. The value rolls like an odometer. Left alone, it glides by itself.",
+    "controls": [
+      "Tone",
+      "Magnet"
+    ]
+  },
+  "onboard": {
+    "description": "A planner's first run: three value pages shot on paper the colour of the page, so the ground blends as you swipe, then a paywall with a plan picker and a free-trial switch that folds the trial timeline and re-labels the one black button.",
+    "controls": [
+      "Opens on",
+      "Currency"
+    ]
+  },
+  "envelope": {
+    "description": "A matte envelope with a card inside. Point at it: the flap folds back in 3D, showing its lining, and the card rises out with a small overshoot and a soft paper sound. Left alone it opens and closes by itself. Tap on a phone; Tab on a keyboard.",
+    "controls": [
+      "Envelope",
+      "Letter"
+    ]
+  },
+  "dozen": {
+    "description": "A six-week accelerator as a poster wall on black. Eight colour blocks slide and re-stack to say its three acts (ship, sell, pitch); one word is cut from a demo-day photo. Stat tiles switch the act, founders stand out of their tiles, the pointer shoves blocks.",
+    "controls": [
+      "Act",
+      "Button"
+    ]
+  },
+  "gassa": {
+    "description": "An Italian soda shop set as a split-flap poster board: flat colour tiles, the can, slanted bars, photos cropped hard. Tiles flap and trade places on a rhythm; pick a flavour and the whole board flaps over to its palette. Push the bars; add to bag works.",
+    "controls": [
+      "Flavour",
+      "Button"
+    ]
+  },
+  "quanta": {
+    "description": "A fast reasoning model's launch on a cobalt stage: a ring of 10,000 particles orbits the live console, razor-thin on the horizon and out of focus past the lens. Real prompts are answered at speed while a typical model is still writing.",
+    "controls": [
+      "Stage",
+      "Live colour",
+      "Speed"
+    ]
+  },
+  "till": {
+    "description": "A founder's month as a tank of glass marbles, one per payment. Sales drop in live and the revenue rolls up; stir the pile with a finger; MRR, New and Churn are lenses that light the marbles they mean; roll the marble handle to send the payout.",
+    "controls": [
+      "Team marbles",
+      "Goal"
+    ]
+  },
+  "dash": {
+    "description": "A delivery followed on a clay diorama: the courier rides the model's road while minutes and metres roll down and clouds drift over. Drag to tilt it with real depth, tap the shop or your door for a card, send a quick reply that flies to the courier.",
+    "controls": [
+      "Courier"
+    ]
+  },
+  "data-table": {
+    "description": "A table that is its own bar chart. Press a column and it re-ranks in front of you: climbing rows are picked up, cross the falling ones and land with a bounce while every bar springs to its new length. Left alone, it sorts itself.",
+    "controls": [
+      "Leader"
+    ]
+  },
+  "drift": {
+    "description": "Last night as a landscape painted in code: the ridge is your sleep, deep sleep the valleys where water lies. Drag the land to scrub the night under a moving moon, tap a stage to light it and fly there, or squeeze the whole night into one screen.",
+    "controls": [
+      "Dawn",
+      "Score"
+    ]
+  },
+  "lumen": {
+    "description": "A business account for founders: a smoked-glass company card floats over a sunlit desk, tilts to your pointer and shows the light through it. Each payment ripples through the glass, matches its receipt, and moves burn, limits and runway.",
+    "controls": [
+      "Glass",
+      "Name"
+    ]
+  },
+  "tooltip-follow": {
+    "description": "A floating format bar with one tooltip that travels. It waits before it first appears, then slides from button to button, stretching with its speed while its width springs to the new label and its arrow trails behind. Each button plays its own note.",
+    "controls": [
+      "Tooltip",
+      "Selection",
+      "First wait"
+    ]
+  },
+  "breathe": {
+    "description": "A guided breathing session: one soft shape fills, holds and empties with the breath, cooling in and warming out, inside a ring that lights as the session passes. A rhythm strip rolls under a playhead that pulses and clicks every second.",
+    "controls": [
+      "Pattern",
+      "In-breath"
+    ]
+  },
+  "check-list": {
+    "description": "Checking a task is one pen stroke: the box fills, the tick draws, and the same line flicks out and strikes through the words, greying them as it goes. Each tick plays a note higher. Left alone, the pen works down the list by itself.",
+    "controls": [
+      "Tone"
+    ]
+  },
+  "trail": {
+    "description": "A run tracker mid-run: a night map drawn in code with the loop you've run burning behind a moving dot, and a black slab of live numbers. Pass a kilometre or tap Lap and the split drops in from the top with a chime.",
+    "controls": [
+      "Route",
+      "Units"
+    ]
+  },
+  "before-after": {
+    "description": "A line drawing and the finished, graded render of the same lake at dusk, under one divider. Drag the handle, click anywhere to glide there, or flick it and it coasts. It ticks like a notched dial every 10%, and the tags step aside as it reaches them.",
+    "controls": [
+      "Handle",
+      "Start"
+    ]
+  },
+  "chat": {
+    "description": "A group chat arranged around its plan: a table from above, each friend a seat. Spin the table like a lazy Susan to change the time and the seats follow who can make it; tap I'm in and your puck sits down; lines land large, with no bubbles.",
+    "controls": [
+      "Accent"
+    ]
+  },
+  "madder": {
+    "description": "A dyed-to-order clothing shop hero. Six pieces hang on a steel rail curving into a daylight studio: flick it and the hangers swing. Pick a colour and the dye climbs the cloth; the wall and headline take it. Sizes and Add to bag work.",
+    "controls": [
+      "Button",
+      "Brand"
+    ]
+  },
+  "plan-picker": {
+    "description": "Three plans as three pillars, the dearer the taller. Press one and ink pours up from its foot. Go yearly and the paid pillars drop with a bounce, digits rolling, leaving a dashed outline of what you save.",
+    "controls": [
+      "Ink",
+      "Billing"
+    ]
+  },
+  "pocket": {
+    "description": "A budget as liquid: the month in one big glass, the euros left floating in it, the envelopes five small glasses. Hold one over another and it tips and pours with a glug; tap one to see it large; drag the glass sideways to rewind the month.",
+    "controls": [
+      "Money",
+      "Currency"
+    ]
+  },
+  "lift": {
+    "description": "A workout logger: sets in a plain table, the current one open with weight and rep steppers. Tick it and a red rest timer grows out of the button to fill the screen, beeping down to zero; beat your best and it opens with a New PR seal and a chime.",
+    "controls": [
+      "Rest screen",
+      "Rest"
+    ]
+  },
+  "card-fan": {
+    "description": "A stack of bank cards. Press to fan them out, press one to bring it to the front.",
+    "controls": [
+      "Cards",
+      "Spread"
+    ]
+  },
+  "daybook": {
+    "description": "The day as one folded strip of paper, white outside and colour inside. Tap a plan and its pleat falls open in 3D; pull the strip and the whole day unfolds into one sheet; tick the checklist, hit Done, and the block folds itself away.",
+    "controls": [
+      "Inside"
+    ]
+  },
+  "loop": {
+    "description": "A photo journal you leaf through as a pile of prints. Flick the top one and it flies off with your speed and tucks under while the screen's colour flows to the next; double-tap slaps a heart sticker on; a button fans the pile like cards.",
+    "controls": [
+      "Sticker",
+      "Loop"
+    ]
+  },
+  "pith": {
+    "description": "A skincare shop hero: the serum floats between two halves of the headline, its real ingredients around it on three planes of focus. Pick a formula and colour, serum, fruit and words all change; subscribe or one-time switches the price; add to bag works.",
+    "controls": [
+      "Formula",
+      "Buying",
+      "Subscriber saving"
+    ]
+  },
+  "pod": {
+    "description": "A podcast's Now Playing over full-bleed cover art. The scrubber is cut into the episode's chapters: drag it and the chapter name changes with a tick at each border. The transcript lights up word by word; the speed pill speeds it all up.",
+    "controls": [
+      "Accent"
+    ]
+  },
+  "volt": {
+    "description": "An EV app at night: the car stands on a dark floor with its reflection, a sheen passing over the paint. The battery is 50 cells that fill as it charges, with a draggable limit; the lock flashes the headlights, climate spins the fan, chargers scroll.",
+    "controls": [
+      "Charge",
+      "Battery"
+    ]
+  },
+  "command-menu": {
+    "description": "A ⌘K palette. Type to filter, arrows to move, Enter to run. Left alone, it types and runs one itself.",
+    "controls": [
+      "Accent"
+    ]
+  },
+  "maison-sel": {
+    "description": "A fragrance shop hero: the bottle on salted basalt, on its own layer over the sea. Live water caustics pool under your pointer and run through the glass; the notes are pinned to the picture. Pick a scent and its whole world opens from the bottle. Add to bag.",
+    "controls": [
+      "Scent",
+      "Size"
+    ]
+  },
+  "notes": {
+    "description": "A note made of chunky tiles you throw around. Pick one up and the rest part with springs; let go and it keeps its momentum and lands with a thock; flick it up to pin it. Tick the list, pack a box, Tidy, Undo, while Inês moves blocks too.",
+    "controls": [
+      "Highlighter"
+    ]
+  },
+  "hold-to-confirm": {
+    "description": "A button for things you can't undo. Hold it and colour pours in from the left; let go early and it drains back out twice as fast. When it fills, it turns into a check. Left alone, it holds itself.",
+    "controls": [
+      "Colour",
+      "Hold"
+    ]
+  },
+  "add-to-cart": {
+    "description": "A photographed bottle standing on the page, no card. Pick a colour and the new coat rises up it like a dip. Press Add to bag: the bottle is picked up, thrown in an arc and drops into the bag, which squashes under it while the count rolls. A fresh one lands.",
+    "controls": [
+      "In bag"
+    ]
+  },
+  "context-menu": {
+    "description": "Right-click a file, or press and hold: a pin drops where you pressed and the menu swings out of it like a sign on a nail. One heavy highlight springs from row to row and stretches with its speed. Drag to an item, let go: the file opens, copies or is binned.",
+    "controls": [
+      "Highlight",
+      "Long press"
+    ]
+  },
+  "select-menu": {
+    "description": "A select with no dropdown. Closed, it is one pill with the other choices tucked behind it like a deck. Press and they deal out into a column on springs; slide down, the pill under you turns to ink and swells; let go and it takes the front.",
+    "controls": [
+      "Starts on",
+      "Pick"
+    ]
+  },
+  "signal": {
+    "description": "An AI-native brand studio on a dark stage: its launches stand as a reel on an arc, mirrored in the floor, and the one in the middle plays its fourteen days while its colour lights the room. Drag the reel; book one of three intro slots.",
+    "controls": [
+      "First launch",
+      "Each plays",
+      "Price"
+    ]
+  },
+  "split-gate": {
+    "description": "A headline that opens. Scroll and the word is cut clean through its letters: the top half lifts, the bottom half drops, and the night's line-up, already there behind it, is uncovered row by row. It lands with a knock. Scroll back and the word shuts.",
+    "controls": [
+      "Word",
+      "Panel",
+      "Opens"
+    ]
+  },
+  "gate": {
+    "description": "A boarding screen in airport-signage yellow: a live countdown to boarding, and a gate sign that flaps from B14 to C22 when the gate changes. Tap the boarding pass to flip it to your seat on the cabin map; tap the sign to replay the change.",
+    "controls": [
+      "Airline",
+      "Seat"
+    ]
+  },
+  "hearth": {
+    "description": "A smart-home panel that feels like hardware: drag the light fader and the room in the photo brightens and warms, turn the brushed-metal thermostat dial and its ticks light amber or blue, switch rooms, and watch today's energy line tick live.",
+    "controls": [
+      "Light",
+      "Home"
+    ]
+  },
+  "file-tree": {
+    "description": "A project's files hung on a thread, no box. Open a folder and its files drop out one after another on springs; close it and they are pulled back in. Choose a file: the pill glides to it and a coloured thread stretches down from its folder.",
+    "controls": [
+      "Thread"
+    ]
+  },
+  "profile-card": {
+    "description": "A handle chip that grows into the profile it stands for. Point at it and the chip swells into the card: the face slides down and doubles, the handle drops under the name, the cover unrolls. Follow rolls the count up by one.",
+    "controls": [
+      "Cover",
+      "Delay"
+    ]
+  },
+  "relay": {
+    "description": "An AI support agent above the clouds: the queue floats in depth, waiting tickets come out of the sun, the one in focus is read, checked and answered in seconds, then flies past the lens. Pick a waiting ticket to answer it now.",
+    "controls": [
+      "Resolved",
+      "Agent speed",
+      "Button"
+    ]
+  },
+  "tabs-glide": {
+    "description": "Four words and one drop of ink. Choose a tab: the drop's front edge leaves first, the back follows, so it stretches thin, lands and wobbles still, and the words turn white exactly where it covers them. Point at a tab and it leans that way first.",
+    "controls": [
+      "Drop"
+    ]
+  },
+  "ledger": {
+    "description": "One holding in a crypto wallet, built around an edge-to-edge chart you scrub: the price follows your finger and every point ticks, pitched by its price. Your weekly buys sit on the line. Switch asset or range and it morphs; Buy opens a keypad sheet.",
+    "controls": [
+      "Holding",
+      "Accent",
+      "Currency"
+    ]
+  },
+  "async-button": {
+    "description": "One big save button that folds into its own spinner. Saved: the ring closes into a check and it springs open green. Failed: it turns red, shakes no with a dying spring, offers Retry and says why underneath. Presses itself when idle.",
+    "controls": [
+      "Outcome",
+      "Colour",
+      "Request"
+    ]
+  },
+  "canopy": {
+    "description": "A team tool whose docs and boards update each other, under a real canopy: misty forest behind, light shafts and dust, leaf shadows swaying over the product, blurred leaves near the lens. A teammate drags a card to Shipped and the doc ticks it off; try it too.",
+    "controls": [
+      "Field",
+      "Button"
+    ]
+  },
+  "pile-up": {
+    "description": "The four steps of a courier, as slabs. Scroll and each one comes up, lands on the last and pins; the ones beneath sink back, shrink and fade, so the pile has depth. The landing is a spring: the pile gives when a slab hits. Scroll back to peel them off.",
+    "controls": [
+      "Landing",
+      "Depth"
+    ]
+  },
+  "bar-chart": {
+    "description": "Bare bars on the tile, with Week and Month. Switching is a zoom: the last seven days widen while the rest fold away, and the total rolls. Point at a bar: it stands on its toes, a level line runs across and every day under it steps back.",
+    "controls": [
+      "Bars",
+      "Start on"
+    ]
+  },
+  "scrub-number": {
+    "description": "Design-tool number fields: drag a label sideways to scrub, Shift for ×10, Alt for ×0.1. The pointer locks so a ↔ cursor wraps around the panel, a ruler slides under the number, each unit ticks. Click to type; sums like 24*2 work.",
+    "controls": [
+      "Shape",
+      "Wrap cursor"
+    ]
+  },
+  "stay": {
+    "description": "A small hotel on Hydra booked from one screen: swipe the room's photos (they advance like stories), then tap your dates and the sheet grows into a calendar with a price on every night. Pick a range and the total rolls.",
+    "controls": [
+      "Accent",
+      "Currency"
+    ]
+  },
+  "ledgerline": {
+    "description": "Invoicing for freelancers, told by one invoice's day on a sunlit green desk. The day loops and you can drag it: the window light and leaf shadows cross the paper, the PAID stamp lands and the payout rolls into the balance.",
+    "controls": [
+      "Accent",
+      "Currency"
+    ]
+  },
+  "date-range": {
+    "description": "A range you stretch like a rubber band. Press a day and drag: one solid band follows across the month, wrapping week to week, each end springing a little past the day before it settles. The dates and the day count roll as it grows.",
+    "controls": [
+      "Band",
+      "Week starts"
+    ]
+  },
+  "donut-chart": {
+    "description": "A donut you spin like a dial. The slice under the notch lights up, thickens and lifts out, and the middle rolls to its amount and share. Throw the ring and it keeps your speed, then springs onto a slice. Left alone, it turns by itself.",
+    "controls": [
+      "Colour"
+    ]
+  },
+  "side-reel": {
+    "description": "Scroll down and a reel of night-train posters runs sideways, with weight: it lags, catches up and overshoots, and the posters lean into the ride. Inside each one the sun, hills and train slide at their own speeds. It settles on the nearest poster.",
+    "controls": [
+      "Marker",
+      "Lean",
+      "Runs"
+    ]
+  },
+  "stepper-flow": {
+    "description": "Checkout steps on a drum. Press the round button: the drum rolls the next line up on a spring, the step you leave gets its check and the ring round the button gains a quarter. On the last one the ring closes and the arrow becomes a check.",
+    "controls": [
+      "Colour",
+      "Start at"
+    ]
+  },
+  "ferment": {
+    "description": "A natural-wine shop: a giant \"nothing added.\" on a sunlit wall, a real bottle on the table in front, and the bottle is a lens that bends the letters. Vine shadows sway, the wine glows inside the bottle's shadow. Pick a wine: bottle, wall and light change.",
+    "controls": [
+      "Wine",
+      "Button"
+    ]
+  },
+  "mise": {
+    "description": "A recipe in cooking mode, readable from across the kitchen: the dish steams at the top, the step you're on is set big on a saffron field, its timer ring counts down (tap to pause), ingredients tick off, and Next slides in the following step.",
+    "controls": [
+      "Field",
+      "Timer"
+    ]
+  },
+  "scan": {
+    "description": "A receipt scanner's camera: an outline hunts across the photo and snaps onto the paper's corners, the shutter ring fills, then a flash, a shutter click, and the page flattens and flies into the stack while what it read appears.",
+    "controls": [
+      "Detection"
+    ]
+  },
+  "paper-loader": {
+    "description": "Four flat tiles shuffled like a deck: the top one flips off, turns into a new shape mid-air (circle, squircle, triangle, arch) and tucks under the pile. Hold it to riffle the deck fast, with a soft paper flick per tile.",
+    "controls": [
+      "Speed",
+      "Caption"
+    ]
+  },
+  "harvest": {
+    "description": "A vegetable box shop hero. A kraft box on an oak table in a garden at sunrise; this week's produce drops in with weight. Untick an item and it hops out onto the table, tick it and it jumps back. The price follows, Subscribe stamps the label.",
+    "controls": [
+      "Full box",
+      "Button"
+    ]
+  },
+  "inline-alert": {
+    "description": "One alert that deals with itself. Press its action: green floods across the bar, the ! becomes a drawn check and the words roll to the good news. Then the bar pulls into its own dot, which pops open as the next alert. Flick it to throw it away.",
+    "controls": [
+      "Flick"
+    ]
+  },
+  "activity-heatmap": {
+    "description": "A year of contributions, a square a day, drawn in as a wave. Point at a day: it lifts, its neighbours lean in, a label gives the count. Press a month to filter: the rest fall back, the month ripples forward, the total rolls.",
+    "controls": [
+      "Colour"
+    ]
+  },
+  "receipt": {
+    "description": "A receipt printing line by line. Press Print and the old one tears off while the next feeds out of the slot. Left alone, the printer keeps the orders coming.",
+    "controls": [
+      "Light",
+      "Speed"
+    ]
+  },
+  "bloom": {
+    "description": "An online-therapy hero over still water in morning mist: a glass flower opens and closes on a slow 4-2-6 breath and lights the water under it; each breath out sends a ring across the surface (so does your pointer). Breathe with us counts you through.",
+    "controls": [
+      "Opening"
+    ]
+  },
+  "confirm-pop": {
+    "description": "A delete button that asks by dividing in two. Press it and the pill pulls apart like liquid: a thread stretches, snaps, and you hold a pale Keep and a red Delete. Keep and they snap back into one; Delete and the red half swallows the other.",
+    "controls": [
+      "Danger",
+      "Closes after"
+    ]
+  },
+  "promo-code": {
+    "description": "A total and one field. Apply a good code and it is torn out of the field as a ticket, flies up and lands by the total, which dips, gets struck and rolls down from the cents. A bad code shakes its head and says why.",
+    "controls": [
+      "Ticket",
+      "Currency"
+    ]
+  },
+  "reading-light": {
+    "description": "A statement you read by scrolling. The paragraph stays put and your scroll moves a light through it: words come up to full ink one after another, and the phrases that matter get a highlighter pulled across them. Scroll back and it un-reads.",
+    "controls": [
+      "Highlighter",
+      "Soft edge"
+    ]
+  },
+  "tag-input": {
+    "description": "Type straight onto the page and press Enter: a pill closes round the word where it stands, dipped in ink, and dries to white. Backspace opens the last tag back into text under your caret. Tab takes the ghost suggestion; a removed tag is squashed flat.",
+    "controls": [
+      "Ink",
+      "Limit"
+    ]
+  },
+  "sleeve": {
+    "description": "A record collector's player: the record spins half out of its painted sleeve and a brass tonearm rides the groove, creeping inward as the side plays. Tap the arm to lift the needle; tap a sleeve in the crate and the records swap.",
+    "controls": [
+      "Metal",
+      "Start"
+    ]
+  },
+  "split-panes": {
+    "description": "An editor with three panes. Drag the dividers; pull the sidebar small and it snaps shut.",
+    "controls": [
+      "Accent"
+    ]
+  },
+  "price-switch": {
+    "description": "A Monthly / Yearly switch wired to an odometer. Drag the knob and the price wheels turn under your thumb, ticking per unit. The knob stretches with your speed; flick it and the wheels overshoot, and the saving sticker grows out.",
+    "controls": [
+      "Currency",
+      "Sticker"
+    ]
+  },
+  "tidal": {
+    "description": "An ocean-data platform whose hero is the data: live isotherms of sea temperature drift over a dark sea, part and swirl around your pointer, and a probe card reads the temperature where you point.",
+    "controls": [
+      "Current",
+      "Isotherms"
+    ]
+  },
+  "image-accordion": {
+    "description": "Five photographs of one North Atlantic journey, in slim strips. Point at one and it springs open while the others make room; the picture is uncovered, not stretched, and the caption slides up line by line. Inside, it leans away from your pointer.",
+    "controls": [
+      "Motion",
+      "Places"
+    ]
+  },
+  "search-live": {
+    "description": "A search with no box and no dropdown. Type, and the best match swells to headline size while the runners-up shrink under it, your letters inked inside each one. Arrow down and the big line travels like a lens. Left alone, it types by itself.",
+    "controls": [
+      "Ink"
+    ]
+  },
+  "skeleton-swap": {
+    "description": "A skeleton you can scrub. Bones and the real profile are the same markup, split by a seam: drag it across and the content arrives under your hand, each piece swelling as the seam passes. Flick it and it runs on and settles. Left alone, it loads itself.",
+    "controls": [
+      "Accent",
+      "Network"
+    ]
+  },
+  "year-ring": {
+    "description": "A year on the bike, scrubbed by the scroll. Twelve arcs, each as thick as that month's distance, fill clockwise while the total counts up in the middle. A month that closes kicks outward and the line below says what it added. Scroll back to rewind.",
+    "controls": [
+      "Ring",
+      "Unit"
+    ]
+  },
+  "prompt-input": {
+    "description": "An AI chat box. Example prompts roll through the placeholder, the field grows smoothly as you type and the send button fills in. Press Enter and your words lift away while a stop button spins. Left alone, it types and sends one itself.",
+    "controls": [
+      "Colour",
+      "Surface"
+    ]
+  },
+  "flow-index": {
+    "description": "A table of contents with a liquid marker. Scroll the docs and the dark pill pours from one entry into the next, front edge first and tail a beat later, turning each label white exactly where it covers it. Press an entry and the page glides there.",
+    "controls": [
+      "Pill",
+      "Stretch"
+    ]
+  },
+  "kanban-drag": {
+    "description": "A board with no box: three lanes, big cards. Pick one up and it lifts and leans into the way you carry it, the lane under it opens a gap, the others spring aside and the counts tick. Let go: it drops in and presses flat. Done draws a check.",
+    "controls": [
+      "Accent",
+      "Lean"
+    ]
+  },
+  "file-folder": {
+    "description": "A desktop folder. Point at it and the flap tips open while the files rise and fan out with a papery rustle; click one and it lifts, its name landing in a selection pill. Left alone, it opens and leafs through its files by itself.",
+    "controls": [
+      "Folder"
+    ]
+  },
+  "assignee-picker": {
+    "description": "Assigning with no list. The team waits in a row; grab a face and flick it up at the task. It leaves with your speed, overshoots and settles into the stack, which shuffles over and takes the knock. Flick it back down, or click it, and it goes home.",
+    "controls": [
+      "Faces"
+    ]
+  },
+  "toast-stack": {
+    "description": "One email, one Archive button, and the toasts. Press it and a toast springs up; older ones tuck in behind. Point at the stack and it fans open. Each Undo has a ring that runs down and pauses while you read; throw a toast off sideways to dismiss it.",
+    "controls": [
+      "Accent",
+      "Stack",
+      "Wait"
+    ]
+  },
+  "agent-run": {
+    "description": "A coding agent at work: steps stream in, each spinner closes into a check and the verb turns past tense. The latest tool call ticks by underneath; open the log and it slides up over the steps. It ends on a diff summary, then replays.",
+    "controls": [
+      "Accent",
+      "Pace"
+    ]
+  },
+  "bead-rail": {
+    "description": "A quantity counted on a rail of beads. Slide one over and it takes every bead in its way; flick it and it keeps your speed, knocks the next and passes the blow along with a clack. Let go short of the middle and it slides home.",
+    "controls": [
+      "Counted",
+      "Beads"
+    ]
+  },
+  "marble-pick": {
+    "description": "Pick one by rolling a marble. Every choice is a dip in the track: carry the marble over a ridge and it drops into the next, or flick it and it clears two, ticking over each, and rattles to rest where its speed runs out.",
+    "controls": [
+      "Marble",
+      "Grip"
+    ]
+  },
+  "pull-cord": {
+    "description": "A light switch you pull. Take the end of the cord and pull: it goes taut, stretches, and past the click the lamp changes and dips on its cable. Let go and the cord whips back and swings the way you moved it until it hangs still.",
+    "controls": [
+      "Light",
+      "Cord"
+    ]
+  },
+  "swing-bell": {
+    "description": "A notification toggle on a pin. Turn it on and it rings: the bell swings and the clapper, a pendulum of its own, knocks the wall with a ding each time. Pull it aside and let go, or swat it in passing. Off, it greys behind a slash.",
+    "controls": [
+      "Badge",
+      "Ring"
+    ]
+  },
+  "taut-line": {
+    "description": "A slider strung on a wire. The bead follows your finger exactly; pull it off the line and the wire bends into a V, drag fast and it shivers behind you, let go and it rings, quicker on the short side. The pluck is pitched by the value.",
+    "controls": [
+      "Bead",
+      "Tension"
+    ]
+  },
+  "wax-seal": {
+    "description": "A checkbox you stamp. Press and a die lands on a drop of wax; hold and more squeezes out round the edge. Let go and it lifts off a seal with a tick pressed in, still wobbling. Press the seal and it cracks in two and falls away.",
+    "controls": [
+      "Wax",
+      "Squeeze"
+    ]
+  },
+  "voice-note": {
+    "description": "Hold the mic to record: it swells with a pop, the clock runs and a waveform pours in like real speech. Slide left to cancel into a bin; let go to send a bubble you can play at 1×, 1.5× or 2×. Each step has its own tiny sound.",
+    "controls": [
+      "Bubble",
+      "Cancel at"
+    ]
+  },
+  "like-burst": {
+    "description": "A like button with a count. Like it and the heart squashes and pops full with a soft sound, sparks in its own colour fly out, and the count rolls up like an odometer. Unlike it and it all goes back quietly.",
+    "controls": [
+      "Colour"
+    ]
+  },
+  "picker-wheel": {
+    "description": "An alarm time picker: three 3D drums you flick and they coast and settle on a row, with a dry tick as each row passes the line and a soft chime on Save. Left alone, it flicks its own drums to a new time.",
+    "controls": [
+      "Accent",
+      "Minutes"
+    ]
+  },
+  "reactions": {
+    "description": "Reactions as stickers. Grab one from the row and throw it at the message: it slaps down where your throw carries it, squashes, rocks to a stop a little crooked and stays. The message takes the knock. Point at a stuck one: its corner lifts; click to peel it.",
+    "controls": [
+      "Crooked",
+      "Die-cut"
+    ]
+  },
+  "pull-refresh": {
+    "description": "A running club's feed with a loader made of gum. Pull down and a drop of colour stretches with you, its neck thinning as you go. Let go past the line: it snaps back into a ball with a wobble, spins, and the new runs slide in from under the title.",
+    "controls": [
+      "Gum",
+      "Pull"
+    ]
+  },
+  "swipe-to-pay": {
+    "description": "Drag the knob to pay. The track fills behind it with a faint ratchet tick each quarter; let go early and it springs back with your speed, or flick it home. It docks with a knock, spins for a beat, draws a check and turns green with a two-note chime.",
+    "controls": [
+      "Colour",
+      "Action"
+    ]
+  },
+  "app-sidebar": {
+    "description": "A sidebar as one object. Press the pull on its edge and it snaps to an icon rail with a spring that overshoots: labels leave first, counts become dots, icons get tooltips. The highlight glides between items, stretching as it goes.",
+    "controls": [
+      "Active"
+    ]
+  },
+  "upload-drop": {
+    "description": "The file is the progress. Pick the top paper up and it tilts with your hand; near the ring the dashes race, the ring leans out and pulls it in. It fills from the bottom at an uneven, real speed while the ring closes, then folds into a check.",
+    "controls": [
+      "Colour",
+      "Network",
+      "Reach"
+    ]
+  },
+  "notif-stack": {
+    "description": "A lock screen with three messages stacked. Tap and they fan out into a list with a soft rise while the clock lifts away. Swipe one left and it follows your finger with Clear behind; past the line it flies off with a swish and the rest close up.",
+    "controls": [
+      "Wallpaper"
+    ]
+  },
+  "segmented-control": {
+    "description": "Day, Week, Month, Year. The pill springs to your pick, front edge first, and the label under it turns bold exactly where the pill covers it, without the layout moving a pixel. A dry tick on each pick; arrow keys work.",
+    "controls": [
+      "Colour",
+      "Style"
+    ]
+  },
+  "star-rating": {
+    "description": "Five big stars that fill with liquid as you move across them, ticking star to star, the front edge leaning with your speed and sloshing when you stop. The word below follows you from Awful to Loved it. Choose and it pops. Left alone, it rates itself.",
+    "controls": [
+      "Liquid",
+      "Start"
+    ]
+  },
+  "sparkline-scrub": {
+    "description": "A price chart with no card around it. Move along the line and the price and date follow your pointer, with a fine tick per point pitched by the price there. Left alone, the crosshair glides back through the month and returns to now.",
+    "controls": [
+      "Line"
+    ]
+  },
+  "signature-pad": {
+    "description": "A line and an ×: sign on it with a finger, mouse or pen. Slow strokes come out heavy, fast flicks thin to a hairline. Rest a second and a Signed stamp drops with a knock, then the ink runs backwards into its own start. Left alone, it signs itself.",
+    "controls": [
+      "Ink",
+      "Nib"
+    ]
+  },
+  "stretch-switch": {
+    "description": "A switch whose knob moves like a thick drop: it stretches as it travels, knocks the end of the track and squashes before it rounds out, while the track fills behind it and a sun turns into a moon. A click on the flip, a soft knock on the landing.",
+    "controls": [
+      "Colour",
+      "Size"
+    ]
+  },
+  "reorder-list": {
+    "description": "Four priorities, sorted by hand, straight on the page. Grab a row by its handle and it lifts; the others slide out of its way and the rank you are aiming at lights up. Let go and it settles with a little give. Left alone, it reorders itself.",
+    "controls": [
+      "Colour"
+    ]
+  },
+  "seat-stepper": {
+    "description": "A quantity stepper whose digits roll like an odometer, up when you add and down when you take away, with a tick per seat. Hold to repeat, faster the longer you hold; at the limit the number shakes with a dull knock. The price line rolls along.",
+    "controls": [
+      "Colour"
+    ]
+  },
+  "code-boxes": {
+    "description": "Boxes for a sign-in code (4 or 6). Digits pop in and the focus jumps ahead; paste a whole code into any box. A wrong code shakes the row red, the right one turns it green box by box. Left alone, it types itself in.",
+    "controls": [
+      "Colour",
+      "Digits"
+    ]
+  },
+  "thinking-shimmer": {
+    "description": "The line an AI shows while it works: \"Thinking\" with light sweeping through it, then each step rolls up into place beside a small timer. Open Show steps and finished steps tick themselves off.",
+    "controls": [
+      "Colour",
+      "Step"
+    ]
+  },
+  "magnetic-button": {
+    "description": "A call-to-action that leans toward your pointer before you reach it. The label and arrow travel further than the body, it lands with a soft magnetic thunk, and when you move away it springs home with a small settle.",
+    "controls": [
+      "Colour",
+      "Pull"
+    ]
+  },
+  "password-strength": {
+    "description": "A padlock your password closes. Four pins inside, one per rule: each rule you meet springs its pin up with a note a step higher. Set all four and the shackle drops shut with a clunk and the lock fills with ink.",
+    "controls": [
+      "Lock",
+      "Length"
+    ]
+  },
+  "copy-field": {
+    "description": "A terminal command with a copy button. Click it and the squares fold into a drawn check, a small Copied tag rises over the button, and a highlight sweeps the command so you see what went to the clipboard. Left alone, it presses itself.",
+    "controls": [
+      "Colour"
+    ]
+  },
+  "dot-field": {
+    "description": "A sunset printed in dots: a halftone sun cut by two lines on the horizon, its reflection streaking across moving water, stars twinkling. Under the pointer the dots swell like a lens; click and a ring ripples out with a soft drop.",
+    "controls": [
+      "Dots",
+      "Lens"
+    ]
+  },
+  "avatar-stack": {
+    "description": "Overlapping faces that fan apart one after another when you reach for them. The face under the pointer lifts, one name tag slides from face to face instead of blinking, and each face you cross ticks a little higher.",
+    "controls": [
+      "Palette",
+      "Size"
+    ]
+  },
+  "magnify-dock": {
+    "description": "A desktop dock that swells under your pointer. Click an app and it bounces open. Left alone, an unseen pointer glides along it.",
+    "controls": [
+      "Wallpaper",
+      "Magnify"
+    ]
+  },
+  "bit-dunes": {
+    "description": "A dither field: a desert at night in two colours. Long dunes creep across, lit from the side, and an ordered dither turns the light into one-bit texture. Bring the pointer in and you carry a torch: the sand lights up in rings of pattern around you.",
+    "controls": [
+      "Ink",
+      "Pixel",
+      "Speed"
+    ]
+  },
+  "card-printer": {
+    "description": "Issue a virtual card and watch it made. The button flattens into a slot and feeds the card out in five short pushes, then pops it free into the outline waiting for it. The digits emboss, a light runs across, and it tilts under your pointer.",
+    "controls": [
+      "Card"
+    ]
+  },
+  "door-code": {
+    "description": "Passwordless sign-in as one object. Press the button and it opens out into the code field; each digit you type drops into its cell; the last one closes it into a pill that greets you by name. A wrong code shakes its head.",
+    "controls": [
+      "Accent",
+      "Digits"
+    ]
+  },
+  "file-hatch": {
+    "description": "A download that ends as the file. The button closes into a disc whose rim is its own progress, stalls near two thirds like a real connection, then opens out into the document: tag, title, a chart that grows. Press mid-way to cancel.",
+    "controls": [
+      "Accent",
+      "Download"
+    ]
+  },
+  "glyph-smoke": {
+    "description": "An ASCII field: smoke set in type, thin air as dots and commas, thick smoke as # and @, turning over itself. Bring the pointer in and you are a match: the characters under you catch in colour and the heat rises off your path, cooling to grey.",
+    "controls": [
+      "Heat",
+      "Type",
+      "Speed"
+    ]
+  },
+  "high-window": {
+    "description": "Light rays: shafts of daylight fall into a dark room from a window above the frame, opening and closing as the air moves, dust turning in them. Move the pointer and the window slides with it: the whole fan of light swings to follow you.",
+    "controls": [
+      "Light",
+      "Shafts",
+      "Speed"
+    ]
+  },
+  "lost-zero": {
+    "description": "A 404 you can play with. Pick up the zero and throw it: it flies at the speed of your hand, squashes where it lands, bounces off the floor and the sides, then rolls back to its seat between the fours and rocks to a stop.",
+    "controls": [
+      "Bounce",
+      "Digits"
+    ]
+  },
+  "open-strings": {
+    "description": "Flowing lines: a field of strings with a slow swell running through them and a glint travelling along each. Push the pointer through and they bow around your hand, then snap free and ring out to both ends. Go fast and you strum the lot.",
+    "controls": [
+      "Strings",
+      "Strings",
+      "Speed"
+    ]
+  },
+  "poured-chrome": {
+    "description": "Liquid metal, still moving: a heavy surface that mirrors a photo studio, so each swell drags bands of light across itself. Put the pointer on it and it dents under your finger, rings running out through the reflections.",
+    "controls": [
+      "Metal",
+      "Speed",
+      "Scale"
+    ]
+  },
+  "powder-light": {
+    "description": "A grain gradient: one lamp glowing through fine powder, low in the frame, its edge torn by slow air while the grain shimmers like film. Bring the pointer in and the lamp comes to you and tightens to a hot core.",
+    "controls": [
+      "Light",
+      "Grain",
+      "Speed"
+    ]
+  },
+  "shower-door": {
+    "description": "Fluted glass over colour: soft lights move behind reeded glass and every flute bends its own slice of them. Bring the pointer in and something warm steps up behind the glass where you are, seen only in slices.",
+    "controls": [
+      "Behind",
+      "Flutes",
+      "Speed"
+    ]
+  },
+  "streak-flame": {
+    "description": "A streak you keep alive. Check in and today's dot throws a spark into the fire, which flares past its new size and settles; the count rolls over like an odometer and embers lift off. Seven days in a row and the week is perfect.",
+    "controls": [
+      "Flame",
+      "Start"
+    ]
+  },
+  "tear-stub": {
+    "description": "A ticket you confirm by tearing it. Drag the stub and it hinges off from the top, ticking hole by hole; let go early and it swings back. Pull past the line or flick it and it rips free, tumbling at your speed, and the ticket takes its stamp.",
+    "controls": [
+      "Stub"
+    ]
+  },
+  "wet-paint": {
+    "description": "A mesh gradient that never dried: four colours drift and fold into each other, live. Put the pointer in and the paint twists around it; move fast and it smears along your stroke, then settles.",
+    "controls": [
+      "Paint",
+      "Speed",
+      "Scale"
+    ]
+  }
+}
