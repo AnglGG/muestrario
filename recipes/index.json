@@ -78,5 +78,15 @@
     "controls": "Mueve el puntero sobre la muestra o toca un punto.",
     "tags": ["shader", "css", "gradiente", "background", "luz", "puntero", "efecto visual"],
     "references": ["powder-light", "flow-card", "light-leak", "wet-paint"]
+  },
+  {
+    "id": "panel-de-camaras",
+    "name": "Panel de cámaras",
+    "category": "SaaS",
+    "summary": "Cuadrícula de cámaras en directo con estado visible. Al elegir una cámara, el panel de eventos muestra solo los suyos.",
+    "usage": "Indica el estado de cada cámara con texto además del color y deja siempre una forma de volver a todas. En producción, sustituye las muestras por el vídeo real y los eventos por los de tu sistema.",
+    "controls": "Pulsa una cámara para filtrar sus eventos. Vuelve a pulsarla para ver todas.",
+    "tags": ["dashboard", "panel", "cámaras", "videovigilancia", "seguridad", "cctv", "vms", "eventos", "filtro", "software"],
+    "references": ["data-table", "app-sidebar", "segmented-control"]
   }
 ]

@@ -1,0 +1,75 @@
+<style>
+  .camaras { display: grid; gap: 10px; padding: 12px; color: #e6e8eb; background: #0b0d10; border-radius: 10px; font-size: 13px; }
+  .camaras__cabecera { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; }
+  .camaras__cabecera strong { font-size: 14px; }
+  .camaras__cabecera span { color: #9aa3ae; }
+  .camaras__rejilla { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 6px; }
+  .camaras__rejilla button { position: relative; aspect-ratio: 16 / 9; padding: 0; border: 2px solid #1c2128; border-radius: 7px; color: inherit; text-align: left; background-color: #0e1116; background-image: repeating-linear-gradient(0deg, rgb(255 255 255 / 4%) 0 1px, transparent 1px 16px), repeating-linear-gradient(90deg, rgb(255 255 255 / 4%) 0 1px, transparent 1px 16px); }
+  .camaras__rejilla button[aria-pressed="true"] { border-color: #4c9aff; }
+  .camaras__nombre { position: absolute; top: 5px; left: 5px; right: 5px; display: flex; align-items: center; gap: 5px; padding: 2px 6px; border-radius: 4px; background: rgb(11 13 16 / 80%); font-size: 11px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .camaras__estado { flex: none; width: 7px; height: 7px; border-radius: 50%; background: #3fb950; }
+  .camaras__rejilla [data-offline] .camaras__estado { background: #6e7681; }
+  .camaras__rec { position: absolute; bottom: 5px; right: 5px; padding: 1px 5px; border-radius: 4px; background: rgb(11 13 16 / 80%); font-size: 10px; font-weight: 700; }
+  .camaras__rec::before { content: ""; display: inline-block; width: 6px; height: 6px; margin-right: 4px; border-radius: 50%; background: #f85149; }
+  .camaras__rejilla [data-offline] .camaras__rec { display: none; }
+  .camaras__sin-senal { position: absolute; inset: auto 0 6px; text-align: center; color: #9aa3ae; font-size: 11px; }
+  .camaras__eventos { display: grid; gap: 6px; padding: 10px; border: 1px solid #232830; border-radius: 8px; background: #12151a; }
+  .camaras__eventos h2 { margin: 0; font-size: 13px; }
+  .camaras__eventos p { margin: 0; color: #9aa3ae; }
+  .camaras__eventos ol { display: grid; gap: 4px; margin: 0; padding: 0; list-style: none; }
+  .camaras__eventos li { display: flex; justify-content: space-between; gap: 8px; }
+  .camaras__eventos time { color: #9aa3ae; font-family: ui-monospace, monospace; font-size: 11px; }
+  .camaras__eventos [data-tipo="alerta"] { color: #f0883e; }
+  .camaras [hidden] { display: none; }
+</style>
+<section class="camaras" aria-label="Panel de cámaras">
+  <div class="camaras__cabecera">
+    <strong>En directo</strong>
+    <span>5 de 6 cámaras en línea</span>
+  </div>
+  <div class="camaras__rejilla">
+    <button type="button" aria-pressed="false" data-camara="Entrada principal"><span class="camaras__nombre"><span class="camaras__estado"></span>Entrada principal</span><span class="camaras__rec">REC</span></button>
+    <button type="button" aria-pressed="false" data-camara="Recepción"><span class="camaras__nombre"><span class="camaras__estado"></span>Recepción</span><span class="camaras__rec">REC</span></button>
+    <button type="button" aria-pressed="false" data-camara="Parking norte"><span class="camaras__nombre"><span class="camaras__estado"></span>Parking norte</span><span class="camaras__rec">REC</span></button>
+    <button type="button" aria-pressed="false" data-camara="Parking sur" data-offline><span class="camaras__nombre"><span class="camaras__estado"></span>Parking sur</span><span class="camaras__rec">REC</span><span class="camaras__sin-senal">Sin señal</span></button>
+    <button type="button" aria-pressed="false" data-camara="Almacén A"><span class="camaras__nombre"><span class="camaras__estado"></span>Almacén A</span><span class="camaras__rec">REC</span></button>
+    <button type="button" aria-pressed="false" data-camara="Sala de servidores"><span class="camaras__nombre"><span class="camaras__estado"></span>Sala de servidores</span><span class="camaras__rec">REC</span></button>
+  </div>
+  <section class="camaras__eventos" aria-label="Eventos">
+    <h2>Eventos</h2>
+    <p aria-live="polite">Todas las cámaras · hoy</p>
+    <ol>
+      <li data-camara="Entrada principal"><span>Persona · Entrada principal</span><time>12:39</time></li>
+      <li data-camara="Parking norte"><span>Vehículo · Parking norte</span><time>12:36</time></li>
+      <li data-camara="Parking sur" data-tipo="alerta"><span>Cámara desconectada · Parking sur</span><time>12:30</time></li>
+      <li data-camara="Sala de servidores" data-tipo="alerta"><span>Acceso fuera de horario · Sala de servidores</span><time>12:15</time></li>
+      <li data-camara="Almacén A"><span>Movimiento · Almacén A</span><time>12:04</time></li>
+      <li data-camara="Entrada principal"><span>Movimiento · Entrada principal</span><time>11:58</time></li>
+      <li data-vacio hidden><span>Sin eventos hoy</span></li>
+    </ol>
+  </section>
+</section>
+<script>
+  {
+    const panel = document.querySelector('.camaras')
+    const cameras = [...panel.querySelectorAll('.camaras__rejilla button')]
+    const events = [...panel.querySelectorAll('.camaras__eventos li[data-camara]')]
+    const empty = panel.querySelector('.camaras__eventos li[data-vacio]')
+    const scope = panel.querySelector('.camaras__eventos p')
+    for (const camera of cameras) {
+      const name = camera.dataset.camara
+      camera.setAttribute('aria-label', name + (camera.hasAttribute('data-offline') ? ', sin conexión' : ', en línea, grabando'))
+      camera.addEventListener('click', () => {
+        const active = camera.getAttribute('aria-pressed') !== 'true'
+        for (const item of cameras) item.setAttribute('aria-pressed', String(active && item === camera))
+        let shown = 0
+        for (const item of events) {
+          item.hidden = active && item.dataset.camara !== name
+          if (!item.hidden) shown++
+        }
+        empty.hidden = shown > 0
+        scope.textContent = active ? name + ' · hoy' : 'Todas las cámaras · hoy'
+      })
+    }
+  }
+</script>
