@@ -1,6 +1,6 @@
 # Muestrario
 
-Biblioteca de interfaz. Reúne 184 referencias públicas de Construct de Tobia Donadon, con 120 componentes, 33 apps y 31 webs. Incluye ocho patrones originales con HTML, CSS y JavaScript editables.
+Biblioteca de interfaz. Reúne 184 referencias públicas de Construct de Tobia Donadon, con 120 componentes, 33 apps y 31 webs. Incluye nueve patrones originales con HTML, CSS y JavaScript editables.
 
 ## Réplica de Construct
 
@@ -40,7 +40,7 @@ Descarga el repositorio o clónalo con `git clone https://github.com/AnglGG/mues
 - `get_entry` abre una ficha por su ID. Devuelve código completo para los patrones originales. Para las referencias, devuelve la descripción, los nombres de los controles, la vista previa en Muestrario, la fuente y la miniatura donde esté disponible.
 - `list_categories` da los identificadores de las categorías y cuántas fichas tienen.
 
-El recurso `muestrario://catalogue` entrega el índice completo en JSON con la procedencia, las 184 referencias y los ocho patrones. También puedes recorrer el catálogo con `search_library` mediante `nextOffset`.
+El recurso `muestrario://catalogue` entrega el índice completo en JSON con la procedencia, las 184 referencias y los nueve patrones. También puedes recorrer el catálogo con `search_library` mediante `nextOffset`.
 
 Prueba este encargo con tu IA.
 
@@ -54,4 +54,4 @@ Fuente del catálogo y sus miniaturas. [Construct, Tobia Donadon](https://www.to
 
 ## Licencia
 
-El código propio de Muestrario y los ocho patrones originales se publican con [licencia MIT](LICENSE). El código, el diseño y los recursos de Construct conservan los términos de sus respectivos titulares. Puedes explorar Muestrario y conectar el MCP sin cuenta ni cuota.
+El código propio de Muestrario y los nueve patrones originales se publican con [licencia MIT](LICENSE). El código, el diseño y los recursos de Construct conservan los términos de sus respectivos titulares. Puedes explorar Muestrario y conectar el MCP sin cuenta ni cuota.
